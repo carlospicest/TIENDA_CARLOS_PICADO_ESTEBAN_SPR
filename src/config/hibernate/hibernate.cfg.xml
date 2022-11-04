@@ -22,18 +22,18 @@
     	
     <!-- Mapear las clases que vayamos a usar -->	
     	
-    	<mapping class="curso.java.tienda.index.pojo.Usuario"></mapping>
-        <mapping class="curso.java.tienda.index.pojo.Rol"></mapping>
-        <mapping class="curso.java.tienda.index.pojo.Categoria"></mapping>
-        <mapping class="curso.java.tienda.index.pojo.Producto"></mapping>
-        <mapping class="curso.java.tienda.index.pojo.Pedido"></mapping>
-        <mapping class="curso.java.tienda.index.pojo.Pedido"></mapping>
-        <mapping class="curso.java.tienda.index.pojo.DetallePedido"></mapping>
-        <mapping class="curso.java.tienda.index.pojo.MetodoPago"></mapping>
-        <mapping class="curso.java.tienda.index.pojo.Valoracion"></mapping>
-        <mapping class="curso.java.tienda.index.pojo.CancelacionPedido"></mapping>
-        <mapping class="curso.java.tienda.index.pojo.Opcion"></mapping>
-        <mapping class="curso.java.tienda.index.pojo.OpcionMenu"></mapping>
+    	<mapping class="curso.java.tienda.pojo.Usuario"></mapping>
+        <mapping class="curso.java.tienda.pojo.Rol"></mapping>
+        <mapping class="curso.java.tienda.pojo.Categoria"></mapping>
+        <mapping class="curso.java.tienda.pojo.Producto"></mapping>
+        <mapping class="curso.java.tienda.pojo.Pedido"></mapping>
+        <mapping class="curso.java.tienda.pojo.Pedido"></mapping>
+        <mapping class="curso.java.tienda.pojo.DetallePedido"></mapping>
+        <mapping class="curso.java.tienda.pojo.MetodoPago"></mapping>
+        <mapping class="curso.java.tienda.pojo.Valoracion"></mapping>
+        <mapping class="curso.java.tienda.pojo.CancelacionPedido"></mapping>
+        <mapping class="curso.java.tienda.pojo.Opcion"></mapping>
+        <mapping class="curso.java.tienda.pojo.OpcionMenu"></mapping>
     
     <!-- Fin mapeo de clases -->
     	

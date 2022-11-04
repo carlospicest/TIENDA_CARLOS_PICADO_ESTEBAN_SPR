@@ -1,5 +1,8 @@
-package curso.java.tienda.index.pojo;
+package curso.java.tienda.pojo;
 
+import java.sql.Timestamp;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,35 +15,32 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "detalles_pedido")
+@Entity(name = "valoraciones")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DetallePedido {
+public class Valoracion {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 	
-	@ManyToOne()
-	@JoinColumn(name = "id_pedido")
-	private Pedido pedido;
-	
-	@ManyToOne()
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_producto")
 	private Producto producto;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_usuario")
+	private Usuario usuario;
 	
-	@Column(name = "unidades")
-	private int unidades;
+	@Column(name = "valoracion")
+	private int valoracion;
 	
-	@Column(name = "precio_unidad")
-	private double precio_unidad;
+	@Column(name = "comentario")
+	private String comentario;
 	
-	@Column(name = "impuesto")
-	private double impuesto;
-	
-	@Column(name = "total")
-	private double total;
+	@Column(name = "fecha")
+	private Timestamp fecha;
 	
 }

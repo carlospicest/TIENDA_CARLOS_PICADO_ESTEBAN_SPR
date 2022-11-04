@@ -1,36 +1,29 @@
-package curso.java.tienda.index.pojo;
+package curso.java.tienda.pojo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "cancelaciones_pedido")
+@Entity(name = "categorias")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CancelacionPedido {
+public class Categoria {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 	
-	@ManyToOne()
-	@JoinColumn(name = "id_pedido")
-	private Pedido pedido;
-	
-	@Column(name = "motivo")
-	private String motivo;
-	
-	@Column(name = "estado")
-	private String estado;
+	@Column(name = "nombre")
+	private String nombre;
+	@Column(name = "descripcion")
+	private String descripcion;
 	
 }

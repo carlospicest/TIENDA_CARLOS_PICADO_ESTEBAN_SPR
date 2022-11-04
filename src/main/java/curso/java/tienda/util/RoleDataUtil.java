@@ -2,8 +2,9 @@ package curso.java.tienda.util;
 
 import java.util.HashMap;
 
-import curso.java.tienda.index.pojo.OpcionMenu;
-import curso.java.tienda.index.pojo.Rol;
+import curso.java.tienda.pojo.OpcionMenu;
+import curso.java.tienda.pojo.Rol;
+
 
 public class RoleDataUtil {
 

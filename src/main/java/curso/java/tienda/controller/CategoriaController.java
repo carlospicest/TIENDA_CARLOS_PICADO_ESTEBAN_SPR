@@ -1,4 +1,4 @@
-package curso.java.tienda.index.controller;
+package curso.java.tienda.controller;
 
 import org.springframework.stereotype.Controller;
 

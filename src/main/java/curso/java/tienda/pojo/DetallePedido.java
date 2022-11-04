@@ -1,6 +1,4 @@
-package curso.java.tienda.index.pojo;
-
-import java.sql.Timestamp;
+package curso.java.tienda.pojo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,11 +12,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "pedidos")
+@Entity(name = "detalles_pedido")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Pedido {
+public class DetallePedido {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,20 +24,21 @@ public class Pedido {
 	private int id;
 	
 	@ManyToOne()
-	@JoinColumn(name = "id_usuario")
-	private Usuario usuario;
+	@JoinColumn(name = "id_pedido")
+	private Pedido pedido;
 	
-	@Column(name = "fecha")
-	private Timestamp fecha;
+	@ManyToOne()
+	@JoinColumn(name = "id_producto")
+	private Producto producto;
 	
-	@Column(name = "metodo_pago")
-	private String metodo_pago;
+	@Column(name = "unidades")
+	private int unidades;
 	
-	@Column(name = "estado")
-	private String estado;
+	@Column(name = "precio_unidad")
+	private double precio_unidad;
 	
-	@Column(name = "num_factura")
-	private String num_factura;
+	@Column(name = "impuesto")
+	private double impuesto;
 	
 	@Column(name = "total")
 	private double total;

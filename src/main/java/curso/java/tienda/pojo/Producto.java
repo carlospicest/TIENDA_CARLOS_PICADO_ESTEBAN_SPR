@@ -1,4 +1,4 @@
-package curso.java.tienda.index.pojo;
+package curso.java.tienda.pojo;
 
 import java.sql.Date;
 
