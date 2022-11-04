@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">Nombre</th>
+				<th scope="col">Categoría</th>
+				<th scope="col">Precio</th>
+				<th scope="col">Stock</th>
+				<th scope="col">Impuesto</th>
+				<th scope="col">Baja</th>
+				<th scope="col">Fecha de alta</th>
+				<th scope="col">Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<tr th:if="${productoList.empty}">
+				<td colspan="8">No hay productos para mostrar. </td>
+			</tr>
+
+			<tr th:each="producto : ${productoList}">
+				<td><span th:text="${producto.nombre}"></span></td>
+				<td><span th:text="${producto.categoria.nombre}"></span></td>
+				<td><span th:text="${producto.precio}"></span></td>
+				<td><span th:text="${producto.stock}"></span></td>
+				<td><span th:text="${producto.impuesto}"></span></td>
+				<td><span th:text="${producto.baja}"></span></td>
+				<td><span th:text="${producto.fecha_alta}"></span></td>
+				<td><a class="btn btn-success"
+					th:href="@{/productos/editar/{id}(id=${producto.id})}">Modificar</a>
+					<a class="btn btn-danger"
+					th:href="@{/productos/eliminar/{id}(id=${producto.id})}">Eliminar</a>
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+
+</body>
+</html>

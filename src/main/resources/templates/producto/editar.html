@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h1>Editar Producto</h1>
+
+	<h3 class="mb-4">Agregar nuevo producto</h3>
+
+	<form class="form" method="POST" action="producto_agregar">
+		<div class="row">
+			<div class="col-12">
+				<div class="form-group">
+					<label>Nombre<span>*</span></label> <input name="nombre"
+						type="text" placeholder="" value="">
+				</div>
+			</div>
+			<div class="col-12">
+				<div class="form-group">
+					<label>Descripción</label>
+					<textarea rows="2" maxlength="255" name="descripcion"></textarea>
+				</div>
+			</div>
+			<div class="col-lg-6 col-12">
+				<div class="form-group">
+					<label>Categoría<span>*</span></label> <select name="categoria"
+						id="categoria"
+						style="display: block; border: 1px solid #e6e2f5; border-radius: 2px; height: 5.2vh; width: 100%; padding-left: 1.3vw;">
+						<option value="default" selected>Seleccionar categoría</option> <%
+						for (Categoria categoria : categoriaList) { %>
+						<option value="<%=categoria.getId()%>"><%=categoria.getNombre()%></option>
+						<% }%>
+					</select>
+
+				</div>
+			</div>
+			<div class="col-lg-6 col-12">
+				<div class="form-group">
+					<label>Precio<span>*</span></label> <input name="precio"
+						type="number" step=".01" value="">
+				</div>
+			</div>
+			<div class="col-lg-6 col-12">
+				<div class="form-group">
+					<label>Stock<span>*</span></label> <input name="stock"
+						type="number" value="">
+				</div>
+			</div>
+			<div class="col-lg-6 col-12">
+				<div class="form-group">
+					<label>Impuesto<span>*</span></label> <input name="impuesto"
+						type="number" value="">
+				</div>
+			</div>
+			<div class="col-lg-6 col-12">
+				<div class="form-group">
+					<label>Baja de producto</label> <input type="checkbox"
+						name="baja_producto" value="bajaProducto">
+				</div>
+			</div>
+			<div class="col-lg-6 col-12">
+				<div class="form-group">
+					<label>Imágen del producto</label> <input type="file"
+						name="baja_producto" value="Agregar imagen">
+				</div>
+			</div>
+
+			<div class="col-12">
+				<div class="form-group button text-center">
+					<button type="submit" class="btn mt-4">Agregar producto</button>
+				</div>
+			</div>
+
+		</div>
+	</form>
+
+</body>
+</html>
