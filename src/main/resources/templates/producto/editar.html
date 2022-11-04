@@ -6,53 +6,49 @@
 </head>
 <body>
 
-	<h1>Editar Producto</h1>
+	<h3 class="mb-4">Editar producto</h3>
 
-	<h3 class="mb-4">Agregar nuevo producto</h3>
-
-	<form class="form" method="POST" action="producto_agregar">
+	<form class="form" method="POST" th:action="@{/productos/editar}">
 		<div class="row">
 			<div class="col-12">
 				<div class="form-group">
 					<label>Nombre<span>*</span></label> <input name="nombre"
-						type="text" placeholder="" value="">
+						type="text" placeholder="" th:value="*{producto.nombre}">
 				</div>
 			</div>
 			<div class="col-12">
 				<div class="form-group">
 					<label>Descripción</label>
-					<textarea rows="2" maxlength="255" name="descripcion"></textarea>
+					<textarea rows="2" maxlength="255" name="descripcion"
+						th:text="${producto.descripcion}"></textarea>
 				</div>
 			</div>
 			<div class="col-lg-6 col-12">
 				<div class="form-group">
-					<label>Categoría<span>*</span></label> <select name="categoria"
-						id="categoria"
-						style="display: block; border: 1px solid #e6e2f5; border-radius: 2px; height: 5.2vh; width: 100%; padding-left: 1.3vw;">
-						<option value="default" selected>Seleccionar categoría</option> <%
-						for (Categoria categoria : categoriaList) { %>
-						<option value="<%=categoria.getId()%>"><%=categoria.getNombre()%></option>
-						<% }%>
-					</select>
+					<label>Categoría<span>*</span></label> 
+					
+
+					
+					
 
 				</div>
 			</div>
 			<div class="col-lg-6 col-12">
 				<div class="form-group">
 					<label>Precio<span>*</span></label> <input name="precio"
-						type="number" step=".01" value="">
+						type="number" step=".01" th:value="*{producto.precio}">
 				</div>
 			</div>
 			<div class="col-lg-6 col-12">
 				<div class="form-group">
 					<label>Stock<span>*</span></label> <input name="stock"
-						type="number" value="">
+						type="number" th:value="*{producto.stock}">
 				</div>
 			</div>
 			<div class="col-lg-6 col-12">
 				<div class="form-group">
 					<label>Impuesto<span>*</span></label> <input name="impuesto"
-						type="number" value="">
+						type="number" th:value="*{producto.impuesto}">
 				</div>
 			</div>
 			<div class="col-lg-6 col-12">
@@ -70,7 +66,7 @@
 
 			<div class="col-12">
 				<div class="form-group button text-center">
-					<button type="submit" class="btn mt-4">Agregar producto</button>
+					<button type="submit" class="btn mt-4">Guardar producto</button>
 				</div>
 			</div>
 
