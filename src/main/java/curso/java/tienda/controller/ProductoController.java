@@ -43,10 +43,10 @@ public class ProductoController {
 	public String getEditar(@PathVariable(name="id", required=true) int id, Model model) {
 		
 		Producto producto = productoService.getProducto(id);
-		ArrayList<Categoria> lista = categoriaService.getCategorias();
+		ArrayList<Categoria> listaCategorias = categoriaService.getCategorias();
 		
 		model.addAttribute("producto", producto);
-		model.addAttribute("categorias", lista);
+		model.addAttribute("categorias", listaCategorias);
 		
 		return "producto/editar";
 		
@@ -56,6 +56,38 @@ public class ProductoController {
 	public String postEditar(@ModelAttribute("producto") Producto producto, @PathVariable(name="id", required=true) int id) {
 		
 		productoService.addProducto(producto);
+		
+		return "redirect:/productos";
+		
+	}
+	
+	@GetMapping(path = "/agregar")
+	public String getEditar(Model model) {
+		
+		ArrayList<Categoria> listaCategorias = categoriaService.getCategorias();
+		
+		model.addAttribute("producto", new Producto());
+		model.addAttribute("categorias", listaCategorias);
+		
+		return "/producto/agregar";
+		
+	}
+	
+	@PostMapping(path = "/agregar")
+	public String postAgregar(@ModelAttribute("producto") Producto producto) {
+		
+		System.out.println("");
+		
+		productoService.addProducto(producto);
+		
+		return "redirect:/productos";
+		
+	}
+	
+	@GetMapping(path = "/eliminar/{id}")
+	public String getEliminar(@PathVariable(name="id", required=true) int id) {
+		
+		productoService.deleteProducto(id);
 		
 		return "redirect:/productos";
 		
