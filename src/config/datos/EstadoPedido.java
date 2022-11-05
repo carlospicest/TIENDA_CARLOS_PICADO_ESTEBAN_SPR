@@ -38,7 +38,7 @@ public class EstadoPedido {
 			
 		}
 		
-		public static HashMap<String, String> getV() {
+		public static HashMap<String, String> getValues() {
 			
 			HashMap<String, String> v = new HashMap<>();
 			

@@ -24,8 +24,6 @@ public class PedidoController {
 	
 	@Autowired
 	private PedidoService pedidoService;
-	@Autowired
-	private PedidoDAO pedidoDao;
 	
 	@RequestMapping(path = "", method = RequestMethod.GET)
 	public String getIndex(Model model) {
@@ -42,7 +40,7 @@ public class PedidoController {
 	public String getEditar(@PathVariable(name="id", required=true) int id, Model model) {
 		
 		Pedido pedido = pedidoService.getPedido(id);
-		HashMap<String, String> estadoPedidoList = EstadoPedido.estado.getV();
+		HashMap<String, String> estadoPedidoList = EstadoPedido.estado.getValues();
 		
 		model.addAttribute("pedido", pedido);
 		model.addAttribute("estadoPedidoList", estadoPedidoList);

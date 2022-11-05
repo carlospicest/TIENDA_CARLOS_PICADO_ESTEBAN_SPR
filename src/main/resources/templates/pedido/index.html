@@ -26,7 +26,7 @@
 			<tr th:each="pedido : ${pedidoList}">
 				<td><span th:text="${pedido.num_factura}"></span></td>
 				<td><span th:text="${pedido.metodo_pago}"></span></td>
-				<td><span th:text='${T(curso.java.tienda.utiles.DateTime).getFormat(pedido.fecha, "yyyy.MM.dd HH.mm.ss")}'></span></td>
+				<td><span th:text='${T(curso.java.tienda.utiles.DateTime).getFormat(pedido.fecha, "dd.MM.yyyy HH.mm.ss")}'></span></td>
 				<td><span th:text="${pedido.total}"></span></td>
 				<td><span th:text="${pedido.estado}"></span></td>
 				<td><a class="btn btn-success"

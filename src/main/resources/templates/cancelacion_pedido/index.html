@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">Num solicitud</th>
+				<th scope="col">Fecha</th>
+				<th scope="col">Estado</th>
+				<th scope="col">Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<tr th:if="${cancelacionPedidoList.empty}">
+				<td colspan="8">No hay cancelaciones de pedido para mostrar. </td>
+			</tr>
+
+			<tr th:each="cpl : ${cancelacionPedidoList}">
+				<td><span th:text="${cpl.num_solicitud}"></span></td>
+				<td><span th:text='${T(curso.java.tienda.utiles.DateTime).getFormat(cpl.fecha, "dd.MM.yyyy HH.mm.ss")}'></span></td>
+				<td><span th:text="${cpl.estado}"></span></td>
+				<td><a class="btn btn-success"
+					th:href="@{/cancelacion_pedidos/procesar/{id}(id=${cpl.id})}">Procesar</a>
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+
+</body>
+</html>

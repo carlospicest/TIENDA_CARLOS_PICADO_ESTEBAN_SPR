@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h3 class="mb-4">Editar cancelación</h3>
+
+	<form class="form" th:method="patch"
+		th:action="@{/cancelacion_pedidos/procesar/{id}(id=${cancelacionPedido.id})}"
+		th:object="${cancelacionPedido}">
+
+		<fieldset>
+			<legend>Información de la cancelación</legend>
+			
+			<p>
+				Número de solicitud: <span th:text="*{num_solicitud}"></span>
+			</p>
+			
+			<p>
+				Fecha: <span th:text='${T(curso.java.tienda.utiles.DateTime).getFormat(cancelacionPedido.fecha, "dd.MM.yyyy HH.mm.ss")}'></span>
+			</p>
+			
+			<p>
+				Motivo: <textarea th:text="*{motivo}"></textarea>
+			</p>
+
+			<label>Estado<span>*</span></label> <select th:field="*{estado}"
+				id="estado_pedido">
+				<option th:each="e : ${estadoCancelacionPedidoList}" th:value="${e.key}"
+					th:text="${e.value}">
+			</select>
+		
+		</fieldset>
+
+
+		<div class="col-12">
+			<div class="form-group button text-center">
+				<button type="submit" class="btn mt-4">Guardar cambios</button>
+			</div>
+		</div>
+
+	</form>
+
+</body>
+</html>

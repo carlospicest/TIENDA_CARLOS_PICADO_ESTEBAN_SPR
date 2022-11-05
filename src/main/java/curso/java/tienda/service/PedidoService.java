@@ -29,7 +29,6 @@ public class PedidoService {
 			pedidoDao.save(pedido);
 			return true;
 		} catch (DataAccessException ex) {
-			System.err.println(ex.getMessage());
 			return false;
 		}
 
