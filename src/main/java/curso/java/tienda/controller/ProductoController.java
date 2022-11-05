@@ -43,10 +43,10 @@ public class ProductoController {
 	public String getEditar(@PathVariable(name="id", required=true) int id, Model model) {
 		
 		Producto producto = productoService.getProducto(id);
-		ArrayList<Categoria> listaCategorias = categoriaService.getCategorias();
+		ArrayList<Categoria> categoriaList = categoriaService.getCategorias();
 		
 		model.addAttribute("producto", producto);
-		model.addAttribute("categorias", listaCategorias);
+		model.addAttribute("categorias", categoriaList);
 		
 		return "producto/editar";
 		
@@ -62,12 +62,12 @@ public class ProductoController {
 	}
 	
 	@GetMapping(path = "/agregar")
-	public String getEditar(Model model) {
+	public String getAgregar(Model model) {
 		
-		ArrayList<Categoria> listaCategorias = categoriaService.getCategorias();
+		ArrayList<Categoria> categoriaList = categoriaService.getCategorias();
 		
 		model.addAttribute("producto", new Producto());
-		model.addAttribute("categorias", listaCategorias);
+		model.addAttribute("categorias", categoriaList);
 		
 		return "/producto/agregar";
 		
@@ -75,8 +75,6 @@ public class ProductoController {
 	
 	@PostMapping(path = "/agregar")
 	public String postAgregar(@ModelAttribute("producto") Producto producto) {
-		
-		System.out.println("");
 		
 		productoService.addProducto(producto);
 		

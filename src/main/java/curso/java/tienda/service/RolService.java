@@ -7,29 +7,29 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import curso.java.tienda.dao.CategoriaDAO;
+import curso.java.tienda.dao.RolDAO;
 import curso.java.tienda.pojo.Categoria;
-import curso.java.tienda.service.CategoriaService;
+import curso.java.tienda.pojo.Rol;
 
 @Service
-public class CategoriaService {
+public class RolService {
 
 	@Autowired
-	private CategoriaDAO categoriaDao;
+	private RolDAO rolDao;
 
 
-	public ArrayList<Categoria> getCategorias() {
-		return (ArrayList<Categoria>) categoriaDao.findAll();
+	public ArrayList<Rol> getRoles() {
+		return (ArrayList<Rol>) rolDao.findAll();
 	}
 
 
-	public Categoria getCategoria(int id) {
-		return categoriaDao.findById(id);
+	public Rol getRol(int id) {
+		return rolDao.findById(id);
 	}
 
-
-	public boolean addCategoria(Categoria categoria) {
+	public boolean addRol(Rol rol) {
 		try {
-			categoriaDao.save(categoria);
+			rolDao.save(rol);
 			return true;
 		} catch (DataAccessException ex) {
 			return false;
@@ -37,14 +37,14 @@ public class CategoriaService {
 	}
 
 
-	public boolean deleteCategoria(int id) {
+	public boolean deleteRol(int id) {
 		try {
-			categoriaDao.deleteById(id);
+			rolDao.deleteById(id);
 			return true;
 		} catch (DataAccessException ex) {
 			return false;
 		}
 		
 	}
-
+	
 }

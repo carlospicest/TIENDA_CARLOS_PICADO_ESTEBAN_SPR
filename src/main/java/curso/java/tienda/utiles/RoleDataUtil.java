@@ -1,4 +1,4 @@
-package curso.java.tienda.util;
+package curso.java.tienda.utiles;
 
 import java.util.HashMap;
 
