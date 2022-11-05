@@ -6,10 +6,10 @@
 </head>
 <body>
 
-	<h3 class="mb-4">Editar cliente</h3>
+	<h3 class="mb-4">Agregar usuario</h3>
 
-	<form class="form" method="POST" th:action="@{/clientes/editar/{id}(id=${cliente.id})}"
-		th:object="${cliente}">
+	<form class="form" method="POST" th:action="@{/usuarios/agregar}"
+		th:object="${usuario}">
 		<div class="row">
 			<div class="col-12">
 				<div class="form-group">
@@ -80,7 +80,7 @@
 			
 			<div class="col-lg-6 col-12">
 				<div class="form-group">
-					<label>Baja de cliente</label> <input type="checkbox"
+					<label>Baja de usuario</label> <input type="checkbox"
 						name="baja" th:field="*{baja}" th:value="*{baja}">
 				</div>
 			</div>
@@ -94,7 +94,7 @@
 			
 			<div class="col-12">
 				<div class="form-group button text-center">
-					<button type="submit" class="btn mt-4">Guardar cambios</button>
+					<button type="submit" class="btn mt-4">Registrar usuario</button>
 				</div>
 			</div>
 
