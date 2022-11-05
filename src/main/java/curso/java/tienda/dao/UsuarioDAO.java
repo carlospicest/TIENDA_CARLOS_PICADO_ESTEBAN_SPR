@@ -12,10 +12,6 @@ import curso.java.tienda.pojo.Usuario;
 @Repository
 public interface UsuarioDAO extends JpaRepository<Usuario, Integer> {
 	
-	@Query("from usuarios u where u.id = :idUsuario and u.rol.id = :idRol")
-	public Usuario findById(@Param("idUsuario") int idUsuario, @Param("idRol") int idRol);
-	
-	@Query("from usuarios u where u.rol.id = :idRol")
-	public ArrayList<Usuario> findAll(@Param("idRol") int idRol);
+	public Usuario findById(int id);
 	
 }
