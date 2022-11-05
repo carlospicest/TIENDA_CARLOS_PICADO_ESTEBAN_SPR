@@ -45,7 +45,7 @@ public class UsuarioController {
 
 		}
 		
-		return null;
+		return "redirect:/";
 
 	}
 
