@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h3 class="mb-4">Agregar usuario</h3>
+
+	<form class="form" method="POST" th:action="@{/usuarios/agregar}"
+		th:object="${usuario}">
+		<div class="row">
+			<div class="col-12">
+				<div class="form-group">
+					<label>DNI<span>*</span></label> <input name="dni"
+						type="text" placeholder="" th:field="*{dni}">
+				</div>
+			</div>
+			<div class="col-12">
+				<div class="form-group">
+					<label>Nombre</label>
+					<input name="nombre"
+						type="text" placeholder="" th:field="*{nombre}">
+				</div>
+			</div>
+			<div class="col-lg-6 col-12">
+				<div class="form-group">
+
+					<label>Primer apellido</label>
+					<input name="primer_apellido"
+						type="text" placeholder="" th:field="*{apellido1}">
+
+				</div>
+			</div>
+			<div class="col-lg-6 col-12">
+				<div class="form-group">
+					<label>Segundo apellido<span>*</span></label> <input name="segundo_apellido"
+						type="text" th:field="*{apellido2}">
+				</div>
+			</div>
+			
+			<div class="col-lg-6 col-12">
+				<div class="form-group">
+					<label>Email<span>*</span></label> <input name="email"
+						type="email" th:field="*{email}">
+				</div>
+			</div>
+			
+			<div class="col-lg-6 col-12">
+				<div class="form-group">
+					<label>Dirección<span>*</span></label> <input name="direccion"
+						type="text" th:field="*{direccion}">
+				</div>
+			</div>
+			<div class="col-lg-6 col-12">
+				<div class="form-group">
+					<label>Provincia<span>*</span></label>
+					<select
+						th:field="*{provincia}" id="provincia">
+						<option th:each="p : ${provinciaList}" th:value="${p}"
+							th:text="${p}">
+					</select>
+				</div>
+			</div>
+			
+			<div class="col-lg-6 col-12">
+				<div class="form-group">
+					<label>Localidad<span>*</span></label> <input name="localidad"
+						type="text" th:field="*{localidad}">
+				</div>
+			</div>
+			
+			<div class="col-lg-6 col-12">
+				<div class="form-group">
+					<label>Teléfono<span>*</span></label> <input name="telefono"
+						type="text" th:field="*{telefono}">
+				</div>
+			</div>
+			
+			<div class="col-lg-6 col-12">
+				<div class="form-group">
+					<label>Baja de usuario</label> <input type="checkbox"
+						name="baja" th:field="*{baja}" th:value="*{baja}">
+				</div>
+			</div>
+			
+			<div class="col-lg-6 col-12">
+				<div class="form-group">
+					<label>Contraseña<span>*</span></label> <input name="password"
+						type="password" th:field="*{password}">
+				</div>
+			</div>
+			
+			<div class="col-12">
+				<div class="form-group button text-center">
+					<button type="submit" class="btn mt-4">Registrar usuario</button>
+				</div>
+			</div>
+
+		</div>
+	</form>
+
+</body>
+</html>

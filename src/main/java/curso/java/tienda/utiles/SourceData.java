@@ -1,4 +1,4 @@
-package curso.java.tienda.util;
+package curso.java.tienda.utiles;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -100,5 +100,6 @@ class StringComparator implements Comparator<String> {
 	public int compare(String str1, String str2) {
 		return collator.compare(str1, str2);
 	}
-
+	
 }
+

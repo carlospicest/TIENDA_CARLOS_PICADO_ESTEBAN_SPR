@@ -6,9 +6,9 @@
 </head>
 <body>
 
-	<h3 class="mb-4">Editar producto</h3>
+	<h3 class="mb-4">Agregar producto</h3>
 
-	<form class="form" method="POST" th:action="@{/productos/editar/{id}(id=${producto.id})"
+	<form class="form" method="POST" th:action="@{/productos/agregar}"
 		th:object="${producto}">
 		<div class="row">
 			<div class="col-12">
@@ -35,6 +35,7 @@
 
 				</div>
 			</div>
+			
 			<div class="col-lg-6 col-12">
 				<div class="form-group">
 					<label>Precio<span>*</span></label> <input name="precio"
@@ -68,7 +69,7 @@
 
 			<div class="col-12">
 				<div class="form-group button text-center">
-					<button type="submit" class="btn mt-4">Guardar producto</button>
+					<button type="submit" class="btn mt-4">Crear producto</button>
 				</div>
 			</div>
 

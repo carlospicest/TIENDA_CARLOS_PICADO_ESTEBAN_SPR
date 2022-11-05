@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import curso.java.tienda.pojo.Categoria;
 import curso.java.tienda.pojo.Producto;
+import curso.java.tienda.service.CategoriaService;
 import curso.java.tienda.service.ProductoService;
 
 @Controller
@@ -23,6 +25,8 @@ public class ProductoController {
 	
 	@Autowired
 	private ProductoService productoService;
+	@Autowired
+	private CategoriaService categoriaService;
 	
 	@RequestMapping(path = "", method = RequestMethod.GET)
 	public String getIndex(Model model) {
@@ -39,34 +43,52 @@ public class ProductoController {
 	public String getEditar(@PathVariable(name="id", required=true) int id, Model model) {
 		
 		Producto producto = productoService.getProducto(id);
-		
-		Categoria c1 = new Categoria();
-		c1.setId(1);
-		c1.setNombre("Pijamas");
-		
-		Categoria c2 = new Categoria();
-		c1.setId(2);
-		c1.setNombre("Toallas");
-		
-		ArrayList<Categoria> lista = new ArrayList<>();
-		lista.add(c1);
-		lista.add(c2);
+		ArrayList<Categoria> categoriaList = categoriaService.getCategorias();
 		
 		model.addAttribute("producto", producto);
-		model.addAttribute("categorias", lista);
+		model.addAttribute("categorias", categoriaList);
 		
 		return "producto/editar";
 		
 	}
 	
-	@PostMapping(path = "/editar")
-	public String postEditar(@ModelAttribute Producto producto, Model model) {
+	@PostMapping(path = "/editar/{id}")
+	public String postEditar(@ModelAttribute("producto") Producto producto, @PathVariable(name="id", required=true) int id) {
 		
-		System.out.println(model);
+		productoService.addProducto(producto);
 		
-		return "producto/index";
+		return "redirect:/productos";
 		
 	}
 	
+	@GetMapping(path = "/agregar")
+	public String getAgregar(Model model) {
+		
+		ArrayList<Categoria> categoriaList = categoriaService.getCategorias();
+		
+		model.addAttribute("producto", new Producto());
+		model.addAttribute("categorias", categoriaList);
+		
+		return "/producto/agregar";
+		
+	}
+	
+	@PostMapping(path = "/agregar")
+	public String postAgregar(@ModelAttribute("producto") Producto producto) {
+		
+		productoService.addProducto(producto);
+		
+		return "redirect:/productos";
+		
+	}
+	
+	@GetMapping(path = "/eliminar/{id}")
+	public String getEliminar(@PathVariable(name="id", required=true) int id) {
+		
+		productoService.deleteProducto(id);
+		
+		return "redirect:/productos";
+		
+	}
 	
 }

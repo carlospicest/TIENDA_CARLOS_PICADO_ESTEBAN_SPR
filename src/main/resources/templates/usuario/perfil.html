@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<fieldset class="mb-4" th:object="${usuario}">
+
+		<legend>Datos del usuario</legend>
+
+		<label>DNI: </label><span th:text="*{dni}"></span>
+		<label>Nombre: </label><span th:text="*{nombre}"></span>
+		<label>Primer apellido: </label><span th:text="*{apellido1}"></span>
+		<label>Segundo apellido: </label><span th:text="*{apellido2}"></span>
+		<label>Email: </label><span th:text="*{email}"></span>
+		<label>Dirección: </label><span th:text="*{direccion}"></span>
+		<label>Provincia: </label><span th:text="*{provincia}"></span>
+		<label>Localidad: </label><span th:text="*{localidad}"></span>
+		<label>Teléfono: </label><span th:text="*{telefono}"></span>
+		<label>Baja: </label><span th:text="*{baja}"></span>
+		<label>Fecha alta: </label><span th:text="*{fecha_alta}"></span>
+
+	</fieldset>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">DNI</th>
+				<th scope="col">Nombre</th>
+				<th scope="col">Primer apellido</th>
+				<th scope="col">Segundo apellido</th>
+				<th scope="col">Email</th>
+				<th scope="col">Dirección</th>
+				<th scope="col">Provincia</th>
+				<th scope="col">Localidad</th>
+				<th scope="col">Teléfono</th>
+				<th scope="col">Baja</th>
+				<th scope="col">Fecha alta</th>
+				<th scope="col">Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<tr th:if="${usuarioList.empty}">
+				<td colspan="11">No hay usuarios para mostrar. </td>
+			</tr>
+
+			<tr th:each="usuario : ${usuarioList}">
+				<td><span th:text="${usuario.dni}"></span></td>
+				<td><span th:text="${usuario.nombre}"></span></td>
+				<td><span th:text="${usuario.apellido1}"></span></td>
+				<td><span th:text="${usuario.apellido2}"></span></td>
+				<td><span th:text="${usuario.email}"></span></td>
+				<td><span th:text="${usuario.direccion}"></span></td>
+				<td><span th:text="${usuario.provincia}"></span></td>
+				<td><span th:text="${usuario.localidad}"></span></td>
+				<td><span th:text="${usuario.telefono}"></span></td>
+				<td><span th:text="${usuario.baja}"></span></td>
+				<td><span th:text="${usuario.fecha_alta}"></span></td>
+				<td>
+					<a class="btn btn-success"
+					th:href="@{/usuarios/perfil/{id}(id=${usuario.id})}">Ver</a>
+					<a class="btn btn-success"
+					th:href="@{/usuarios/editar/{id}(id=${usuario.id})}">Modificar</a>
+					<a class="btn btn-danger"
+					th:href="@{/usuarios/eliminar/{id}(id=${usuario.id})}">Eliminar</a>
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+	
+	<a th:href="@{/usuarios/agregar}">Agregar cliente</a>
+
+</body>
+</html>
