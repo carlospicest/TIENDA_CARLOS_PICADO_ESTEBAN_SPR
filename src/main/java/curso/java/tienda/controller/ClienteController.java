@@ -37,6 +37,17 @@ public class ClienteController {
 		
 	}
 	
+	@GetMapping(path = "/perfil/{id}")
+	public String getPerfil(@PathVariable(name="id", required=true) int id, Model model) {
+		
+		Usuario cliente = usuarioService.getUsuario(id, RoleData.rol.CLIENTE.getId());
+		
+		model.addAttribute("cliente", cliente);
+		
+		return "cliente/perfil";
+		
+	}
+	
 	@GetMapping(path = "/editar/{id}")
 	public String getEditar(@PathVariable(name="id", required=true) int id, Model model) {
 		
