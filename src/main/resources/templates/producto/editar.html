@@ -8,7 +8,7 @@
 
 	<h3 class="mb-4">Editar producto</h3>
 
-	<form class="form" method="POST" th:action="@{/productos/editar/{id}(id=${producto.id})"
+	<form class="form" method="POST" th:action="@{/productos/editar/{id}(id=${producto.id})}"
 		th:object="${producto}">
 		<div class="row">
 			<div class="col-12">

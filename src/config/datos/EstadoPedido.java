@@ -1,5 +1,7 @@
 package datos;
 
+import java.util.HashMap;
+
 public class EstadoPedido {
 
 	public enum estado {
@@ -12,6 +14,10 @@ public class EstadoPedido {
 			this.alias = estado;
 		}
 
+		public String getAlias() {
+			return this.alias;
+		}
+		
 		public static estado getValueFromAlias(String alias) {
 			
 			estado estado = null;
@@ -31,9 +37,21 @@ public class EstadoPedido {
 			return estado;
 			
 		}
+		
+		public static HashMap<String, String> getV() {
+			
+			HashMap<String, String> v = new HashMap<>();
+			
+			for (EstadoPedido.estado estado : estado.values()) {
 				
-		public String toString() {
-			return alias;
+				String value = estado.toString();
+				String alias = estado.getAlias();
+				
+				v.put(alias, value);
+			}
+			
+			return v;
+			
 		}
 
 	}

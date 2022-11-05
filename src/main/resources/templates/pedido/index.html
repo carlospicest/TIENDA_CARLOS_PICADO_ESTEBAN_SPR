@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">Num factura</th>
+				<th scope="col">Método de pago</th>
+				<th scope="col">Fecha</th>
+				<th scope="col">Total</th>
+				<th scope="col">Estado</th>
+				<th scope="col">Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<tr th:if="${pedidoList.empty}">
+				<td colspan="8">No hay pedidos para mostrar. </td>
+			</tr>
+
+			<tr th:each="pedido : ${pedidoList}">
+				<td><span th:text="${pedido.num_factura}"></span></td>
+				<td><span th:text="${pedido.metodo_pago}"></span></td>
+				<td><span th:text='${T(curso.java.tienda.utiles.DateTime).getFormat(pedido.fecha, "yyyy.MM.dd HH.mm.ss")}'></span></td>
+				<td><span th:text="${pedido.total}"></span></td>
+				<td><span th:text="${pedido.estado}"></span></td>
+				<td><a class="btn btn-success"
+					th:href="@{/pedidos/procesar/{id}(id=${pedido.id})}">Procesar</a>
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+
+</body>
+</html>
