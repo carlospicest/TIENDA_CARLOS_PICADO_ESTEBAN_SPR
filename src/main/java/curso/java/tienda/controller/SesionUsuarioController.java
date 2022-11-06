@@ -45,4 +45,13 @@ public class SesionUsuarioController {
 		
 	}
 	
+	@GetMapping(path = "/logout")
+	public String logout(HttpSession session) {
+		
+		session.setAttribute("userdata", null);
+		
+		return "redirect:/";
+		
+	}
+	
 }

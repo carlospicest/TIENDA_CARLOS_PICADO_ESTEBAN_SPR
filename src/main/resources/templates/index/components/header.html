@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org">
 <body>
 
 	<!-- Header -->
@@ -24,7 +24,8 @@
 						<!-- Top Left -->
 						<div class="top-left">
 							<ul class="list-main">
-								<li>Bienvenid@ {NOMBRE_USUARIO}!</li>
+								<li th:if="${session.userdata} != null"
+									th:text="'Bienvenid@ ' + ${session.userdata.nombre} + '!'"></li>
 							</ul>
 						</div>
 						<!--/ End Top Left -->
@@ -36,11 +37,14 @@
 								<li><i class="ti-location-pin"></i> Store location</li>
 								<li><i class="ti-alarm-clock"></i> <a href="#">Daily
 										deal</a></li>
-								<li><i class="bi bi-person-plus-fill"></i> <a
-									href="registro">Crear cuenta</a></li>
-								<li><i class="fa fa-user-circle-o"></i><a
-									th:href="@{/login}">Iniciar sesión</a></li>
-								<li><i class="ti-power-off"></i><a href="logout">Cerrar
+								<li th:if="${session.userdata} == null"><i
+									class="bi bi-person-plus-fill"></i> <a th:href="@{/registro}">Crear
+										cuenta</a></li>
+								<li th:if="${session.userdata} == null"><i
+									class="fa fa-user-circle-o"></i><a th:href="@{/login}">Iniciar
+										sesión</a></li>
+								<li th:if="${session.userdata} != null"><i
+									class="ti-power-off"></i><a th:href="@{/logout}">Cerrar
 										sesión</a></li>
 
 							</ul>
@@ -212,7 +216,7 @@
 														<li class="active"><a th:href="@{/}">Inicio</a></li>
 														<li><a th:href="@{/catalogo}">Catálogo</a></li>
 														<li><a th:href="@{/carrito}">Ver carrito</a></li>
-														<li>
+														<li th:if="${session.userdata} != null">
 															<div>
 																<a href="#"><i class="bi bi-list"
 																	style="font-size: 20px"></i>Opciones<i
@@ -220,10 +224,10 @@
 															</div>
 															<ul class="dropdown">
 
-																<li><a href="usuario">Ver perfil</a></li>
+																<li><a th:href="@{/perfil}">Ver perfil</a></li>
+																<li><a th:href="@{/modificar_password}">Modificar contraseña</a></li>
 																<li><a href="historial_pedido">Ver historial de
 																		pedidos</a></li>
-																<li><a href="password">Modificar contraseña</a></li>
 															</ul>
 														</li>
 													</ul>
