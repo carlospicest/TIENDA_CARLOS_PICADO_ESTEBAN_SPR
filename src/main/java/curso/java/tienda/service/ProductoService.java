@@ -14,7 +14,7 @@ public class ProductoService {
 
 	@Autowired
 	private ProductoDAO productoDao;
-
+	
 	public ArrayList<Producto> getProductos() {
 		return (ArrayList<Producto>) productoDao.findAll();
 	}

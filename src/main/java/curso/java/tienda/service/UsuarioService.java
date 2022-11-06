@@ -1,5 +1,6 @@
 package curso.java.tienda.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.persistence.EntityManager;
@@ -9,9 +10,12 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.HashCrypt;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import curso.java.tienda.dao.UsuarioDAO;
 import curso.java.tienda.pojo.Usuario;
+import curso.java.tienda.pojo.mixin.UsuarioMixin;
 import datos.RoleData;
 
 @Service
@@ -21,9 +25,15 @@ public class UsuarioService {
 	private UsuarioDAO usuarioDao;
 	@Autowired
 	private EntityManager entityManager;
+	@Autowired
+	private ObjectMapper mapper;
 
 	public Usuario getUsuario(int id) {
 		return usuarioDao.findById(id);
+	}
+
+	public Usuario getUsuarioByEmail(String email) {
+		return usuarioDao.findByEmail(email);
 	}
 
 	public ArrayList<Usuario> getUsuarios() {
@@ -40,8 +50,7 @@ public class UsuarioService {
 
 			usuarioList = (ArrayList<Usuario>) entityManager
 					.createQuery("from usuarios u where not u.rol.id = :rolId order by u.rol.id")
-					.setParameter("rolId", RoleData.rol.ADMINISTRADOR.getId())
-					.getResultList();
+					.setParameter("rolId", RoleData.rol.ADMINISTRADOR.getId()).getResultList();
 
 			break;
 
@@ -49,8 +58,7 @@ public class UsuarioService {
 
 			usuarioList = (ArrayList<Usuario>) entityManager
 					.createQuery("from usuarios u where u.rol.id = :rolId order by u.rol.id")
-					.setParameter("rolId", RoleData.rol.CLIENTE.getId())
-					.getResultList();
+					.setParameter("rolId", RoleData.rol.CLIENTE.getId()).getResultList();
 
 			break;
 
@@ -143,6 +151,63 @@ public class UsuarioService {
 		}
 
 		return usuarioForm;
+
+	}
+
+	public String getUserData(Usuario user) {
+
+		String userDataJSON = null;
+
+		try {
+
+			mapper.addMixIn(Usuario.class, UsuarioMixin.class);
+
+			userDataJSON = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user);
+
+		} catch (JsonProcessingException e) {
+			System.out.println(e.getMessage());
+		}
+
+		return userDataJSON;
+
+	}
+
+	/**
+	 * Devuelve un objeto al que se le ha aplicado una clase MixIn mediante Jackson.
+	 * 
+	 * Una clase MixInes un nuevo POJO que se basa sobre un POJO existente
+	 * permitiendo aplicar modificaciones a este sin afectar al POJO original.
+	 * 
+	 * En este caso, se emplea para ocultar información sensible, como por ejemplo:
+	 * - Contraseña. - Salt. - Fecha de alta.
+	 * 
+	 * @param usuario
+	 * @return
+	 */
+
+	public Usuario getUsuarioMixin(Usuario usuario) {
+
+		Usuario usuarioProtegido = null;
+
+		
+
+		try {
+
+			byte[] usuarioDataMixin = mapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(usuario);
+
+			usuarioProtegido = mapper.readValue(usuarioDataMixin, Usuario.class);
+
+			System.out.println("");
+
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return usuarioProtegido;
 
 	}
 

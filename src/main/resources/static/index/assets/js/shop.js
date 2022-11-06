@@ -47,11 +47,13 @@ function addSimpleProductCart(idProduct, stack) {
 		url: 'carrito/update',
 		type: 'POST',
 		data: {
-			idProduct: 1,
+			idProduct: idProduct,
 			stack: 1,
 			mode: 'PLUS'
 		},
 		success: (data) => {
+
+
 
 			let productName = getProductName(idProduct);
 			
@@ -81,7 +83,7 @@ function updateProductCart() {
 
 	$.ajax({
 
-		url: 'carrito_rsc',
+		url: 'carrito/show',
 		type: 'GET',
 		success: (data) => {
 			fillIncludedCart(data); // Actualizamos la información del carrito acoplado en el header.
@@ -185,8 +187,8 @@ function updateProductCartTable(idProduct, stack, mode) {
 		type: 'POST',
 		data: {
 			mode: mode,
-			idProduct: 1,
-			stack: 1
+			idProduct: idProduct,
+			stack: stack
 		},
 		success: (data) => {
 
@@ -443,11 +445,11 @@ function getProductName(idProduct) {
 
 	return $.ajax({
 
-		url: 'producto_show',
+		url: 'productos/show/' + idProduct,
 		type: 'GET',
-		data: {
-			idProduct: idProduct,
-		},
+		success: function(e) {
+			console.log(e);
+		}
 
 	});
 

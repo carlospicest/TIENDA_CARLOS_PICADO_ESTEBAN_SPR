@@ -1,25 +1,15 @@
 package curso.java.tienda.service;
 
-import java.io.IOException;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.exc.StreamWriteException;
-import com.fasterxml.jackson.databind.DatabindException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import curso.java.tienda.dao.ProductoDAO;
 import curso.java.tienda.pojo.DetallePedido;
 import curso.java.tienda.pojo.Producto;
 
@@ -28,6 +18,8 @@ public class CarritoService {
 	
 	@Autowired
 	private ProductoService productoService;
+	@Autowired
+	private ObjectMapper mapper;
 	
 	public static enum MODE {
 
@@ -46,9 +38,8 @@ public class CarritoService {
 
 	}
 
-	public static ObjectNode getJSONCompleteCartInfo(HashMap<Integer, DetallePedido> cart) {
+	public ObjectNode getJSONCompleteCartInfo(HashMap<Integer, DetallePedido> cart) {
 
-		ObjectMapper mapper = new ObjectMapper();
 		ObjectNode cartInformation = mapper.createObjectNode();
 
 		// Extraemos el número de productos en total del carrito.
@@ -77,12 +68,12 @@ public class CarritoService {
 
 	}
 
-	public JsonGenerator updateProductCart(int idProd, int stack, MODE mode,
+	public String updateProductCart(int idProd, int stack, MODE mode,
 			HashMap<Integer, DetallePedido> cartList) {
-
-		Producto product = null;
-		JsonGenerator cartJson = null;
 		
+		String resultJSON = null;
+		Producto product = productoService.getProducto(idProd);
+				
 		if (product != null) {
 
 			// Comprobamos si el producto ya ha sido agregado al carrito.
@@ -129,23 +120,16 @@ public class CarritoService {
 
 			}
 
-			ObjectMapper mapper = new ObjectMapper();
 			try {
-				mapper.writeValue(cartJson, DetallePedido.class);
-			} catch (StreamWriteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (DatabindException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
+				resultJSON = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(cartDetail);
+			} catch (JsonProcessingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
 		}
 
-		return cartJson;
+		return resultJSON;
 
 	}
 

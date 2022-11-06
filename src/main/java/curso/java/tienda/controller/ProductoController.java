@@ -5,14 +5,15 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import curso.java.tienda.pojo.Categoria;
 import curso.java.tienda.pojo.Producto;
@@ -27,8 +28,10 @@ public class ProductoController {
 	private ProductoService productoService;
 	@Autowired
 	private CategoriaService categoriaService;
+	@Autowired
+	private ObjectMapper mapper;
 	
-	@RequestMapping(path = "", method = RequestMethod.GET)
+	@GetMapping(path = "")
 	public String getIndex(Model model) {
 		
 		ArrayList<Producto> productoList = productoService.getProductos();
@@ -75,7 +78,7 @@ public class ProductoController {
 	
 	@PostMapping(path = "/agregar")
 	public String postAgregar(@ModelAttribute("producto") Producto producto) {
-		
+		// Revisar la forma en la que se hace esto, modifica toda la fila de la bd.
 		productoService.addProducto(producto);
 		
 		return "redirect:/productos";
@@ -88,6 +91,17 @@ public class ProductoController {
 		productoService.deleteProducto(id);
 		
 		return "redirect:/productos";
+		
+	}
+	
+	// Métodos para obtener información sobre un determinado producto en JSON.
+	
+	@GetMapping(path = "/show/{idProduct}", produces="application/json")
+	public @ResponseBody String getIndex(@PathVariable(name="idProduct", required=true) int idProduct) throws JsonProcessingException {
+		
+		Producto producto = productoService.getProducto(idProduct);
+		
+		return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(producto);
 		
 	}
 	

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head th:insert="@{layouts/head.html} :: head"></head>
+<head th:replace="index/components/head.html :: head"></head>
 <body>
 	
-	<header th:insert="@{layouts/header.html} :: header"></header>
+	<header th:replace="index/components/header.html :: header"></header>
 	
 	
 	
-	<footer th:insert="@{layouts/footer.html} :: footer"></footer>
+	<footer th:replace="index/components/footer.html :: footer"></footer>
 	
 	<!-- Jquery -->
 	<script src="index/assets/js/jquery.min.js"></script>
