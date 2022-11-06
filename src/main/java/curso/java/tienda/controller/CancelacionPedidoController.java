@@ -39,7 +39,7 @@ public class CancelacionPedidoController {
 
 			model.addAttribute("cancelacionPedidoList", cancelacionPedidolist);
 
-			return "cancelacion_pedido/index";
+			return "dashboard/cancelacion_pedido/index";
 
 		} else {
 			return null;
@@ -60,7 +60,7 @@ public class CancelacionPedidoController {
 			model.addAttribute("cancelacionPedido", cancelacionPedido);
 			model.addAttribute("estadoCancelacionPedidoList", estadoCancelacionPedidoList);
 
-			return "cancelacion_pedido/procesar";
+			return "dashboard/cancelacion_pedido/procesar";
 
 		} else {
 			return null;
@@ -69,7 +69,7 @@ public class CancelacionPedidoController {
 	}
 
 	@PatchMapping(path = "/procesar/{id}")
-	public String postEditar(@ModelAttribute("producto") CancelacionPedido cancelacionPedido,
+	public String patchEditar(@ModelAttribute("producto") CancelacionPedido cancelacionPedido,
 			@PathVariable(name = "id", required = true) int id) {
 
 		CancelacionPedido cancelacionPedidoAux = cancelacionPedidoService.getCancelacionPedido(id);

@@ -32,7 +32,7 @@ public class PedidoController {
 		
 		model.addAttribute("pedidoList", pedidoList);
 		
-		return "pedido/index";
+		return "dashboard/pedido/index";
 		
 	}
 	
@@ -45,7 +45,7 @@ public class PedidoController {
 		model.addAttribute("pedido", pedido);
 		model.addAttribute("estadoPedidoList", estadoPedidoList);
 		
-		return "pedido/procesar";
+		return "dashboard/pedido/procesar";
 		
 	}
 	

@@ -35,7 +35,7 @@ public class ProductoController {
 		
 		model.addAttribute("productoList", productoList);
 		
-		return "producto/index";
+		return "dashboard/producto/index";
 		
 	}
 	
@@ -48,7 +48,7 @@ public class ProductoController {
 		model.addAttribute("producto", producto);
 		model.addAttribute("categorias", categoriaList);
 		
-		return "producto/editar";
+		return "dashboard/producto/editar";
 		
 	}
 	
@@ -69,7 +69,7 @@ public class ProductoController {
 		model.addAttribute("producto", new Producto());
 		model.addAttribute("categorias", categoriaList);
 		
-		return "/producto/agregar";
+		return "dashboard/producto/agregar";
 		
 	}
 	
