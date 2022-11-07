@@ -44,9 +44,8 @@ public class CarritoController {
 		
  	}
 
-	@PostMapping(path = "/update")
-	@ResponseBody
-	public String postUpdateCarrito(HttpSession session, int idProduct, int stack, String mode) {
+	@PostMapping(path = "/update", produces="application/json")
+	public @ResponseBody String postUpdateCarrito(HttpSession session, int idProduct, int stack, String mode) {
 		
 		HashMap<Integer, DetallePedido> cartList = (HashMap<Integer, DetallePedido>) session.getAttribute("cart");
 		

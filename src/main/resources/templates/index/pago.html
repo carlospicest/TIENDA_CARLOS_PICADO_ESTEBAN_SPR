@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org">
 <head th:replace="index/components/head.html :: head"></head>
 <body>
-	
+
 	<header th:replace="index/components/header.html :: header"></header>
-	
+
 	<!-- Start Checkout -->
 	<section class="shop checkout section">
 		<div class="container">
@@ -14,18 +14,6 @@
 					<div class="checkout-form">
 						<h2>Datos personales</h2>
 						<hr />
-						<!-- Información del usuario -->
-
-						<!-- <div class="container-fluid">
-							<div class="row">
-								<div class="col-2">
-									<h6>Nombre: </h6>
-								</div>
-								<div class="col-3">
-									<label for="" class="d-block"user.getNombre()e() %></label>
-								</div>
-							</div>
-						</div> -->
 
 						<div class="container">
 							<div class="row mb-4">
@@ -33,13 +21,15 @@
 									<h6>Nombre:</h6>
 								</div>
 								<div class="col-sm">
-									<label for="" class="d-block"><%=user.getNombre()%></label>
+									<label for="" class="d-block"
+										th:text="${session.userdata.nombre}"></label>
 								</div>
 								<div class="col-sm">
 									<h6>Apellidos:</h6>
 								</div>
 								<div class="col-sm">
-									<label for="" class="text-left"><%=user.getApellido1() + " " + user.getApellido2()%></label>
+									<label for="" class="d-block"
+										th:text="${session.userdata.apellido1} + ' ' + ${session.userdata.apellido2}"></label>
 								</div>
 							</div>
 							<div class="row mb-4">
@@ -47,13 +37,15 @@
 									<h6>Dirección:</h6>
 								</div>
 								<div class="col-sm">
-									<label for="" class="d-block"><%=user.getDireccion()%></label>
+									<label for="" class="d-block"
+										th:text="${session.userdata.direccion}"></label>
 								</div>
 								<div class="col-sm">
 									<h6>Localidad:</h6>
 								</div>
 								<div class="col-sm">
-									<label for="" class="text-left"><%=user.getLocalidad()%></label>
+									<label for="" class="d-block"
+										th:text="${session.userdata.localidad}"></label>
 								</div>
 							</div>
 							<div class="row mb-4">
@@ -61,13 +53,15 @@
 									<h6>Provincia:</h6>
 								</div>
 								<div class="col-sm">
-									<label for="" class="d-block"><%=user.getProvincia()%></label>
+									<label for="" class="d-block"
+										th:text="${session.userdata.provincia}"></label>
 								</div>
 								<div class="col-sm">
 									<h6>Teléfono:</h6>
 								</div>
 								<div class="col-sm">
-									<label for="" class="text-left"><%=user.getTelefono()%></label>
+									<label for="" class="d-block"
+										th:text="${session.userdata.telefono}"></label>
 								</div>
 							</div>
 						</div>
@@ -82,12 +76,10 @@
 							<h2>DETALLES DE PAGO</h2>
 							<div class="content">
 								<ul>
-									<li>Importe<span><%=paymentDetails.get("total_without_IVA").asText()%>
-											€</span></li>
-									<li>IVA <%=paymentDetails.get("IVA_tax").asText()%>%<span><%=paymentDetails.get("total_with_IVA").asText()%>
-											€</span></li>
-									<li class="last">Total<span><%=paymentDetails.get("total").asText()%>
-											€</span></li>
+									<li>Importe: <span th:text="${importe_sin_iva} + ' €'"></span></li>
+									<li>IVA: <span th:text="${importe_con_iva} + ' €'"></span></li>
+									<li class="last">Total<span
+										th:text="${importe_total} + ' €'"></span></li>
 								</ul>
 							</div>
 						</div>
@@ -105,19 +97,12 @@
 
 								<div class="row justify-content-center">
 
-									<%
-									for (MetodoPago metodo : metodoPagoList.values()) {
-									%>
-									<div class="col-6 pl-4">
-										<label for="<%=metodo.getMetodo_pago()%>" class="d-block">
-											<input name="paymentMethod" id="<%=metodo.getMetodo_pago()%>"
-											type="radio" value="<%=metodo.getMetodo_pago()%>"> <%=metodo.getMetodo_pago()%>
+									<div class="col-6 pl-4" th:each=" metodo : ${metodosPagoList} ">
+										<input name="paymentMethod" th:id="${metodo.metodo_pago}" type="radio" value="">
+										<label th:for="${metodo.metodo_pago}" class="d-block" th:text="${metodo.metodo_pago}">
 										</label>
-
 									</div>
-									<%
-									}
-									%>
+
 								</div>
 
 							</div>
@@ -134,7 +119,8 @@
 							<div class="single-widget get-button">
 								<div class="content">
 									<div class="button">
-										<input type="submit" class="btn mb-2" id="doPayment" value="Realizar pago" disabled="disabled">
+										<input type="submit" class="btn mb-2" id="doPayment"
+											value="Realizar pago" disabled="disabled">
 										<button class="btn" id="cart">Volver al carrito</button>
 									</div>
 								</div>
@@ -220,9 +206,9 @@
 		</div>
 	</section>
 	<!-- End Shop Newsletter -->
-	
+
 	<footer th:replace="index/components/footer.html :: footer"></footer>
-	
+
 	<!-- Jquery -->
 	<script src="index/assets/js/jquery.min.js"></script>
 	<script src="index/assets/js/jquery-migrate-3.0.0.js"></script>
@@ -253,12 +239,12 @@
 	<script src="index/assets/js/easing.js"></script>
 	<!-- Active JS -->
 	<script src="index/assets/js/active.js"></script>
-	<!-- Toastr -->
-	<script src="index/assets/js/toastr.js"></script>
-	<!-- Shop -->
+	<!-- Common settings -->
+	<script src="index/assets/js/common-settings.js"></script>
+	<!-- Shop JS -->
 	<script src="index/assets/js/shop.js"></script>
-	<!-- Modal product -->
-	<script src="index/assets/js/modal_product.js"></script>
-	
+	<!-- Pago JS -->
+	<script src="index/assets/js/pago.js"></script>
+
 </body>
 </html>

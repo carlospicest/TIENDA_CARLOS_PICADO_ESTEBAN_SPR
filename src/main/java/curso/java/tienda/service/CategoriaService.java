@@ -16,7 +16,6 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaDAO categoriaDao;
 
-
 	public ArrayList<Categoria> getCategorias() {
 		return (ArrayList<Categoria>) categoriaDao.findAll();
 	}

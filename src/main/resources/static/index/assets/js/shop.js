@@ -183,7 +183,7 @@ function fillIncludedCart(data) {
 function updateProductCartTable(idProduct, stack, mode) {
 
 	$.ajax({
-		url: 'carrito/update',
+		url: '/carrito/update',
 		type: 'POST',
 		data: {
 			mode: mode,
@@ -191,6 +191,10 @@ function updateProductCartTable(idProduct, stack, mode) {
 			stack: stack
 		},
 		success: (data) => {
+
+			
+
+			console.log('Respuesta controlador => ', data);
 
 			if (data !== null) {
 				updateProductCart();
@@ -365,6 +369,8 @@ function addRowProductCartTable(product) {
  */
 
 function updateQuantityTable(data) {
+
+	console.log(data);
 
 	const totalAmmount = $('#totalProductAmount_' + data.producto.id);
 	const quantityInput = $('#product_' + data.producto.id);
