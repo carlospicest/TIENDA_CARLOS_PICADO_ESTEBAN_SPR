@@ -3,6 +3,8 @@ package curso.java.tienda.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,17 +17,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import curso.java.tienda.dao.PedidoDAO;
 import curso.java.tienda.pojo.Pedido;
+import curso.java.tienda.pojo.Usuario;
 import curso.java.tienda.service.PedidoService;
 import datos.EstadoPedido;
 
 @Controller
-@RequestMapping(path = "/pedidos")
 public class PedidoController {
 	
 	@Autowired
 	private PedidoService pedidoService;
+
+	@Autowired
+	private PedidoDAO pedidoDao;
 	
-	@RequestMapping(path = "", method = RequestMethod.GET)
+	@RequestMapping(path = "/pedidos", method = RequestMethod.GET)
 	public String getIndex(Model model) {
 		
 		ArrayList<Pedido> pedidoList = pedidoService.getPedidos();
@@ -36,7 +41,7 @@ public class PedidoController {
 		
 	}
 	
-	@GetMapping(path = "/procesar/{id}")
+	@GetMapping(path = "/pedidos/procesar/{id}")
 	public String getEditar(@PathVariable(name="id", required=true) int id, Model model) {
 		
 		Pedido pedido = pedidoService.getPedido(id);
@@ -49,7 +54,7 @@ public class PedidoController {
 		
 	}
 	
-	@PatchMapping(path = "/procesar/{id}")
+	@PatchMapping(path = "/pedidos/procesar/{id}")
 	public String postEditar(@ModelAttribute("producto") Pedido pedido, @PathVariable(name="id", required=true) int id) {
 		
 		Pedido pedidoAux = pedidoService.getPedido(id);
@@ -59,6 +64,21 @@ public class PedidoController {
 		pedidoService.addPedido(pedidoAux);
 		
 		return "redirect:/pedidos";
+		
+	}
+	
+	// Vistas desde la tienda (index).
+	
+	@GetMapping(path = "/historial_pedidos")
+	public String historialPedidosGet(HttpSession session, Model model) {
+		
+		Usuario usuario = (Usuario) session.getAttribute("userdata");
+		
+		ArrayList<Pedido> pedidoList = pedidoDao.findByUsuario(usuario.getId());
+		
+		model.addAttribute("pedidoList", pedidoList);
+		
+		return "index/historial_pedidos";
 		
 	}
 	
