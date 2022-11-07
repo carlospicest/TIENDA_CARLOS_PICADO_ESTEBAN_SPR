@@ -1,5 +1,7 @@
 $(function() {
 
+	$('head').append('<link rel="stylesheet" href="index/assets/css/catalogo_filter.css">');
+
 	setMinMaxSlider(0, 10000); // Inicializamos el slider de precio con unos valores.
 
 	// Evento que se lanza cuando el slider ha sido modificado (barra con los dos puntos encima del input).
@@ -116,11 +118,18 @@ function clearFilters() {
 
 	Object.keys(categories).forEach((e) => {
 
-		const element = $(categories[e]);
+		//const element = $(categories[e]);
 
-		if (element !== undefined && element !== null) {
-			element.prop("checked", false);
+		let idProduct = parseInt(e);
+
+		if (idProduct !== NaN) {
+			$(categories[e]).prop("checked", false);
 		}
+
+		/*if (typeof e !== undefined) {
+			
+			e.prop("checked", false);
+		}*/
 
 	});
 
