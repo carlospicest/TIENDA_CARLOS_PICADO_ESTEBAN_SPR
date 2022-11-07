@@ -49,16 +49,16 @@
 												<td class="align-middle text-center">
 													<a
 													title="Ver detalles del pedido"
-													href="detalle_pedido?pedido=<%= pedido.getId() %>"
+													th:href="@{/detalles_pedido?id={id}(id=${pedido.id})}"
 													target="_blank"><i class="bi bi-card-list icon_table"
 														style="color: #F7941D;"> </i> </a> 
 													<a th:if="${pedido.estado == 'PE'}" title="Cancelar pedido"
-													href="cancelacion_pedido?pedido=<%= pedido.getId() %>"
+													th:href="@{/cancelacion_pedido?id={id}(id=${pedido.id})}"
 													target="_blank"><i
 														class="bi bi-send-slash-fill icon_table"
 														style="color: #FF0000;"> </i> </a> 
 													<a th:if="${pedido.estado == 'PC'}"
-													title="El pedido ha sido cancelado"><i
+													title="Procesando la cancelación del pedido"><i
 														class="bi bi-send-slash-fill icon_table"> </i>
 													</a>
 												</td>
