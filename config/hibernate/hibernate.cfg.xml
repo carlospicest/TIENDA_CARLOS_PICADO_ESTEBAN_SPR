@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC 
+  "-//Hibernate/Hibernate Configuration DTD 3.0//EN" 
+  "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+        
+<hibernate-configuration>
+  <session-factory>
+  
+  	<!-- Configuración de MySQL -->
+	  	<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+	  	<property name="hibernate.connection.CharSet">utf8</property>
+		<property name="hibernate.connection.characterEncoding">utf8</property>
+		<property name="hibernate.connection.useUnicode">true</property>
+		<property name="hibernate.current_session_context_class">thread</property>
+		<property name="hibernate.connection.isolation">1</property>
+		<property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property> <!-- Importante incluirlo para evitar excepción del driver -->
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/tienda_carlos_picado_esteban</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password"></property>
+		<property name="show_sql">true</property> <!-- Muestra el debug de las operaciones SQL o HQL -->
+    <!-- Fin de Configuración de MySQL !-->
+    	
+    <!-- Mapear las clases que vayamos a usar -->	
+    	
+    	<mapping class="curso.java.tienda.pojo.Usuario"></mapping>
+        <mapping class="curso.java.tienda.pojo.Rol"></mapping>
+        <mapping class="curso.java.tienda.pojo.Categoria"></mapping>
+        <mapping class="curso.java.tienda.pojo.Producto"></mapping>
+        <mapping class="curso.java.tienda.pojo.Pedido"></mapping>
+        <mapping class="curso.java.tienda.pojo.Pedido"></mapping>
+        <mapping class="curso.java.tienda.pojo.DetallePedido"></mapping>
+        <mapping class="curso.java.tienda.pojo.MetodoPago"></mapping>
+        <mapping class="curso.java.tienda.pojo.Valoracion"></mapping>
+        <mapping class="curso.java.tienda.pojo.CancelacionPedido"></mapping>
+        <mapping class="curso.java.tienda.pojo.Opcion"></mapping>
+        <mapping class="curso.java.tienda.pojo.OpcionMenu"></mapping>
+    
+    <!-- Fin mapeo de clases -->
+    	
+  </session-factory>
+</hibernate-configuration>

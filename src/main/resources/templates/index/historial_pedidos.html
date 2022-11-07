@@ -49,7 +49,7 @@
 												<td class="align-middle text-center">
 													<a
 													title="Ver detalles del pedido"
-													th:href="@{/detalles_pedido?id={id}(id=${pedido.id})}"
+													th:href="@{/detalles_pedido/{id}(id=${pedido.id})}"
 													target="_blank"><i class="bi bi-card-list icon_table"
 														style="color: #F7941D;"> </i> </a> 
 													<a th:if="${pedido.estado == 'PE'}" title="Cancelar pedido"

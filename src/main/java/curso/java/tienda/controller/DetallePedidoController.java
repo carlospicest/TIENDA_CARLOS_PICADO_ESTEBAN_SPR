@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import curso.java.tienda.dao.DetallePedidoDAO;
@@ -24,9 +25,8 @@ public class DetallePedidoController {
 	@Autowired
 	private PedidoService pedidoService;
 	
-	@GetMapping(value = "/detalles_pedido")
-	//public String detallePedidosGet(@PathVariable(name="pedido", required=true) int pedido, HttpSession session, Model model) {
-	public String detallePedidosGet(@RequestParam int id, HttpSession session, Model model) {
+	@GetMapping("/detalles_pedido/{id}")
+	public String detallePedidosGet(@PathVariable(name="id", required=true) int id, HttpSession session, Model model) {
 		
 		Pedido pedido = pedidoService.getPedido(id);
 		ArrayList<DetallePedido> detallePedidoList = detallePedidoDao.findByPedidoId(id);

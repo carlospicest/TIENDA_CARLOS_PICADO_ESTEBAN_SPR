@@ -20,7 +20,7 @@ $(function() {
 
 	$.ajax({
 
-		url: 'carrito/show',
+		url: '/carrito/show',
 		type: 'GET',
 		success: (data) => {
 
