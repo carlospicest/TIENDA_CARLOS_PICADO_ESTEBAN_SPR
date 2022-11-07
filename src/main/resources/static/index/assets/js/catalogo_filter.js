@@ -280,7 +280,7 @@ function prepareFilter() {
 
 	$.ajax({
 
-		url: 'catalogo_filter',
+		url: '/catalogo_filtro',
 		type: 'POST',
 		data: {
 			filter: criteriaJSON
