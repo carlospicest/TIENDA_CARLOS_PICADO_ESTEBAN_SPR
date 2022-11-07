@@ -1,5 +1,7 @@
 package curso.java.tienda.pojo;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,10 +29,16 @@ public class CancelacionPedido {
 	@JoinColumn(name = "id_pedido")
 	private Pedido pedido;
 	
+	@Column(name = "fecha")
+	private Timestamp fecha;
+	
 	@Column(name = "motivo")
 	private String motivo;
 	
 	@Column(name = "estado")
 	private String estado;
+	
+	@Column(name = "num_solicitud")
+	private String num_solicitud;
 	
 }

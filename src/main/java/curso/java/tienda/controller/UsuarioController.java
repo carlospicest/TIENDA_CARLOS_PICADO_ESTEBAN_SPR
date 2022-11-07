@@ -18,6 +18,7 @@ import curso.java.tienda.service.RolService;
 import curso.java.tienda.service.UsuarioService;
 import curso.java.tienda.utiles.SourceData;
 import datos.RoleData;
+import mapping.WebPath;
 
 @Controller
 @RequestMapping(path = "/usuarios")
@@ -41,7 +42,7 @@ public class UsuarioController {
 
 			model.addAttribute("usuarioList", usuarioList);
 
-			return "usuario/index";
+			return WebPath.URL.DASHBOARD_USUARIOS_GET_INDEX.toString();
 
 		}
 		
@@ -56,7 +57,7 @@ public class UsuarioController {
 
 		model.addAttribute("usuario", usuario);
 
-		return "usuario/perfil";
+		return WebPath.URL.DASHBOARD_USUARIO_PERFIL.toString();
 
 	}
 
@@ -74,7 +75,7 @@ public class UsuarioController {
 		model.addAttribute("usuario", usuario);
 		model.addAttribute("provinciaList", provinciaList);
 
-		return "usuario/editar";
+		return WebPath.URL.DASHBOARD_USUARIO_EDITAR.toString();
 
 	}
 
@@ -88,7 +89,7 @@ public class UsuarioController {
 			usuarioService.addUsuario(usuario);
 		}
 
-		return "redirect:/usuarios";
+		return WebPath.URL.DASHBOARD_USUARIOS_ROOT.toString();
 
 	}
 
@@ -102,7 +103,7 @@ public class UsuarioController {
 		model.addAttribute("provinciaList", provinciaList);
 		model.addAttribute("usuario", usuario);
 
-		return "/usuario/agregar";
+		return WebPath.URL.DASHBOARD_USUARIO_GET_AGREGAR.toString();
 
 	}
 
@@ -116,7 +117,7 @@ public class UsuarioController {
 
 		usuarioService.addUsuario(usuario);
 
-		return "redirect:/usuarios";
+		return WebPath.URL.DASHBOARD_USUARIOS_ROOT.toString();
 
 	}
 
@@ -125,7 +126,7 @@ public class UsuarioController {
 
 		usuarioService.deleteUsuario(id);
 
-		return "redirect:/usuarios";
+		return WebPath.URL.DASHBOARD_USUARIOS_ROOT.toString();
 
 	}
 

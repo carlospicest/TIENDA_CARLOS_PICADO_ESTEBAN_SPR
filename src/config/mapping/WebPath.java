@@ -2,21 +2,20 @@ package mapping;
 
 public class WebPath {
 	
+	public static final String[] P = {
+			"s"
+	};
+	
 	public enum URL {
 		
-		// Parte P�blica.
+		DASHBOARD_USUARIOS_ROOT("redirect:/usuarios"),
+		DASHBOARD_USUARIOS_GET_INDEX("dashboard/usuario/index"),
+		DASHBOARD_USUARIO_PERFIL("dashboard/usuario/perfil"),
+		DASHBOARD_USUARIO_EDITAR("dashboard/usuario/editar"),
+		DASHBOARD_USUARIO_GET_AGREGAR("dashboard/usuario/agregar"),
+		DASHBOARD_REDIRECT_("dashboard/usuario/editar");
 		
-		INDEX_CONTROLLER(""),
-	    INDEX_JSP("index/index.jsp"),
-	    LOGIN_CONTROLLER("login"),
-	    LOGIN_JSP("index/login.jsp"),
-	    LOGOUT_CONTROLLER("logout"),
-	    ALTA_USUARIO("index/alta_usuario.jsp"),
-	    CATALOGO_CONTROLLER("catalogo"),
-	    CATALOGO_JSP("index/catalogo.jsp"),
-	    RESULTADO("WEB-INF/resultado/index.jsp");
-
-		// Parte Dashboard (privada).
+		
 		
 	    private final String url;
 

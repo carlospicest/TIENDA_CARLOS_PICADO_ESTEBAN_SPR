@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h3 class="mb-4">Editar producto</h3>
+
+	<form class="form" th:method="patch"
+		th:action="@{/pedidos/procesar/{id}(id=${pedido.id})}"
+		th:object="${pedido}">
+
+		<fieldset>
+			<legend>Información del pedido</legend>
+			
+			<p>
+				Número de factura: <span th:text="*{num_factura}" name="num_factura"></span>
+			</p>
+			
+			<p>
+				Método de pago: <span th:text="*{metodo_pago}"></span>
+			</p>
+			
+			<p>
+				Importe total: <span th:text="*{total}"></span>
+			</p>
+			
+			<label>Estado<span>*</span></label> <select th:field="*{estado}"
+				id="estado_pedido">
+				<option th:each="e : ${estadoPedidoList}" th:value="${e.key}"
+					th:text="${e.value}">
+			</select>
+		
+		</fieldset>
+
+
+		<div class="col-12">
+			<div class="form-group button text-center">
+				<button type="submit" class="btn mt-4">Guardar cambios</button>
+			</div>
+		</div>
+
+	</form>
+
+</body>
+</html>

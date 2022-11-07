@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h3 class="mb-4">Editar producto</h3>
+
+	<form class="form" method="POST" th:action="@{/productos/editar/{id}(id=${producto.id})}"
+		th:object="${producto}">
+		<div class="row">
+			<div class="col-12">
+				<div class="form-group">
+					<label>Nombre<span>*</span></label> <input name="nombre"
+						type="text" placeholder="" th:field="*{nombre}">
+				</div>
+			</div>
+			<div class="col-12">
+				<div class="form-group">
+					<label>Descripción</label>
+					<textarea rows="2" maxlength="255" name="descripcion"
+						th:field="*{descripcion}"></textarea>
+				</div>
+			</div>
+			<div class="col-lg-6 col-12">
+				<div class="form-group">
+
+					<label>Categoría<span>*</span></label> <select
+						th:field="*{categoria}" id="categoria">
+						<option th:each="c : ${categorias}" th:value="${c.id}"
+							th:text="${c.nombre}">
+					</select>
+
+				</div>
+			</div>
+			<div class="col-lg-6 col-12">
+				<div class="form-group">
+					<label>Precio<span>*</span></label> <input name="precio"
+						type="number" step=".01" th:field="*{precio}">
+				</div>
+			</div>
+			<div class="col-lg-6 col-12">
+				<div class="form-group">
+					<label>Stock<span>*</span></label> <input name="stock"
+						type="number" th:field="*{stock}">
+				</div>
+			</div>
+			<div class="col-lg-6 col-12">
+				<div class="form-group">
+					<label>Impuesto<span>*</span></label> <input name="impuesto"
+						type="number" th:field="*{impuesto}">
+				</div>
+			</div>
+			<div class="col-lg-6 col-12">
+				<div class="form-group">
+					<label>Baja de producto</label> <input type="checkbox"
+						name="baja" th:field="*{baja}" th:value="*{baja}">
+				</div>
+			</div>
+			<div class="col-lg-6 col-12">
+				<div class="form-group">
+					<label>Imágen del producto</label> <input type="file"
+						name="baja_producto" value="Agregar imagen">
+				</div>
+			</div>
+
+			<div class="col-12">
+				<div class="form-group button text-center">
+					<button type="submit" class="btn mt-4">Guardar producto</button>
+				</div>
+			</div>
+
+		</div>
+	</form>
+
+</body>
+</html>
