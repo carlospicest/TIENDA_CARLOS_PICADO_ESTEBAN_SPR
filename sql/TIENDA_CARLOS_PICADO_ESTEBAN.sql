@@ -23,15 +23,18 @@ CREATE TABLE IF NOT EXISTS `cancelaciones_pedido` (
   `id_pedido` int(11) NOT NULL,
   `motivo` varchar(255) NOT NULL,
   `estado` varchar(255) NOT NULL,
+  `num_solicitud` varchar(255) NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `cancelaciones_pedido_ibfk_1` (`id_pedido`),
   CONSTRAINT `cancelaciones_pedido_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla tienda_carlos_picado_esteban.cancelaciones_pedido: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla tienda_carlos_picado_esteban.cancelaciones_pedido: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `cancelaciones_pedido` DISABLE KEYS */;
-INSERT INTO `cancelaciones_pedido` (`id`, `id_pedido`, `motivo`, `estado`) VALUES
-	(2, 6, 'Producto recibido en mal estado.\r\nLos daÃ±os que presenta imposibilitan su uso.', 'PP');
+INSERT INTO `cancelaciones_pedido` (`id`, `id_pedido`, `motivo`, `estado`, `num_solicitud`, `fecha`) VALUES
+	(2, 6, 'Producto recibido en mal estado.\r\nLos daños que presenta imposibilitan su uso.', 'PP', 'S0', '2022-11-05 23:12:32'),
+	(6, 7, 'El producto no va bien', 'PP', 'CAN_S0', '2022-11-07 12:35:16');
 /*!40000 ALTER TABLE `cancelaciones_pedido` ENABLE KEYS */;
 
 -- Volcando estructura para tabla tienda_carlos_picado_esteban.categorias
@@ -46,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `categorias` (
 /*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
 INSERT INTO `categorias` (`id`, `nombre`, `descripcion`) VALUES
 	(1, 'Trajes', ''),
-	(2, 'Calcetines', ''),
+	(2, 'Calcetines', 'Una categoría sutil y pecular'),
 	(3, 'Pijamas', ''),
 	(4, 'Pantalones', ''),
 	(5, 'Camisas', ''),
@@ -62,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `configuracion` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla tienda_carlos_picado_esteban.configuracion: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla tienda_carlos_picado_esteban.configuracion: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `configuracion` DISABLE KEYS */;
 INSERT INTO `configuracion` (`id`, `clave`, `valor`, `tipo`) VALUES
 	(1, 'num_factura', '0', 'VARCHAR');
@@ -139,13 +142,13 @@ INSERT INTO `metodos_pago` (`id`, `metodo_pago`) VALUES
 CREATE TABLE IF NOT EXISTS `opciones` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `alias` varchar(255) NOT NULL,
-  `nombre` varchar(255) NOT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `alias` (`alias`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla tienda_carlos_picado_esteban.opciones: ~9 rows (aproximadamente)
+-- Volcando datos para la tabla tienda_carlos_picado_esteban.opciones: ~10 rows (aproximadamente)
 /*!40000 ALTER TABLE `opciones` DISABLE KEYS */;
 INSERT INTO `opciones` (`id`, `alias`, `nombre`, `url`) VALUES
 	(1, 'NAVBAR_CATALOGO', 'Catálogo', 'catalogo'),
@@ -156,7 +159,8 @@ INSERT INTO `opciones` (`id`, `alias`, `nombre`, `url`) VALUES
 	(6, 'NAVBAR_MODIFICAR_CONTRASENA', 'Modificar contraseña', 'password'),
 	(7, 'HEADER_CREAR_CUENTA', 'Crear cuenta', 'registro'),
 	(8, 'HEADER_INICIAR_SESION', 'Iniciar sesión', 'login'),
-	(9, 'HEADER_CERRAR_SESION', 'Cerrar sesión', 'logout');
+	(9, 'HEADER_CERRAR_SESION', 'Cerrar sesión', 'logout'),
+	(10, 'HEADER_BIENVENIDA_USUARIO', '', NULL);
 /*!40000 ALTER TABLE `opciones` ENABLE KEYS */;
 
 -- Volcando estructura para tabla tienda_carlos_picado_esteban.opciones_menu
@@ -169,9 +173,9 @@ CREATE TABLE IF NOT EXISTS `opciones_menu` (
   KEY `id_opcion` (`id_opcion`),
   CONSTRAINT `opciones_menu_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id`),
   CONSTRAINT `opciones_menu_ibfk_2` FOREIGN KEY (`id_opcion`) REFERENCES `opciones` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla tienda_carlos_picado_esteban.opciones_menu: ~7 rows (aproximadamente)
+-- Volcando datos para la tabla tienda_carlos_picado_esteban.opciones_menu: ~10 rows (aproximadamente)
 /*!40000 ALTER TABLE `opciones_menu` DISABLE KEYS */;
 INSERT INTO `opciones_menu` (`id`, `id_rol`, `id_opcion`) VALUES
 	(1, 1, 1),
@@ -182,7 +186,8 @@ INSERT INTO `opciones_menu` (`id`, `id_rol`, `id_opcion`) VALUES
 	(6, 2, 6),
 	(7, 1, 8),
 	(8, 1, 7),
-	(9, 2, 9);
+	(9, 2, 9),
+	(10, 2, 10);
 /*!40000 ALTER TABLE `opciones_menu` ENABLE KEYS */;
 
 -- Volcando estructura para tabla tienda_carlos_picado_esteban.pedidos
@@ -202,8 +207,8 @@ CREATE TABLE IF NOT EXISTS `pedidos` (
 -- Volcando datos para la tabla tienda_carlos_picado_esteban.pedidos: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `pedidos` DISABLE KEYS */;
 INSERT INTO `pedidos` (`id`, `id_usuario`, `fecha`, `metodo_pago`, `estado`, `num_factura`, `total`) VALUES
-	(6, 40, '2022-11-02 11:18:47', 'Mastercard', 'PC', 'A0', 8509.52),
-	(7, 40, '2022-11-02 11:29:22', 'Transferencia Bancaria', 'PE', 'A0', 34499.6);
+	(6, 44, '2022-11-07 01:11:23', 'Visa', 'PE', 'A1', 502.22),
+	(7, 40, '2022-11-07 10:03:59', 'Transferencia Bancaria', 'PC', 'A0', 34499.6);
 /*!40000 ALTER TABLE `pedidos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla tienda_carlos_picado_esteban.productos
@@ -211,25 +216,26 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_categoria` int(11) NOT NULL,
   `nombre` varchar(255) NOT NULL,
-  `descripcion` varchar(255) NOT NULL,
+  `descripcion` varchar(255) DEFAULT NULL,
   `precio` decimal(20,2) NOT NULL DEFAULT 0.00,
   `stock` int(11) NOT NULL,
   `impuesto` double NOT NULL DEFAULT 0,
-  `imagen` varchar(255) NOT NULL,
+  `imagen` varchar(255) DEFAULT NULL,
   `baja` tinyint(1) DEFAULT NULL,
   `fecha_alta` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `id_categoria` (`id_categoria`),
   CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla tienda_carlos_picado_esteban.productos: ~4 rows (aproximadamente)
+-- Volcando datos para la tabla tienda_carlos_picado_esteban.productos: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
 INSERT INTO `productos` (`id`, `id_categoria`, `nombre`, `descripcion`, `precio`, `stock`, `impuesto`, `imagen`, `baja`, `fecha_alta`) VALUES
 	(1, 1, 'Traje de seda Armani H', 'Traje de hombre', 1854.45, 50, 21, 'traje_amani', 0, '2022-11-01 13:49:19'),
 	(2, 1, 'Traje de Ka\'Lium', 'Traje de mujer', 2458.00, 50, 21, 'traje_kalium', 0, '2022-11-01 11:20:53'),
 	(3, 2, 'Calcetines WinniePoo', 'Calcetines de talla pequeña', 1.76, 25, 21, 'calcetines_winniepoo', 0, '2022-11-01 13:41:46'),
-	(4, 4, 'Pantalones de Rosa Mosqueta', 'Pantalones de color rojo ideal para bodas', 568.00, 14, 21, 'pantalon_ros_mosqueta', 0, '2022-10-20 14:25:55');
+	(4, 4, 'Pantalones de Rosa Mosqueta', 'Pantalones de color rojo ideal para bodas', 568.00, 14, 21, 'pantalon_ros_mosqueta', 0, '2022-10-20 00:00:00'),
+	(5, 5, 'Pruebaaaaaaaaaaaaaaaaaaaaaa!', 'Pruyeba', 125.99, 22, 21, NULL, 1, '2022-11-05 11:51:06');
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla tienda_carlos_picado_esteban.proveedores
@@ -288,15 +294,17 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   UNIQUE KEY `email` (`email`),
   KEY `id_rol` (`id_rol`),
   CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla tienda_carlos_picado_esteban.usuarios: ~4 rows (aproximadamente)
+-- Volcando datos para la tabla tienda_carlos_picado_esteban.usuarios: ~6 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
 INSERT INTO `usuarios` (`id`, `id_rol`, `email`, `password`, `salt`, `nombre`, `apellido1`, `apellido2`, `direccion`, `provincia`, `localidad`, `telefono`, `dni`, `imagen`, `baja`, `fecha_alta`) VALUES
-	(40, 2, 'carlos@gmail.com', '39d12aabadf4afbd3e15de95f9635e24da6919f8b92a5e5db531f14dc684f4c437060ba9728e4c6940cd6bbaf3704d2eb85f2e170d4f40cb1360935772cec7cdc697f886adc177baef3d2445592acc2cb66990fb76f2ebe8de86ee8232f0264eeaff611037c44447f1a1465e854fe8b242ab741719bee5c36759d7e316', '9a093e43013d2e997ab582fd5573b35da96a94ae46612f68aaa05c276f19a06f', 'Carlos', 'Picado', 'Esteban', 'Calle de Fuenteovejuna 12', 'Zamora', 'Zamora', '658888888', '44555625X', NULL, 0, '2022-10-24 00:00:00'),
-	(41, NULL, 'lucasmt2@gmail.com', 'f84dae1603a30dc00adc604dc9d414bd42d2bf800dbdf585e1def8a533742dc04f10541a13a417f97b33a42f1ceccb6ca214c4aaeb4924169abf92b56cf14b16ecc85667c933bd80fdb46117e464a71c46acc25dbf94d96a8109d0be742813d2a836cfb76985315f4750363f334bbd3031eb0c8d7a2fa3e1827d512506', '58a3248ddd42b505bd873eaecb66ed0e72efd7a3971b3fe4ea1dfe98e0ae0e6d', 'Lucas', 'Mateo', 'Hernández', 'Calle Santa Eulalia', 'Burgos', 'Burgos', '684112222', '74588546S', NULL, 0, '2022-10-24 00:00:00'),
-	(44, NULL, 'lau@gmail.com', 'f3e3f6a1f0bc6d556ce71bf5463903c1111f5704da0bac5ac934425fdf643a24397715cc6e9e33808ed1dbacc7f353dfda3d6fe7232788e1365cb528b0016450239d8c850ecc3825a0b17d0eedbadcba109531f77399c27eb93f6099f71e69f82ef502751da8f7bea7fb96f71449b0c1319265b52ce5822dd9a3a3d82e', '489e82ae49e399b364b81cdcf87393777a9b9b65779d78e602728db789f067d3', 'Laura', 'Bustana', 'Clementi', 'Calle de algoq', 'Araba/Álava', 'Álava', '658888888', '69854511J', NULL, 0, '2022-10-24 00:00:00'),
-	(45, NULL, 'javcs@outlook.com', 'a8e10ecf9ce5a320025422638a810b8b2b2f122594ae74718bbb997c6788050c8db28907824dde69fc651f12daa3b92514ea369d38006937685b6a499ad44079974d7937cdb65fb9ead9823ca8dc851efa6236de4cc6abe2e857134e0026f8342f4db2a9b74711706312767fa54133178c2149f241b87b644655d072f7', '30ab64487ca17841478b97c55d374a95b532194da8fa5de81b0b176951833e5e', 'Javier', 'Del canto', 'Santo', 'Avda la feria', 'Zamora', 'Zamora', '655454545', '98544541X', NULL, 0, '2022-10-24 00:00:00');
+	(40, 3, 'carlos@gmail.com', '49f07dc5f411cfd578fbe8ba0df05890684406dcceb16219d0fdc3889ed1624574b152d68668801aea88914ee909c4120e253160c8800333fce14029ca6e8f29e1c74826142a4ba95b2a7638f1ca66cef80f675c09bd15e4e84a84d92172594cd1128d9b0d2a7838dba2d20a3bcfbf198de98fdbc1de0f4704738e98a0', '3c535dea168b626e5c0b88397edaf09d8c443c88607e455540677a96995333a9', 'Carlos', 'Picado', 'Esteban', 'Calle de Fuenteovejuna 12', 'Zamora', 'Zamora', '658888888', '44555625X', NULL, 0, '2022-11-07 00:16:41'),
+	(41, 2, 'lucasmt2@gmail.com', 'f84dae1603a30dc00adc604dc9d414bd42d2bf800dbdf585e1def8a533742dc04f10541a13a417f97b33a42f1ceccb6ca214c4aaeb4924169abf92b56cf14b16ecc85667c933bd80fdb46117e464a71c46acc25dbf94d96a8109d0be742813d2a836cfb76985315f4750363f334bbd3031eb0c8d7a2fa3e1827d512506', '58a3248ddd42b505bd873eaecb66ed0e72efd7a3971b3fe4ea1dfe98e0ae0e6d', 'Lucas', 'Mateo', 'Hernández', 'Calle Santa Eulalia', 'Burgos', 'Burgos', '684112222', '74588546S', NULL, 0, '2022-11-05 11:46:04'),
+	(44, 4, 'lau@gmail.com', 'f3e3f6a1f0bc6d556ce71bf5463903c1111f5704da0bac5ac934425fdf643a24397715cc6e9e33808ed1dbacc7f353dfda3d6fe7232788e1365cb528b0016450239d8c850ecc3825a0b17d0eedbadcba109531f77399c27eb93f6099f71e69f82ef502751da8f7bea7fb96f71449b0c1319265b52ce5822dd9a3a3d82e', '489e82ae49e399b364b81cdcf87393777a9b9b65779d78e602728db789f067d3', 'Laura', 'Bustana', 'Clementi', 'Calle de algoq', 'Araba/Álava', 'Álava', '658888888', '69854511J', NULL, 0, '2022-11-05 11:46:07'),
+	(45, 3, 'javcs@outlook.com', 'a8e10ecf9ce5a320025422638a810b8b2b2f122594ae74718bbb997c6788050c8db28907824dde69fc651f12daa3b92514ea369d38006937685b6a499ad44079974d7937cdb65fb9ead9823ca8dc851efa6236de4cc6abe2e857134e0026f8342f4db2a9b74711706312767fa54133178c2149f241b87b644655d072f7', '30ab64487ca17841478b97c55d374a95b532194da8fa5de81b0b176951833e5e', 'Javier', 'Del canto', 'Santo', 'Avda la feria', 'Zamora', 'Zamora', '655454545', '98544541X', NULL, 0, '2022-11-05 17:17:59'),
+	(47, 2, 'sandra@gmail.com', 'a3b7f66abb73d7df31e15ece27fcf64c454a0da11a4700aee2399508bd35f4898ac88b9d0859347799796edc059ff517dd0403c58e0272d70f199ff945e1a351b269f4c7eb30a26b68e02c13aa830026790fca7cbccec27c6d4a01dc1044dcedf59605450da7468406441bf9591d311fbd8d5269460da90e04f0d09ec3', '13111770d4c4879d7fe0f3763dacfe0dc49697301b139408d8706490099518dc', 'Sandra', 'Navas', 'Tolsa', 'Santa clara 21', 'Zamora', 'Zamora', '652222222', '454848742S', NULL, 0, '2022-11-05 11:29:22'),
+	(48, 2, 'paulamafe@gmail.com', 'a7ce31b9cd1d975c810e4ec0a036639c299031546fe8c430bdce2252afa2a72160e673e909f6b084f16d93ba4b6b7b8aaf7678a91d81e118ccc25d6fc66fe191ad091c6d7658e36cb721823fb82d389d81242daef47da492a8a6e8f6a59f3e79f9a992faa800247608ac97d0ff4dcdcf5d35ac5e6814e126876ad29e1b', 'a88e672a469518e9630186cd369ae7ffb5c0196387b02c29292693b6e47430fa', 'Paula', 'Mateo', 'Fernández', 'Calle de las monsergas, 21', 'Cantabria', 'Cantabria', '654212121', '11785254S', NULL, 0, '2022-11-06 23:12:07');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 
 -- Volcando estructura para tabla tienda_carlos_picado_esteban.valoraciones
