@@ -47,34 +47,5 @@ public class CategoriaService {
 		}
 		
 	}
-	
-	public HashMap<Integer, Categoria> getRandomCategorias(int longitud) {
-		
-		ArrayList<Categoria> categorias = getCategorias();
-		
-		if (longitud > categorias.size() ) {
-			return null;
-		} else {
-			
-			HashMap<Integer, Categoria> categoriasRandom = new HashMap<>();
-			Random random = new Random();
-
-			do {
-
-				int number = random.nextInt(categorias.size());
-				
-				if (categoriasRandom.get(number) == null) {
-					Categoria categoria = categorias.get(number);
-					categoriasRandom.put(number, categoria);
-				}
-			
-			} while(categoriasRandom.size() < longitud);
-			
-			return categoriasRandom;
-			
-		}
-		
-	}
-
 
 }

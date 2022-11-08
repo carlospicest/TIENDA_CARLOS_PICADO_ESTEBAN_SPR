@@ -21,9 +21,9 @@ public class IndexDashboardController {
 		
 		// Mostramos un total de 3 categorías aleatorias.
 		
-		HashMap<Integer, Categoria> categoriaList = categoriaService.getRandomCategorias(3);
+		//HashMap<Integer, Categoria> categoriaList = categoriaService.getRandomCategorias(3);
 		
-		model.addAttribute("categoriaList", categoriaList);
+		//model.addAttribute("categoriaList", categoriaList);
 		
 		return "/dashboard/index";
 		

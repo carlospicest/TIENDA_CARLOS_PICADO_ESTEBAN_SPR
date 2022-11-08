@@ -2,6 +2,7 @@ package curso.java.tienda.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -16,11 +17,13 @@ public class ProductoService {
 
 	@Autowired
 	private ProductoDAO productoDao;
-	
+	@Autowired
+	private CategoriaService categoriaService;
+
 	public ArrayList<Producto> getProductos() {
 		return (ArrayList<Producto>) productoDao.findAll();
 	}
-	
+
 	public ArrayList<Producto> getProductosByCategoria(int id) {
 		return productoDao.findByCategoria(id);
 	}
@@ -51,22 +54,46 @@ public class ProductoService {
 
 	}
 
-	public ArrayList<Producto> getProductosByCategorias(HashMap<Integer, Categoria> categorias) {
+	public HashMap<Categoria, ArrayList<Producto>> getRandomCategorias(int longitud) {
 		
-		ArrayList<Producto> listaProductos = new ArrayList<>();
+
+		HashMap<Categoria, ArrayList<Producto>> randomCategorias = new HashMap<>();
+		ArrayList<Categoria> categoriasList = categoriaService.getCategorias();
 		
-		for (Categoria categoria : categorias.values()) {
+		
+		if (longitud > categoriasList.size()) {
+			return null;
+		} else {
+
+			Random random = new Random();
+
+			do {
+
+				int number = random.nextInt(categoriasList.size());
+				Categoria categoria = categoriasList.get(number);
+
+				if (randomCategorias.get(categoria) == null) {
+					
+					ArrayList<Producto> productosByCategoria = getProductosByCategoria(categoria.getId());
+					
+					if (productosByCategoria != null && !productosByCategoria.isEmpty()) {
+						
+						for (Producto pro : productosByCategoria) {
+							
+							System.err.println("Categoria => " + pro.getCategoria().getNombre() + " Articulo => " + pro.getNombre());
+							
+						}
+						
+						randomCategorias.put(categoria, productosByCategoria);
+					}
+				}
 			
-			ArrayList<Producto> productos = productoDao.findByCategoria(categoria.getId());
+			} while(randomCategorias.size() < longitud);
 			
-			for (Producto producto : productos) {
-				listaProductos.add(producto);
-			}
+			return randomCategorias;
 			
 		}
 		
-		return listaProductos;
-		
 	}
-	
+
 }

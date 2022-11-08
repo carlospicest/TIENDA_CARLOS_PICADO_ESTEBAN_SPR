@@ -28,11 +28,9 @@ public class IndexController {
 	@GetMapping(value = "/")
 	public String getIndex(Model model) {
 		
-		HashMap<Integer, Categoria> categoriaList = categoriaService.getRandomCategorias(3);
-		ArrayList<Producto> productoList = productoService.getProductosByCategorias(categoriaList);
+		HashMap<Categoria, ArrayList<Producto>> productosCategoria = productoService.getRandomCategorias(3);
 		
-		model.addAttribute("categoriaList", categoriaList);
-		model.addAttribute("productoList", productoList);
+		model.addAttribute("productosCategoria", productosCategoria);
 		
 		return "index/index";
 		
