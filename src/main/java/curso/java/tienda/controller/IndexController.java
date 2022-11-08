@@ -8,8 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.fasterxml.jackson.databind.JsonNode;
-
 import curso.java.tienda.pojo.Categoria;
 import curso.java.tienda.pojo.Producto;
 import curso.java.tienda.service.CategoriaService;
@@ -30,11 +28,11 @@ public class IndexController {
 	@GetMapping(value = "/")
 	public String getIndex(Model model) {
 		
-		ArrayList<Producto> productoList = productoService.getProductos();
 		HashMap<Integer, Categoria> categoriaList = categoriaService.getRandomCategorias(3);
+		ArrayList<Producto> productoList = productoService.getProductosByCategorias(categoriaList);
 		
-		model.addAttribute("productoList", productoList);
 		model.addAttribute("categoriaList", categoriaList);
+		model.addAttribute("productoList", productoList);
 		
 		return "index/index";
 		

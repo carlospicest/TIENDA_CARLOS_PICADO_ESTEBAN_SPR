@@ -1,12 +1,14 @@
 package curso.java.tienda.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import curso.java.tienda.dao.ProductoDAO;
+import curso.java.tienda.pojo.Categoria;
 import curso.java.tienda.pojo.Producto;
 
 @Service
@@ -49,4 +51,22 @@ public class ProductoService {
 
 	}
 
+	public ArrayList<Producto> getProductosByCategorias(HashMap<Integer, Categoria> categorias) {
+		
+		ArrayList<Producto> listaProductos = new ArrayList<>();
+		
+		for (Categoria categoria : categorias.values()) {
+			
+			ArrayList<Producto> productos = productoDao.findByCategoria(categoria.getId());
+			
+			for (Producto producto : productos) {
+				listaProductos.add(producto);
+			}
+			
+		}
+		
+		return listaProductos;
+		
+	}
+	
 }
