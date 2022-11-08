@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `cancelaciones_pedido` (
   CONSTRAINT `cancelaciones_pedido_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla tienda_carlos_picado_esteban.cancelaciones_pedido: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla tienda_carlos_picado_esteban.cancelaciones_pedido: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `cancelaciones_pedido` DISABLE KEYS */;
 INSERT INTO `cancelaciones_pedido` (`id`, `id_pedido`, `motivo`, `estado`, `num_solicitud`, `fecha`) VALUES
 	(2, 6, 'Producto recibido en mal estado.\r\nLos daños que presenta imposibilitan su uso.', 'PP', 'S0', '2022-11-05 23:12:32'),
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `configuracion` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla tienda_carlos_picado_esteban.configuracion: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla tienda_carlos_picado_esteban.configuracion: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `configuracion` DISABLE KEYS */;
 INSERT INTO `configuracion` (`id`, `clave`, `valor`, `tipo`) VALUES
 	(1, 'num_factura', '0', 'VARCHAR');
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `detalles_pedido` (
   KEY `id_producto` (`id_producto`),
   CONSTRAINT `detalles_pedido_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id`),
   CONSTRAINT `detalles_pedido_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
 
 -- Volcando datos para la tabla tienda_carlos_picado_esteban.detalles_pedido: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `detalles_pedido` DISABLE KEYS */;
@@ -108,7 +108,17 @@ INSERT INTO `detalles_pedido` (`id`, `id_pedido`, `id_producto`, `unidades`, `pr
 	(10, 6, 2, 5, 1254, 21, 6270),
 	(11, 6, 3, 2, 1.76, 21, 3.52),
 	(12, 7, 1, 8, 1854.45, 21, 14835.6),
-	(13, 7, 2, 8, 2458, 21, 19664);
+	(13, 7, 2, 8, 2458, 21, 19664),
+	(14, 8, 1, 3, 1854.45, 21, 5563.35),
+	(15, 8, 2, 2, 2458, 21, 4916),
+	(16, 8, 3, 5, 1.76, 21, 8.8),
+	(17, 9, 1, 1, 1854.45, 21, 1854.45),
+	(18, 9, 2, 1, 2458, 21, 2458),
+	(19, 10, 1, 1, 1854.45, 21, 1854.45),
+	(20, 10, 2, 1, 2458, 21, 2458),
+	(21, 11, 1, 1, 1854.45, 21, 1854.45),
+	(22, 11, 2, 1, 2458, 21, 2458),
+	(23, 11, 3, 1, 1.76, 21, 1.76);
 /*!40000 ALTER TABLE `detalles_pedido` ENABLE KEYS */;
 
 -- Volcando estructura para tabla tienda_carlos_picado_esteban.impuestos
@@ -173,9 +183,9 @@ CREATE TABLE IF NOT EXISTS `opciones_menu` (
   KEY `id_opcion` (`id_opcion`),
   CONSTRAINT `opciones_menu_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id`),
   CONSTRAINT `opciones_menu_ibfk_2` FOREIGN KEY (`id_opcion`) REFERENCES `opciones` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla tienda_carlos_picado_esteban.opciones_menu: ~10 rows (aproximadamente)
+-- Volcando datos para la tabla tienda_carlos_picado_esteban.opciones_menu: ~9 rows (aproximadamente)
 /*!40000 ALTER TABLE `opciones_menu` DISABLE KEYS */;
 INSERT INTO `opciones_menu` (`id`, `id_rol`, `id_opcion`) VALUES
 	(1, 1, 1),
@@ -187,7 +197,16 @@ INSERT INTO `opciones_menu` (`id`, `id_rol`, `id_opcion`) VALUES
 	(7, 1, 8),
 	(8, 1, 7),
 	(9, 2, 9),
-	(10, 2, 10);
+	(10, 2, 10),
+	(11, 3, 10),
+	(12, 3, 3),
+	(13, 3, 9),
+	(14, 1, 1),
+	(15, 2, 9),
+	(16, 4, 9),
+	(17, 4, 10),
+	(18, 4, 3),
+	(20, 3, 1);
 /*!40000 ALTER TABLE `opciones_menu` ENABLE KEYS */;
 
 -- Volcando estructura para tabla tienda_carlos_picado_esteban.pedidos
@@ -202,13 +221,17 @@ CREATE TABLE IF NOT EXISTS `pedidos` (
   PRIMARY KEY (`id`),
   KEY `id_usuario` (`id_usuario`),
   CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
 -- Volcando datos para la tabla tienda_carlos_picado_esteban.pedidos: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `pedidos` DISABLE KEYS */;
 INSERT INTO `pedidos` (`id`, `id_usuario`, `fecha`, `metodo_pago`, `estado`, `num_factura`, `total`) VALUES
-	(6, 44, '2022-11-07 01:11:23', 'Visa', 'PE', 'A1', 502.22),
-	(7, 40, '2022-11-07 10:03:59', 'Transferencia Bancaria', 'PC', 'A0', 34499.6);
+	(6, 44, '2022-11-08 13:25:56', 'Visa', 'E', 'A1', 502.22),
+	(7, 40, '2022-11-08 13:25:59', 'Transferencia Bancaria', 'E', 'A0', 34499.6),
+	(8, 40, '2022-11-08 13:25:58', 'PayPal', 'E', 'AF2', 10488.15),
+	(9, 40, '2022-11-08 13:25:57', 'PayPal', 'E', 'AF2', 4312.45),
+	(10, 40, '2022-11-08 13:25:58', 'Visa', 'E', 'AF2', 4312.45),
+	(11, 40, '2022-11-08 13:32:55', 'Transferencia Bancaria', 'PE', 'AF2', 4314.21);
 /*!40000 ALTER TABLE `pedidos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla tienda_carlos_picado_esteban.productos
@@ -296,7 +319,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla tienda_carlos_picado_esteban.usuarios: ~6 rows (aproximadamente)
+-- Volcando datos para la tabla tienda_carlos_picado_esteban.usuarios: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
 INSERT INTO `usuarios` (`id`, `id_rol`, `email`, `password`, `salt`, `nombre`, `apellido1`, `apellido2`, `direccion`, `provincia`, `localidad`, `telefono`, `dni`, `imagen`, `baja`, `fecha_alta`) VALUES
 	(40, 3, 'carlos@gmail.com', '49f07dc5f411cfd578fbe8ba0df05890684406dcceb16219d0fdc3889ed1624574b152d68668801aea88914ee909c4120e253160c8800333fce14029ca6e8f29e1c74826142a4ba95b2a7638f1ca66cef80f675c09bd15e4e84a84d92172594cd1128d9b0d2a7838dba2d20a3bcfbf198de98fdbc1de0f4704738e98a0', '3c535dea168b626e5c0b88397edaf09d8c443c88607e455540677a96995333a9', 'Carlos', 'Picado', 'Esteban', 'Calle de Fuenteovejuna 12', 'Zamora', 'Zamora', '658888888', '44555625X', NULL, 0, '2022-11-07 00:16:41'),
