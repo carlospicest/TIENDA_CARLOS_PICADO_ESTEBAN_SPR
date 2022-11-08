@@ -11,11 +11,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import curso.java.tienda.pojo.DetallePedido;
 import curso.java.tienda.pojo.MetodoPago;
+import curso.java.tienda.pojo.Pedido;
+import curso.java.tienda.pojo.Usuario;
 import curso.java.tienda.service.CarritoService;
+import curso.java.tienda.service.DetallePedidoService;
 import curso.java.tienda.service.MetodoPagoService;
+import curso.java.tienda.service.PedidoService;
+import curso.java.tienda.utiles.DateTime;
 
 @Controller
 public class PagoController {
@@ -24,6 +31,10 @@ public class PagoController {
 	private MetodoPagoService metodoPagoService;
 	@Autowired
 	private CarritoService carritoService;
+	@Autowired
+	private PedidoService pedidoService;
+	@Autowired
+	private DetallePedidoService detallePedidoService;
 
 	@GetMapping(value = "/pago")
 	public String pagoIndexGet(HttpSession session, Model model) {
@@ -54,6 +65,44 @@ public class PagoController {
 		model.addAttribute("importe_total", df.format(IMPORTE_TOTAL));
 		
 		model.addAttribute("metodosPagoList", metodoPagoList);
+		
+		return "index/pago";
+		
+	}
+	
+	@PostMapping(value = "/checkout")
+	public String checkoutPost(HttpSession session, @ModelAttribute("metodo_pago") String metodo_pago) {
+		
+		Usuario usuario = (Usuario) session.getAttribute("userdata");
+		
+		// Detalles del pedido.
+		
+		HashMap<Integer, DetallePedido> cart = (HashMap<Integer, DetallePedido>) session.getAttribute("cart");
+		
+		double total = carritoService.getTotalStackAmmountDetalleCarrito(cart);
+		
+		Pedido pedido = new Pedido();
+		pedido.setUsuario(usuario);
+		pedido.setFecha(DateTime.getCurrentTime());
+		pedido.setMetodo_pago(metodo_pago);
+		pedido.setEstado("PE");
+		pedido.setNum_factura("AF2");
+		pedido.setTotal(total);
+		
+		// Damos de alta el pedido
+		
+		pedidoService.addPedido(pedido);
+		
+		// Agregamos los productos del carrito.
+		
+		for (DetallePedido producto : cart.values()) {
+			producto.setPedido(pedido);
+			detallePedidoService.addDetallePedido(producto);
+		}
+		
+		// Limpiamos el carrito de la sesión una vez finalizada la compra.
+		
+		cart.clear();
 		
 		return "redirect:/";
 		

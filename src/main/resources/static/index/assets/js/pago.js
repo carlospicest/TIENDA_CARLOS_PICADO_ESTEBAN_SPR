@@ -5,7 +5,7 @@ $(function() {
 		habilitar la opción de realizar pago.
 	*/
 
-	$('input[name="paymentMethod"]').change(function() {
+	$('input[name="metodo_pago"]').change(function() {
 		
 		if (this.checked) {
 			$('#doPayment').prop('disabled', false);
