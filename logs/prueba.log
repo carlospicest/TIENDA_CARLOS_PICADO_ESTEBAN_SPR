@@ -1,0 +1,16 @@
+08-11-2022 13:04:05 INFO  ProcesadoPedidoThread:46 - Pedido  ID => 6 embalado correctamente.
+08-11-2022 13:04:05 INFO  ProcesadoPedidoThread:47 - Pedido  ID => 6 transportándose a la estación de envíos.
+08-11-2022 13:04:36 INFO  ProcesadoPedidoThread:51 - Pedido con ID => 6 ha sido colocado en la estación de envío
+08-11-2022 13:04:36 INFO  ProcesadoPedidoThread:46 - Pedido  ID => 7 embalado correctamente.
+08-11-2022 13:04:36 INFO  ProcesadoPedidoThread:47 - Pedido  ID => 7 transportándose a la estación de envíos.
+08-11-2022 13:05:06 INFO  ProcesadoPedidoThread:51 - Pedido con ID => 7 ha sido colocado en la estación de envío
+08-11-2022 13:05:06 INFO  ProcesadoPedidoThread:46 - Pedido  ID => 8 embalado correctamente.
+08-11-2022 13:05:06 INFO  ProcesadoPedidoThread:47 - Pedido  ID => 8 transportándose a la estación de envíos.
+08-11-2022 13:05:36 INFO  ProcesadoPedidoThread:51 - Pedido con ID => 8 ha sido colocado en la estación de envío
+08-11-2022 13:05:36 INFO  ProcesadoPedidoThread:46 - Pedido  ID => 9 embalado correctamente.
+08-11-2022 13:05:36 INFO  ProcesadoPedidoThread:47 - Pedido  ID => 9 transportándose a la estación de envíos.
+08-11-2022 13:06:06 INFO  ProcesadoPedidoThread:51 - Pedido con ID => 9 ha sido colocado en la estación de envío
+08-11-2022 13:06:06 INFO  ProcesadoPedidoThread:46 - Pedido  ID => 10 embalado correctamente.
+08-11-2022 13:06:06 INFO  ProcesadoPedidoThread:47 - Pedido  ID => 10 transportándose a la estación de envíos.
+08-11-2022 13:06:36 INFO  ProcesadoPedidoThread:51 - Pedido con ID => 10 ha sido colocado en la estación de envío
+08-11-2022 13:06:36 INFO  ProcesadoPedidoThread:54 - Los pedidos han sido enviados correctamente.
