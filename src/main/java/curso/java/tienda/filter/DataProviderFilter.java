@@ -18,6 +18,7 @@ import curso.java.tienda.pojo.OpcionMenu;
 import curso.java.tienda.pojo.Rol;
 import curso.java.tienda.pojo.Usuario;
 import curso.java.tienda.service.OpcionMenuService;
+import curso.java.tienda.service.PedidoService;
 import curso.java.tienda.service.RolService;
 import curso.java.tienda.utiles.RoleDataUtil;
 import datos.RoleData;
@@ -29,6 +30,8 @@ public class DataProviderFilter implements Filter {
 	OpcionMenuService opcionMenuService;
 	@Autowired
 	RolService rolService;
+	@Autowired
+	PedidoService pedidoService;
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)

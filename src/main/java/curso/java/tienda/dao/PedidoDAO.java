@@ -17,4 +17,7 @@ public interface PedidoDAO extends JpaRepository<Pedido, Integer>{
 	@Query("from pedidos p where p.usuario.id = :usuarioId")
 	public ArrayList<Pedido> findByUsuario(@Param("usuarioId") int usuarioId);
 	
+	@Query("from pedidos p where p.estado = :estado")
+	public ArrayList<Pedido> findByEstado(String estado);
+	
 }

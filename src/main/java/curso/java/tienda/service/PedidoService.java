@@ -19,6 +19,10 @@ public class PedidoService {
 		return (ArrayList<Pedido>) pedidoDao.findAll();
 	}
 
+	public ArrayList<Pedido> getPedidosByEstado(String estado) {
+		return pedidoDao.findByEstado(estado);
+	}
+	
 	public Pedido getPedido(int id) {
 		return pedidoDao.findById(id);
 	}
