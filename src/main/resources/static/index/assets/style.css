@@ -1219,7 +1219,7 @@ body {
 }
 .hero-slider .single-slider {
 	height: auto;
-	background-image: url('https://via.placeholder.com/1900x700');
+	background-image: url('/index/assets/images/welcome/2.jpg');
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;

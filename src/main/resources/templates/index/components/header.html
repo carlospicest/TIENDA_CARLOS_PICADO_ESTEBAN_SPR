@@ -34,9 +34,6 @@
 						<!-- Top Right -->
 						<div class="right-content">
 							<ul class="list-main">
-								<li><i class="ti-location-pin"></i> Store location</li>
-								<li><i class="ti-alarm-clock"></i> <a href="#">Daily
-										deal</a></li>
 								<li th:if='${T(curso.java.tienda.utiles.RoleDataUtil).isVisible("HEADER_CREAR_CUENTA", session.userdata)}'>
 									<i class="bi bi-person-plus-fill"></i> <a th:href="@{/registro}">Crear
 										cuenta</a></li>
@@ -46,7 +43,6 @@
 								<li th:if='${T(curso.java.tienda.utiles.RoleDataUtil).isVisible("HEADER_CERRAR_SESION", session.userdata)}'><i
 									class="ti-power-off"></i><a th:href="@{/logout}">Cerrar
 										sesión</a></li>
-
 							</ul>
 						</div>
 						<!-- End Top Right -->
@@ -88,12 +84,6 @@
 					<div class="col-lg-8 col-md-7 col-12">
 						<div class="search-bar-top">
 							<div class="search-bar">
-								<select>
-									<option selected="selected">All Category</option>
-									<option>watch</option>
-									<option>mobile</option>
-									<option>kid’s item</option>
-								</select>
 								<form>
 									<input name="search" placeholder="Search Products Here....."
 										type="search">
@@ -107,10 +97,6 @@
 					<div class="col-lg-2 col-md-3 col-12">
 						<div class="right-bar">
 							<!-- Search Form -->
-							<div class="sinlge-bar">
-								<a href="#" class="single-icon"><i class="fa fa-heart-o"
-									aria-hidden="true"></i></a>
-							</div>
 							<div class="sinlge-bar shopping">
 								<a href="#" class="single-icon"><i class="ti-bag"></i> <span
 									class="total-count">{TOTAL_PRODUCTS}</span></a>

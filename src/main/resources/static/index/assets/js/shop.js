@@ -451,10 +451,10 @@ function getProductName(idProduct) {
 
 	return $.ajax({
 
-		url: 'productos/show/' + idProduct,
+		url: 'producto/show/' + idProduct,
 		type: 'GET',
 		success: function(e) {
-			console.log(e);
+			//console.log(e);
 		}
 
 	});

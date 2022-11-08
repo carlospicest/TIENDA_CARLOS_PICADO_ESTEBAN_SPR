@@ -18,6 +18,10 @@ public class ProductoService {
 	public ArrayList<Producto> getProductos() {
 		return (ArrayList<Producto>) productoDao.findAll();
 	}
+	
+	public ArrayList<Producto> getProductosByCategoria(int id) {
+		return productoDao.findByCategoria(id);
+	}
 
 	public Producto getProducto(int id) {
 		return productoDao.findById(id);

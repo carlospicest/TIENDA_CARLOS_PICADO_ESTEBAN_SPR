@@ -17,7 +17,7 @@
 						<div class="text-inner">
 							<div class="row">
 								<div class="col-lg-7 col-12">
-									<div class="hero-text">
+									<!-- <div class="hero-text">
 										<h1>
 											<span>UP TO 50% OFF </span>Shirt For Man
 										</h1>
@@ -29,7 +29,7 @@
 										<div class="button">
 											<a href="#" class="btn">Shop Now!</a>
 										</div>
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</div>
@@ -57,6 +57,12 @@
 						<div class="nav-main">
 							<!-- Tab Nav (Filtros básicos) -->
 							<ul class="nav nav-tabs" id="myTab" role="tablist">
+							
+								<li class="nav-item" th:each="categoria : ${categoriaList.values()}">
+									<a class="nav-link" data-toggle="tab"
+									th:href="${'#' + categoria.nombre.toLowerCase()}" role="tab" th:text="${categoria.nombre}"></a>
+								</li>
+							
 								<li class="nav-item"><a class="nav-link active"
 									data-toggle="tab" href="#variado" role="tab">VARIADO</a></li>
 								<li class="nav-item"><a class="nav-link" data-toggle="tab"
@@ -424,6 +430,8 @@
 	<script src="index/assets/js/shop.js"></script>
 	<!-- Modal product -->
 	<script src="index/assets/js/modal_product.js"></script>
+		<!-- Common Settings JS -->
+	<script src="index/assets/js/common-settings.js"></script>
 	
 </body>
 </html>

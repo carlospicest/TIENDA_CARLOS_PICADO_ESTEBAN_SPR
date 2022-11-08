@@ -1,6 +1,8 @@
 package curso.java.tienda.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -42,6 +44,34 @@ public class CategoriaService {
 			return true;
 		} catch (DataAccessException ex) {
 			return false;
+		}
+		
+	}
+	
+	public HashMap<Integer, Categoria> getRandomCategorias(int longitud) {
+		
+		ArrayList<Categoria> categorias = getCategorias();
+		
+		if (longitud > categorias.size() ) {
+			return null;
+		} else {
+			
+			HashMap<Integer, Categoria> categoriasRandom = new HashMap<>();
+			Random random = new Random();
+
+			do {
+
+				int number = random.nextInt(categorias.size());
+				
+				if (categoriasRandom.get(number) == null) {
+					Categoria categoria = categorias.get(number);
+					categoriasRandom.put(number, categoria);
+				}
+			
+			} while(categoriasRandom.size() < longitud);
+			
+			return categoriasRandom;
+			
 		}
 		
 	}

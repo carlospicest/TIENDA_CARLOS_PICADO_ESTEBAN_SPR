@@ -1,6 +1,9 @@
 package curso.java.tienda.dao;
 
+import java.util.ArrayList;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import curso.java.tienda.pojo.Producto;
@@ -9,5 +12,8 @@ import curso.java.tienda.pojo.Producto;
 public interface ProductoDAO extends JpaRepository<Producto, Integer> {
 	
 	public Producto findById(int id);
+	
+	@Query("from productos p where p.categoria.id = :id")
+	public ArrayList<Producto> findByCategoria(int id);
 	
 }
