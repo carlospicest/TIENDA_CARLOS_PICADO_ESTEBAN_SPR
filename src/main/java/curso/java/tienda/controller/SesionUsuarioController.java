@@ -18,6 +18,7 @@ public class SesionUsuarioController {
 	@Autowired
 	private SesionUsuarioService sesionUsuarioService;
 	
+	
 	@GetMapping(path = "/login")
 	public String loginIndex(Model model) {
 		

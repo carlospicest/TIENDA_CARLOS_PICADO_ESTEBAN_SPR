@@ -24,7 +24,7 @@
 						<!-- Top Left -->
 						<div class="top-left">
 							<ul class="list-main">
-								<li th:if="${session.userdata} != null"
+								<li th:if='${T(curso.java.tienda.utiles.RoleDataUtil).isVisible("HEADER_BIENVENIDA_USUARIO", session.userdata)}'
 									th:text="'Bienvenid@ ' + ${session.userdata.nombre} + '!'"></li>
 							</ul>
 						</div>
@@ -37,13 +37,13 @@
 								<li><i class="ti-location-pin"></i> Store location</li>
 								<li><i class="ti-alarm-clock"></i> <a href="#">Daily
 										deal</a></li>
-								<li th:if="${session.userdata} == null"><i
-									class="bi bi-person-plus-fill"></i> <a th:href="@{/registro}">Crear
+								<li th:if='${T(curso.java.tienda.utiles.RoleDataUtil).isVisible("HEADER_CREAR_CUENTA", session.userdata)}'>
+									<i class="bi bi-person-plus-fill"></i> <a th:href="@{/registro}">Crear
 										cuenta</a></li>
-								<li th:if="${session.userdata} == null"><i
+								<li th:if='${T(curso.java.tienda.utiles.RoleDataUtil).isVisible("HEADER_INICIAR_SESION", session.userdata)}'><i
 									class="fa fa-user-circle-o"></i><a th:href="@{/login}">Iniciar
 										sesión</a></li>
-								<li th:if="${session.userdata} != null"><i
+								<li th:if='${T(curso.java.tienda.utiles.RoleDataUtil).isVisible("HEADER_CERRAR_SESION", session.userdata)}'><i
 									class="ti-power-off"></i><a th:href="@{/logout}">Cerrar
 										sesión</a></li>
 
@@ -214,9 +214,11 @@
 												<div class="nav-inner">
 													<ul class="nav main-menu menu navbar-nav">
 														<li class="active"><a th:href="@{/}">Inicio</a></li>
-														<li><a th:href="@{/catalogo}">Catálogo</a></li>
+														<li th:if='${T(curso.java.tienda.utiles.RoleDataUtil).isVisible("NAVBAR_CATALOGO", session.userdata)}'>
+															<a th:href="@{/catalogo}">Catálogo</a>
+														</li>
 														<li><a th:href="@{/carrito}">Ver carrito</a></li>
-														<li th:if="${session.userdata} != null">
+														<li th:if='${T(curso.java.tienda.utiles.RoleDataUtil).isVisible("NAVBAR_OPCIONES", session.userdata)}'>
 															<div>
 																<a href="#"><i class="bi bi-list"
 																	style="font-size: 20px"></i>Opciones<i
