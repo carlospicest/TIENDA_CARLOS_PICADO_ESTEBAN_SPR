@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import curso.java.tienda.pojo.DetallePedido;
 import curso.java.tienda.pojo.MetodoPago;
 import curso.java.tienda.pojo.Pedido;
+import curso.java.tienda.pojo.Producto;
 import curso.java.tienda.pojo.Usuario;
 import curso.java.tienda.service.CarritoService;
 import curso.java.tienda.service.DetallePedidoService;
@@ -95,9 +96,15 @@ public class PagoController {
 		
 		// Agregamos los productos del carrito.
 		
-		for (DetallePedido producto : cart.values()) {
-			producto.setPedido(pedido);
-			detallePedidoService.addDetallePedido(producto);
+		for (DetallePedido detalle : cart.values()) {
+			
+			// Implementar validación del stock!
+			
+			Producto producto = detalle.getProducto();
+			producto.setStock(producto.getStock()-1);
+			
+			detalle.setPedido(pedido);
+			detallePedidoService.addDetallePedido(detalle);
 		}
 		
 		// Limpiamos el carrito de la sesión una vez finalizada la compra.
