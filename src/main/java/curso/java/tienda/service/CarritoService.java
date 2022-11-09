@@ -142,7 +142,7 @@ public class CarritoService {
 			for (DetallePedido product : cart.values()) {
 				totalAmmount += (product.getPrecio_unidad() * product.getUnidades());
 			}
-
+				
 		}
 
 		return totalAmmount;

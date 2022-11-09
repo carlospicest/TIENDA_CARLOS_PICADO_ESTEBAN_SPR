@@ -12,6 +12,7 @@ function cargarDatatables() {
 
 			$.when(data).done(function(data) {
 
+				// Obtenemos los datos del controlador.
 				// Mostrar en formato legible la información de baja y fecha de alta.
 
 				data.forEach(function(element) {
@@ -92,7 +93,7 @@ function cargarDatatables() {
 							},
 						},
 						{
-							// boton para elegir las columnas que se quieren mostrar en la tabla.
+							// Botón para elegir las columnas que se quieren mostrar en la tabla.
 							extend: "colvis",
 						},
 					],

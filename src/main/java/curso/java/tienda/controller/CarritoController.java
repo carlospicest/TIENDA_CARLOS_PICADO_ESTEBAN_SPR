@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import curso.java.tienda.pojo.DetallePedido;
@@ -26,6 +27,8 @@ public class CarritoController {
 	ProductoService productoService;
 	@Autowired
 	CarritoService carritoService;
+	@Autowired
+	ObjectMapper mapper;
 	
 	@GetMapping(path = "")
 	public String carritoIndex(Model model) {
@@ -51,6 +54,24 @@ public class CarritoController {
 		CarritoService.MODE modeStr = CarritoService.MODE.valueOf(mode);
 		
 		return carritoService.updateProductCart(idProduct, stack, modeStr, cartList);
+		
+	}
+	
+	@PostMapping(path = "/delete/{idProduct}", produces="application/json")
+	public @ResponseBody ObjectNode postDeleteCarrito(HttpSession session, int idProduct) {
+		
+		HashMap<Integer, DetallePedido> cartList = (HashMap<Integer, DetallePedido>) session.getAttribute("cart");
+		boolean deleteResult = false;
+		
+		if (cartList != null) {
+			DetallePedido detallePedido = cartList.get(idProduct);	
+			deleteResult = cartList.remove(idProduct, detallePedido);
+		}
+		
+		ObjectNode deleteInformation = mapper.createObjectNode();
+		deleteInformation.put("result", deleteResult);
+		
+		return deleteInformation;
 		
 	}
 	

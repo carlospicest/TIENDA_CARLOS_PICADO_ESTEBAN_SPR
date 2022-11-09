@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org">
 <head th:replace="index/components/head.html :: head"></head>
 
 <body>
-	
+
 	<header th:replace="index/components/header.html :: header"></header>
-	
+
 	<!-- Slider Area -->
 	<section class="hero-slider">
 		<!-- Single Slider -->
@@ -57,14 +57,15 @@
 						<div class="nav-main">
 							<!-- Tab Nav (Filtros básicos) -->
 							<ul class="nav nav-tabs" id="myTab" role="tablist">
-							
+
 								<!-- Lista de categorías -->
-							
-								<li class="nav-item" th:each="categoria : ${productosCategoria.keySet()}">
-									<a class="nav-link" data-toggle="tab"
-									th:href="${'#' + categoria.nombre.toLowerCase()}" role="tab" th:text="${categoria.nombre}"></a>
-								</li>
-							
+
+								<li class="nav-item"
+									th:each="categoria : ${productosCategoria.keySet()}"><a
+									class="nav-link" data-toggle="tab"
+									th:href="${'#' + categoria.nombre.toLowerCase()}" role="tab"
+									th:text="${categoria.nombre}"></a></li>
+
 								<!-- <li class="nav-item"><a class="nav-link active"
 									data-toggle="tab" href="#variado" role="tab">VARIADO</a></li>
 								<li class="nav-item"><a class="nav-link" data-toggle="tab"
@@ -75,32 +76,46 @@
 							<!--/ End Tab Nav -->
 						</div>
 						<div class="tab-content" id="myTabContent">
-							
+
 							<!-- Productos filtrados por categoria -->
-							
-							<div class="tab-pane fade" th:id="${categoria.nombre.toLowerCase()}" role="tabpanel" th:each="categoria : ${productosCategoria.keySet()}">
+
+							<div class="tab-pane fade"
+								th:id="${categoria.nombre.toLowerCase()}" role="tabpanel"
+								th:each="categoria : ${productosCategoria.keySet()}">
 								<div class="tab-single">
 									<div class="row">
-										<div class="col-xl-3 col-lg-4 col-md-4 col-12" th:each="producto : ${productosCategoria.get(categoria)}">
+										<div class="col-xl-3 col-lg-4 col-md-4 col-12"
+											th:each="producto : ${productosCategoria.get(categoria)}">
 											<div class="single-product">
 												<div class="product-img">
-													<a href="product-details.html">
-														<img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
-														<img class="hover-img" src="https://via.placeholder.com/550x750" alt="#">
+													<a class="details-product" th:id="${producto.id}"> <img
+														class="default-img catalogo"
+														th:src="@{${'/index/images/productos/' + producto.id +'/'+ producto.id + '.jpg'}}"
+														alt=""> <img class="hover-img catalogo img-fluid"
+														th:src="@{${'/index/images/productos/' + producto.id +'/'+ producto.id + '.jpg'}}"
+														alt="">
+
 													</a>
+
 													<div class="button-head">
 														<div class="product-action">
-															<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-															<a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
-															<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
+															<a class="details-product" th:id="${producto.id}"
+																data-toggle="modal" data-target="#exampleModal"
+																title="Ver detalles" href=""><i class="ti-eye mr-2">
+															</i><span>Ver detalles</span></a>
 														</div>
 														<div class="product-action-2">
-															<a title="Add to cart" href="#">Add to cart</a>
+															<a title="Agregar al carrito" class="addCart"
+																th:id="${producto.id}" href="">Añadir al carrito</a>
 														</div>
 													</div>
+
 												</div>
 												<div class="product-content">
-													<h3><a href="product-details.html" th:text="${producto.nombre}"></a></h3>
+													<h3>
+														<a href="product-details.html"
+															th:text="${producto.nombre}"></a>
+													</h3>
 													<div class="product-price">
 														<span th:text="${producto.precio + ' €'}"></span>
 													</div>
@@ -110,7 +125,7 @@
 									</div>
 								</div>
 							</div>
-							
+
 						</div>
 					</div>
 				</div>
@@ -336,8 +351,10 @@
 	</section>
 	<!-- End Shop Newsletter -->
 	
+	<footer th:replace="index/components/modal.html :: modal"></footer>
+
 	<footer th:replace="index/components/footer.html :: footer"></footer>
-	
+
 	<!-- Jquery -->
 	<script src="index/assets/js/jquery.min.js"></script>
 	<script src="index/assets/js/jquery-migrate-3.0.0.js"></script>
@@ -374,15 +391,15 @@
 	<script src="index/assets/js/shop.js"></script>
 	<!-- Modal product -->
 	<script src="index/assets/js/modal_product.js"></script>
-		<!-- Common Settings JS -->
+	<!-- Common Settings JS -->
 	<script src="index/assets/js/common-settings.js"></script>
-	
+
 	<!-- Pasar a un archivo js mejor -->
-	
+
 	<script>
 		$('.nav-link')[0].click();
 	</script>
-	
-	
+
+
 </body>
 </html>

@@ -1,0 +1,21 @@
+/* Ajuste para el index */
+
+.default-img.index {
+	width: auto;
+	height: 27vh;
+}
+
+.hover-img.index {
+	height: 37vh;
+}
+
+/* Ajuste para el catálogo */
+
+.default-img.catalogo {
+	width: 100%;
+	height: 40vh;
+}
+
+.hover-img.catalogo {
+	height: 37vh;
+}

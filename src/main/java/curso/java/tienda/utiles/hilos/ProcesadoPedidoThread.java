@@ -2,15 +2,12 @@ package curso.java.tienda.utiles.hilos;
 
 import java.util.ArrayList;
 
-import javax.annotation.PostConstruct;
-
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.apache.log4j.Logger;
 
 import curso.java.tienda.pojo.Pedido;
 import curso.java.tienda.service.PedidoService;
@@ -19,15 +16,15 @@ import datos.EstadoPedido;
 @Service
 public class ProcesadoPedidoThread implements Runnable {
 
-	//@Autowired
-	//private PedidoService pedidoService;
+	@Autowired
+	private PedidoService pedidoService;
 	private boolean status = true;
-	/*private final int DEMORA_COMPROBACION = 30000;
+	private final int DEMORA_COMPROBACION = 30000;
 
 	private static Logger log = Logger.getLogger(ProcesadoPedidoThread.class);
 	
 	@EventListener(ApplicationReadyEvent.class)
-	@Async*/
+	@Async
 	@Override
 	public void run() {
 
@@ -37,9 +34,9 @@ public class ProcesadoPedidoThread implements Runnable {
 
 	}
 
-	private void verServicio() {
+	private synchronized void verServicio() {
 
-		/*if (pedidoService != null) {
+		if (pedidoService != null) {
 			
 			ArrayList<Pedido> pedidosPendientesEnvio = pedidoService
 					.getPedidosByEstado(EstadoPedido.estado.PENDIENTE_ENVIO.getAlias());
@@ -61,17 +58,18 @@ public class ProcesadoPedidoThread implements Runnable {
 			
 			momentoDeOperaciones();
 
-		}*/
+		}
 
 	}
 
 	private void momentoDeOperaciones() {
 
-		/*try {
+		try {
 			Thread.sleep(DEMORA_COMPROBACION);
 		} catch (InterruptedException e) {
+			System.err.println("Problema en el momento!");
 			log.error(e);
-		}*/
+		}
 
 	}
 	

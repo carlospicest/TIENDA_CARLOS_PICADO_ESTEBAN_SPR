@@ -43,12 +43,14 @@ $(function() {
 
 function addSimpleProductCart(idProduct, stack) {
 
+	console.log('Agregado producto => ', idProduct, ' unidades => ', stack);
+
 	$.ajax({
-		url: 'carrito/update',
+		url: '/carrito/update',
 		type: 'POST',
 		data: {
 			idProduct: idProduct,
-			stack: 1,
+			stack: stack,
 			mode: 'PLUS'
 		},
 		success: (data) => {
@@ -190,10 +192,6 @@ function updateProductCartTable(idProduct, stack, mode) {
 		},
 		success: (data) => {
 
-			
-
-			console.log('Respuesta controlador => ', data);
-
 			if (data !== null) {
 				updateProductCart();
 				updateQuantityTable(data);
@@ -318,7 +316,8 @@ function addRowProductCartTable(product) {
 
 			inputQuantity.val(currentQuantity);
 
-			updateProductCartTable(idProduct, currentQuantity, 'MINUS');
+			//updateProductCartTable(idProduct, currentQuantity, 'MINUS');
+			updateProductCartTable(idProduct, currentQuantity, 'MASIVE');
 
 		}
 
@@ -332,7 +331,8 @@ function addRowProductCartTable(product) {
 
 		inputQuantity.val(currentQuantity);
 
-		updateProductCartTable(idProduct, currentQuantity, 'PLUS');
+		//updateProductCartTable(idProduct, currentQuantity, 'PLUS');
+		updateProductCartTable(idProduct, currentQuantity, 'MASIVE');
 
 	});
 
@@ -397,7 +397,7 @@ function updateQuantityTable(data) {
 function deleteProductCart(product) {
 
 	$.ajax({
-		url: 'carrito_delete',
+		url: 'carrito/delete/' + product,
 		type: 'POST',
 		data: {
 			idProduct: parseInt(product)

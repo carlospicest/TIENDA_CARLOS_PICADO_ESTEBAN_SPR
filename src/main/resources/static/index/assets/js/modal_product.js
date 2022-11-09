@@ -2,16 +2,18 @@ $(function() {
 
 	// Comprobar botones de ver información (para asignar evento modal).
 
-	const buttonList = $('a[class="product_modal"]');
+	const buttonList = $('a.details-product');
 
 	for (let button of buttonList) {
 
 		$(button).click(() => {
 
-			const idProduct = $(button).attr('id');
+			const idProduct = $(button).prop('id');
+
+			//console.log('Producto => ', idProduct)
 
 			$.ajax({
-				url: 'producto_show',
+				url: '/producto/show/' + idProduct,
 				type: 'GET',
 				data: {
 					idProduct: idProduct,
@@ -23,6 +25,8 @@ $(function() {
 				}
 			});
 
+			return false; // Para evitar el desplazamiento al top.
+
 		});
 
 	}
@@ -32,7 +36,7 @@ $(function() {
 	const minusButton = $('#modalProductMinus');
 	const plusButton = $('#modalProductPlus');
 	const stackInput = $('#modalProductStack');
-	const addCartButton = $('#modalAddCart');
+	const addCartButton = $('button[name="modalAddCart"]');
 
 	minusButton.click(() => {
 
@@ -64,10 +68,13 @@ $(function() {
 
 		// Obtenemos número de unidades y el id del producto.
 		
-		const idProduct = addCartButton.prop('value');
-		const stack = stackInput.val();
+		const idProduct = addCartButton.prop('id');
+		const stack = stackInput.prop('value');
 		
-		addSimpleProductCart(idProduct, stack);
+		//addSimpleProductCart(idProduct, stack);
+		updateProductCartTable(idProduct, stack, 'MASIVE');
+		
+		showSuccessToastr('Nuevo producto en el carrito', $('#productName').text() + ' x' + stack);
 		
 		$('#exampleModal').modal('hide');
 
@@ -80,7 +87,7 @@ $(function() {
 
 function showProductInformation(productData) {
 
-	console.log(productData);
+	//console.log(productData);
 
 	// Cargamos la información del producto dentro del modal.
 
@@ -89,8 +96,9 @@ function showProductInformation(productData) {
 	const productStock = $('#productStock');
 	const productPrice = $('#productPrice');
 	const productDescription = $('#productDescription');
-	const addCartButton = $('#modalAddCart');
-	addCartButton.attr('value', productData.id);
+	const productStack = $('#modalProductStack');
+	const addCartButton = $('button[name="modalAddCart"]');
+	addCartButton.attr('id', productData.id);
 	
 	// Establecer los valores.
 
@@ -99,9 +107,10 @@ function showProductInformation(productData) {
 	productStock.html('available');
 	productPrice.html(productData.precio + " €");
 	productDescription.html(productData.descripcion);
+	productStack.val(1);
 
 	// Mostramos el formulario.
 
-	//$('#exampleModal').modal('show');
+	$('#exampleModal').modal('show');
 
 }
