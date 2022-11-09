@@ -30,6 +30,19 @@ $(function() {
 		}
 
 	});
+	
+		
+	// Evento para eliminar los productos del carrito. (Vista carrito)
+	
+	$('#emptyCart').click(function() {
+		
+		if (confirm('¿Está seguro de eliminar todos los productos del carrito?')) {
+			emptyCart();
+		}
+		
+		return false; // Para anular el evento y evitar que recargue la página.
+		
+	});
 
 });
 
@@ -368,7 +381,7 @@ function addRowProductCartTable(product) {
 
 function updateQuantityTable(data) {
 
-	console.log(data);
+	//console.log(data);
 
 	const totalAmmount = $('#totalProductAmount_' + data.producto.id);
 	const quantityInput = $('#product_' + data.producto.id);
@@ -378,6 +391,26 @@ function updateQuantityTable(data) {
 
 }
 
+/*
+	Elimina todos los productos que se encuentren en el carrito.
+ */
+
+function emptyCart() {
+	
+	$.ajax({
+		url: '/carrito/empty',
+		type: 'POST',
+		success: (data) => {
+
+			if (data !== null) {
+				fillIncludedCart(data);
+				fillCartTable(data);
+			}
+
+		}
+	});
+	
+}
 
 
 /*

@@ -122,9 +122,13 @@ function clearFilters() {
 
 		let idProduct = parseInt(e);
 
-		if (idProduct !== NaN) {
-			$(categories[e]).prop("checked", false);
+		if (typeof idProduct == 'string') {
+			console.log('Algo para eliminar')
 		}
+
+		/*if (idProduct !== NaN) {
+			$(categories[e]).prop("checked", false);
+		}*/
 
 		/*if (typeof e !== undefined) {
 			
@@ -367,7 +371,7 @@ function paintProduct(container, product) {
 		'</a>' +
 		'<div class="button-head">' +
 		'<div class="product-action">' +
-		'<a class="details-product" href=""><i class=" ti-eye mr-2"> </i><span>Ver detalles</span></a>' +
+		'<a class="details-product" id="' + product.id + '"><i class=" ti-eye mr-2"></i><span>Ver detalles</span></a>' +
 		'</div>' +
 		'<div class="product-action-2">' +
 		'<input type="button" name="addCart" id="' + product.id + '" class="btn" value="Añadir al carrito">' +

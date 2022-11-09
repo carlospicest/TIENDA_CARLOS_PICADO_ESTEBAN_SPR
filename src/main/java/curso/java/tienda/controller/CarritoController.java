@@ -75,4 +75,14 @@ public class CarritoController {
 		
 	}
 	
+	@PostMapping(path = "/empty", produces="application/json")
+	public @ResponseBody ObjectNode postEmptyCarrito(HttpSession session) {
+		
+		HashMap<Integer, DetallePedido> cartList = (HashMap<Integer, DetallePedido>) session.getAttribute("cart");
+		cartList.clear();
+		
+		return carritoService.getJSONCompleteCartInfo(cartList);
+		
+	}
+	
 }
