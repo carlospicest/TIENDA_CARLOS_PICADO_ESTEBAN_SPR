@@ -14,6 +14,7 @@ import curso.java.tienda.service.CategoriaService;
 import curso.java.tienda.service.ProductoService;
 import curso.java.tienda.service.ResultadoService;
 import curso.java.tienda.service.ResultadoService.TipoResultado;
+import curso.java.tienda.utiles.JsonDisplay;
 
 @Controller
 public class IndexController {
@@ -39,9 +40,13 @@ public class IndexController {
 	@GetMapping(value = "/resultado")
 	public String getResultado(Model model) {
 		
-		String json = resultadoService.getResultado(TipoResultado.SUCCESS, "Se ha producido algo bueno");
+		String json = resultadoService.getResultado(TipoResultado.SUCCESS, "<h2>Se ha producido algo bueno</h2>");
+		
+		String str = JsonDisplay.showString(json, "msg");
 		
 		model.addAttribute("resultado", json);
+		
+		
 		
 		return "/index/resultado";
 		
