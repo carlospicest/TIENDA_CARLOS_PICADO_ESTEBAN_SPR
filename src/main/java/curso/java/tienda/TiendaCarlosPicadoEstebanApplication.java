@@ -15,7 +15,7 @@ public class TiendaCarlosPicadoEstebanApplication {
 		SpringApplication.run(TiendaCarlosPicadoEstebanApplication.class, args);
 		// Hilos a ejecutar con la aplicación
 		ProcesadoPedidoThread procesadoPedidos = new ProcesadoPedidoThread();
-		procesadoPedidos.run();
+		//procesadoPedidos.run();
 	}
 
 }

@@ -53,8 +53,6 @@ function addSimpleProductCart(idProduct, stack) {
 		},
 		success: (data) => {
 
-
-
 			let productName = getProductName(idProduct);
 			
 			$.when(productName).done(function(data) {

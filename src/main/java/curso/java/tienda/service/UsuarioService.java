@@ -67,6 +67,19 @@ public class UsuarioService {
 		return usuarioList;
 
 	}
+	
+	public ArrayList<Usuario> getMixinUsuarios(ArrayList<Usuario> usuarios) {
+		
+		ArrayList<Usuario> usuariosMixin = new ArrayList<>();
+		
+		for (Usuario usuario : usuarios) {
+			Usuario usuarioMixin = getUsuarioMixin(usuario);
+			usuariosMixin.add(usuarioMixin);
+		}
+		
+		return usuariosMixin;
+		
+	}
 
 	public boolean addUsuario(Usuario usuario) {
 
@@ -195,6 +208,8 @@ public class UsuarioService {
 
 			byte[] usuarioDataMixin = mapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(usuario);
 
+			mapper.addMixIn(Usuario.class, UsuarioMixin.class);
+			
 			usuarioProtegido = mapper.readValue(usuarioDataMixin, Usuario.class);
 
 			System.out.println("");

@@ -34,7 +34,6 @@ public class CarritoController {
 		
 	}
 	
-	
 	@GetMapping(path = "/show", produces="application/json")
 	public @ResponseBody ObjectNode getShowCarrito(HttpSession session) {
 		
