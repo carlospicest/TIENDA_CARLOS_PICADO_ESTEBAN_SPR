@@ -114,27 +114,10 @@ function clearFilters() {
 
 	// Filtro de categorías.
 
-	const categories = $('input[type="checkbox"][name="category"]:checked');
+	const categories = $('input[type="checkbox"][name="category"]:checked').toArray();
 
-	Object.keys(categories).forEach((e) => {
-
-		//const element = $(categories[e]);
-
-		let idProduct = parseInt(e);
-
-		if (typeof idProduct == 'string') {
-			console.log('Algo para eliminar')
-		}
-
-		/*if (idProduct !== NaN) {
-			$(categories[e]).prop("checked", false);
-		}*/
-
-		/*if (typeof e !== undefined) {
-			
-			e.prop("checked", false);
-		}*/
-
+	categories.forEach((value) => {
+		$(value).prop('checked', false);
 	});
 
 	// Filtro de ordenación.
@@ -276,9 +259,9 @@ function getSortCriteria() {
  */
 
 function prepareFilter() {
-	
+
 	clearProductContainer();
-	
+
 	let criteria = buildFilter();
 
 	criteria.categories = getIdCategorySelected();
@@ -338,18 +321,18 @@ function fillProductsCatalog(products) {
 	}
 
 	// Evento para los botones de agregar producto.
-	
+
 	$('input[name="addCart"]').click(function() {
 		const idProduct = $(this).prop('id');
 		addSimpleProductCart(idProduct, 1);
 	});
 
 	$('a.details-product').click(function() {
-		
+
 		const idProduct = $(this).prop('id');
-		
+
 		getProductInformation(idProduct)
-		
+
 	});
 
 }
@@ -365,7 +348,7 @@ function paintProduct(container, product) {
 		'<div class="single-product">' +
 		'<div class="product-img">' +
 		'<a class="details-product" id=' + product.id + '> <img class="default-img catalogo"' +
-		'src="/index/images/productos/' + product.id + '/' + product.id +'.jpg" alt="">' +
+		'src="/index/images/productos/' + product.id + '/' + product.id + '.jpg" alt="">' +
 		'<img class="hover-img catalogo" src="/index/images/productos/' + product.id + '/' + product.id + '.jpg"' +
 		'alt="">' +
 		'</a>' +
