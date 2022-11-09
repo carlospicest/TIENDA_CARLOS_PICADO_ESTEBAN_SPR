@@ -19,3 +19,9 @@
 .hover-img.catalogo {
 	height: 37vh;
 }
+
+/* Ajuste para el modal */
+
+.img-slider {
+	height: 10vh;
+}

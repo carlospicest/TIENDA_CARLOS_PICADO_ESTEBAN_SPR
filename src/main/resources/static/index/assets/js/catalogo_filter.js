@@ -340,6 +340,14 @@ function fillProductsCatalog(products) {
 		addSimpleProductCart(idProduct, 1);
 	});
 
+	$('a.details-product').click(function() {
+		
+		const idProduct = $(this).prop('id');
+		
+		getProductInformation(idProduct)
+		
+	});
+
 }
 
 /*
@@ -352,15 +360,14 @@ function paintProduct(container, product) {
 	let productTemplate = '<div class="col-lg-4 col-md-6 col-12">' +
 		'<div class="single-product">' +
 		'<div class="product-img">' +
-		'<a href="product-details.html"> <img class="default-img"' +
-		'src="https://cdn.iconscout.com/icon/premium/png-256-thumb/best-product-3102470-2583790.png" alt="#">' +
-		'<img class="hover-img" src="https://cdn.iconscout.com/icon/premium/png-256-thumb/best-product-3102470-2583790.png"' +
-		'alt="#"> <span class="new">New</span> <!--<span class="price-dec">30% Off</span> Para artículos en descuento -->' +
-		'<!--<span class="out-of-stock">Hot</span> Para artículos sin stock -->' +
+		'<a class="details-product" id=' + product.id + '> <img class="default-img catalogo"' +
+		'src="/index/images/productos/' + product.id + '/' + product.id +'.jpg" alt="">' +
+		'<img class="hover-img catalogo" src="/index/images/productos/' + product.id + '/' + product.id + '.jpg"' +
+		'alt="">' +
 		'</a>' +
 		'<div class="button-head">' +
 		'<div class="product-action">' +
-		'<a title="Wishlist" href="#"><i class=" ti-heart "> </i><span>Añadir a lista de deseos</span></a>' +
+		'<a class="details-product" href=""><i class=" ti-eye mr-2"> </i><span>Ver detalles</span></a>' +
 		'</div>' +
 		'<div class="product-action-2">' +
 		'<input type="button" name="addCart" id="' + product.id + '" class="btn" value="Añadir al carrito">' +

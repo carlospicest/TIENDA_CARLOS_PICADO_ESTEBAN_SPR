@@ -2,37 +2,16 @@ $(function() {
 
 	// Comprobar botones de ver información (para asignar evento modal).
 
-	const buttonList = $('a.details-product');
+	$('a.details-product').click(function(e) {
 
-	for (let button of buttonList) {
+		const idProduct = $(this).prop('id');
 
-		$(button).click(() => {
+		getProductInformation(idProduct);
 
-			const idProduct = $(button).prop('id');
-
-			//console.log('Producto => ', idProduct)
-
-			$.ajax({
-				url: '/producto/show/' + idProduct,
-				type: 'GET',
-				data: {
-					idProduct: idProduct,
-				},
-				success: (data) => {
-
-					showProductInformation(data);
-
-				}
-			});
-
-			return false; // Para evitar el desplazamiento al top.
-
-		});
-
-	}
+	})
 
 	// Eventos para los botones de sumar, restar y el input de cantidad.
-	
+
 	const minusButton = $('#modalProductMinus');
 	const plusButton = $('#modalProductPlus');
 	const stackInput = $('#modalProductStack');
@@ -67,15 +46,15 @@ $(function() {
 	addCartButton.click(() => {
 
 		// Obtenemos número de unidades y el id del producto.
-		
+
 		const idProduct = addCartButton.prop('id');
 		const stack = stackInput.prop('value');
-		
+
 		//addSimpleProductCart(idProduct, stack);
 		updateProductCartTable(idProduct, stack, 'MASIVE');
-		
+
 		showSuccessToastr('Nuevo producto en el carrito', $('#productName').text() + ' x' + stack);
-		
+
 		$('#exampleModal').modal('hide');
 
 	});
@@ -84,10 +63,29 @@ $(function() {
 });
 
 
+function getProductInformation(idProduct) {
+
+	$.ajax({
+		url: '/producto/show/' + idProduct,
+		type: 'GET',
+		data: {
+			idProduct: idProduct,
+		},
+		success: (data) => {
+
+			showProductInformation(data);
+
+		}
+	});
+
+	return false; // Para evitar el desplazamiento al top.
+
+}
+
 
 function showProductInformation(productData) {
 
-	//console.log(productData);
+	console.log(productData);
 
 	// Cargamos la información del producto dentro del modal.
 
@@ -99,7 +97,7 @@ function showProductInformation(productData) {
 	const productStack = $('#modalProductStack');
 	const addCartButton = $('button[name="modalAddCart"]');
 	addCartButton.attr('id', productData.id);
-	
+
 	// Establecer los valores.
 
 	productName.html(productData.nombre);
@@ -108,6 +106,12 @@ function showProductInformation(productData) {
 	productPrice.html(productData.precio + " €");
 	productDescription.html(productData.descripcion);
 	productStack.val(1);
+	
+	// Mostrar la imagen
+	
+	const containerImages = $('.quickview-slider-active');
+	
+	$(containerImages).append('<div class="single-slider">' + '<img class="img-slider" src="/index/images/productos/' + productData.id + '/' + productData.id + '.jpg"' + '</div>');
 
 	// Mostramos el formulario.
 
