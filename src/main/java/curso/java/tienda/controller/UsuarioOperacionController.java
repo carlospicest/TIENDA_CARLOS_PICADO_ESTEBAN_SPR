@@ -1,10 +1,12 @@
 package curso.java.tienda.controller;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,9 +44,9 @@ public class UsuarioOperacionController {
 	}
 	
 	@PostMapping(path = "/registro")
-	public String altaUsuarioPost(@ModelAttribute("usuario") Usuario usuario, Model model) {
+	public String altaUsuarioPost(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult bindingResult, Model model) {
 		
-		if (usuarioService.isDatosUsuarioValidos(usuario)) {
+		if (!bindingResult.hasErrors()) {
 			
 			usuario.setRol(rolService.getRol(RoleData.rol.CLIENTE.getId()));
 			usuario = usuarioService.setEncriptacion(usuario);
@@ -64,7 +66,6 @@ public class UsuarioOperacionController {
 			
 		} else {
 			model.addAttribute("provinciaList", SourceData.getProvincias());
-			model.addAttribute("error", "No se permiten campos en blanco. Por favor, rellene todos los campos.");
 			return "/index/alta_usuario";
 		}
 
