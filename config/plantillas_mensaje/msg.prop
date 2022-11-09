@@ -1,0 +1,2 @@
+registro.success=<h2 class="text-center">Se ha registrado correctamente</h2><p class="h4 mt-5">Ahora podrá disfrutar de todas las ventajas de nuestra tienda.</p><p class="h4 mt-5">Inicie sesión para acceder a todas nuestras ofertas.</p>
+registro.error=<h2 class="text-center">Se ha producido un error en el registro</h2><p class="h4 mt-5">No se ha podido completar la creación de su cuenta, intente en otro momento.</p>

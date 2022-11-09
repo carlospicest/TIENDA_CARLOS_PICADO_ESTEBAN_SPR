@@ -225,5 +225,47 @@ public class UsuarioService {
 		return usuarioProtegido;
 
 	}
+	
+	public boolean isDatosUsuarioValidos(Usuario usuario) {
+		
+		if (usuario.getEmail() == null || usuario.getEmail().isEmpty()) {
+			return false;
+		}
+		
+		if (usuario.getNombre() == null || usuario.getNombre().isEmpty()) {
+			return false;
+		}
+		
+		if (usuario.getApellido1() == null || usuario.getApellido1().isEmpty()) {
+			return false;
+		}
+		
+		if (usuario.getApellido2() == null || usuario.getApellido2().isEmpty()) {
+			return false;
+		}
+		
+		if (usuario.getDireccion() == null || usuario.getDireccion().isEmpty()) {
+			return false;
+		}
+		
+		if (usuario.getProvincia() == null || usuario.getProvincia().isEmpty()) {
+			return false;
+		}
+		
+		if (usuario.getLocalidad() == null || usuario.getLocalidad().isEmpty()) {
+			return false;
+		}
+		
+		if (usuario.getTelefono() == null || usuario.getTelefono().isEmpty()) {
+			return false;
+		}
+		
+		if (usuario.getDni() == null || usuario.getDni().isEmpty()) {
+			return false;
+		}
+		
+		return true;
+		
+	}
 
 }

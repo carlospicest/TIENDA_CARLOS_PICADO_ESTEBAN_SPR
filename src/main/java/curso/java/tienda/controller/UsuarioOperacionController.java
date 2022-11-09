@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import curso.java.tienda.pojo.Usuario;
+import curso.java.tienda.service.ResultadoService;
 import curso.java.tienda.service.RolService;
 import curso.java.tienda.service.UsuarioService;
+import curso.java.tienda.service.ResultadoService.TipoResultado;
+import curso.java.tienda.utiles.MensajeTemplate;
 import curso.java.tienda.utiles.SourceData;
 import datos.RoleData;
 
@@ -23,6 +26,8 @@ public class UsuarioOperacionController {
 	private UsuarioService usuarioService;
 	@Autowired
 	private RolService rolService;
+	@Autowired
+	ResultadoService resultadoService;
 	
 	// Alta de usuarios mediante el formulario del index.
 	
@@ -37,15 +42,31 @@ public class UsuarioOperacionController {
 	}
 	
 	@PostMapping(path = "/registro")
-	public String altaUsuarioPost(@ModelAttribute("usuario") Usuario usuario) {
+	public String altaUsuarioPost(@ModelAttribute("usuario") Usuario usuario, Model model) {
 		
-		if (usuario != null) {
+		if (usuarioService.isDatosUsuarioValidos(usuario)) {
+			
 			usuario.setRol(rolService.getRol(RoleData.rol.CLIENTE.getId()));
 			usuario = usuarioService.setEncriptacion(usuario);
-			usuarioService.addUsuario(usuario);
+			boolean resultado = usuarioService.addUsuario(usuario);
+			
+			String json = null;
+			
+			if (resultado) {
+				json = resultadoService.getResultado(TipoResultado.SUCCESS, MensajeTemplate.getTemplate("registro.success"));
+			} else {
+				json = resultadoService.getResultado(TipoResultado.ERROR, MensajeTemplate.getTemplate("registro.error"));
+			}
+			
+			model.addAttribute("resultado", json);
+			
+			return "/index/resultado";
+			
+		} else {
+			model.addAttribute("provinciaList", SourceData.getProvincias());
+			model.addAttribute("error", "No se permiten campos en blanco. Por favor, rellene todos los campos.");
+			return "/index/alta_usuario";
 		}
-		
-		return "redirect:/";
 
 	}
 	

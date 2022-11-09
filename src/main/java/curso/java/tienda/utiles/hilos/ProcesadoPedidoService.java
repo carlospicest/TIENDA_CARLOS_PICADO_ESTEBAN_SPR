@@ -1,30 +1,17 @@
 package curso.java.tienda.utiles.hilos;
 
-import java.util.ArrayList;
-
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import curso.java.tienda.pojo.Pedido;
-import curso.java.tienda.service.PedidoService;
-import datos.EstadoPedido;
-
 @Service
-public class ProcesadoPedidoThread implements Runnable {
-
-	@Autowired
+public class ProcesadoPedidoService {
+	
+	/*@Autowired
 	private PedidoService pedidoService;
 	private boolean status = true;
 	private final int DEMORA_COMPROBACION = 30000;
 
 	private static Logger log = Logger.getLogger(ProcesadoPedidoThread.class);
 	
-	@EventListener(ApplicationReadyEvent.class)
-	@Async
 	@Override
 	public void run() {
 
@@ -71,6 +58,6 @@ public class ProcesadoPedidoThread implements Runnable {
 			log.error(e);
 		}
 
-	}
+	}*/
 	
 }

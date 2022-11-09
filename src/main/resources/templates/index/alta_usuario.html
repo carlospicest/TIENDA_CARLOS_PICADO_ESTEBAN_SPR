@@ -17,6 +17,8 @@
 							<div class="title">
 								<h3>Formulario de alta de usuario</h3>
 							</div>
+							
+							<span class="alert alert-warning d-block mb-4" th:if="${error != null}" th:text="${error}"></span>
 
 							<form class="form" method="POST" th:action="@{/registro}"
 								th:object="${usuario}">
