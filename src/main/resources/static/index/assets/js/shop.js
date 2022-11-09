@@ -56,7 +56,7 @@ $(function() {
 
 function addSimpleProductCart(idProduct, stack) {
 
-	console.log('Agregado producto => ', idProduct, ' unidades => ', stack);
+	//console.log('Agregado producto => ', idProduct, ' unidades => ', stack);
 
 	$.ajax({
 		url: '/carrito/update',
@@ -142,11 +142,10 @@ function fillIncludedCart(data) {
 					'<a href="#" id="remove_cart_product_' + product.producto.id + '" class="remove" title="Eliminar artículo">' +
 					'<i class="fa fa-remove"></i>' +
 					'</a> <a class="cart-img" href="#">' +
-					'<img src="https://via.placeholder.com/70x70" alt="#"></a>' +
+					'<img src="/index/images/productos/' + product.producto.id + '/' + product.producto.id + '.jpg" alt="#"></a>' +
 					'<h4><a href="#"> ' + product.producto.nombre + '</a></h4>' +
 					'<p class="quantity">' + product.unidades + 'x - <span class="amount"> ' +
 					product.precio_unidad + ' €</span></p></li>');
-
 
 				// Establecer evento para el eliminado.
 

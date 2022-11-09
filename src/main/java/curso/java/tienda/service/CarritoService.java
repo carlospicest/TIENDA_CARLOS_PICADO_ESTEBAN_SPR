@@ -1,5 +1,7 @@
 package curso.java.tienda.service;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +64,7 @@ public class CarritoService {
 
 		double totalAmmount = getTotalStackAmmountDetalleCarrito(cart);
 
-		cartInformation.put("totalAmmount", totalAmmount);
+		cartInformation.put("totalAmmount", formatDecimal(totalAmmount));
 
 		return cartInformation;
 
@@ -165,7 +167,7 @@ public class CarritoService {
 
 	}
 
-	private static void setMinusDetallePedido(DetallePedido detallePedido) {
+	private void setMinusDetallePedido(DetallePedido detallePedido) {
 
 		int stack = detallePedido.getUnidades();
 
@@ -177,7 +179,7 @@ public class CarritoService {
 
 	}
 
-	private static void setPlusDetallePedido(DetallePedido detallePedido) {
+	private void setPlusDetallePedido(DetallePedido detallePedido) {
 
 		int stack = detallePedido.getUnidades();
 
@@ -187,7 +189,7 @@ public class CarritoService {
 
 	}
 
-	private static void setMasiveDetallePedido(DetallePedido detallePedido, int stack) {
+	private void setMasiveDetallePedido(DetallePedido detallePedido, int stack) {
 
 		if (stack >= 1) {
 			Producto product = detallePedido.getProducto();
@@ -195,6 +197,14 @@ public class CarritoService {
 			detallePedido.setTotal(product.getPrecio() * stack);
 		}
 
+	}
+	
+	private String formatDecimal(double value) {
+		
+		DecimalFormat df = new DecimalFormat("#,###.##");
+		df.setRoundingMode(RoundingMode.FLOOR);
+		return df.format(value);
+		
 	}
 
 }

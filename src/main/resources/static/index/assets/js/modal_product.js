@@ -68,9 +68,6 @@ function getProductInformation(idProduct) {
 	$.ajax({
 		url: '/producto/show/' + idProduct,
 		type: 'GET',
-		data: {
-			idProduct: idProduct,
-		},
 		success: (data) => {
 
 			showProductInformation(data);
