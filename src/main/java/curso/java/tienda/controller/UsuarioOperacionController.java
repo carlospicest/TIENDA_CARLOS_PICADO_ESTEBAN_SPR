@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,14 +45,18 @@ public class UsuarioOperacionController {
 	}
 
 	@PostMapping(path = "/registro")
-	public String altaUsuarioPost(@Valid @ModelAttribute("usuario") Usuario usuario, String repassword,
-			BindingResult bindingResult, Model model) {
+	public String altaUsuarioPost(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult bindingResult,
+			Model model, String repassword) {
 
 		if (!bindingResult.hasErrors()) {
 
-			// Si los datos son correctos, verificamos si las contraseñas coinciden.
-
-			if (usuario.getPassword().equals(repassword)) {
+			if (!usuario.getPassword().equals(repassword)) {
+				
+				model.addAttribute("error_pw", "Las contraseñas no son iguales.");
+				model.addAttribute("provinciaList", SourceData.getProvincias());
+				return "/index/alta_usuario";
+				
+			} else {
 
 				usuario.setRol(rolService.getRol(RoleData.rol.CLIENTE.getId()));
 				usuario = usuarioService.setEncriptacion(usuario);
@@ -59,23 +64,18 @@ public class UsuarioOperacionController {
 
 				String json = null;
 
-				if (resultado) {
+				/*if (resultado) {
 					json = resultadoService.getResultado(TipoResultado.SUCCESS,
 							MensajeTemplate.getTemplate("registro.success"));
 				} else {
 					json = resultadoService.getResultado(TipoResultado.ERROR,
 							MensajeTemplate.getTemplate("registro.error"));
-				}
+				}*/
 
 				model.addAttribute("resultado", json);
 
 				return "/index/resultado";
 
-			} else {
-				
-				model.addAttribute("error_pw", "Las contraseñas deben coincidir");
-				return "/index/resultado";
-				
 			}
 
 		} else {

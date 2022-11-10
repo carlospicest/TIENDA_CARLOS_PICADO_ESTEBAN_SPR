@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.DynamicUpdate;
@@ -21,7 +20,6 @@ import org.hibernate.annotations.DynamicUpdate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 @Entity(name = "usuarios")
 @DynamicUpdate
@@ -44,11 +42,10 @@ public class Usuario {
 	@Email(message = "Debe proporcionar un email válido.")
 	@Column(name = "email")
 	private String email;
-	
 
-	@Size(min = 4, message = "La contraseña debe tener mínimo cuatro caracteres.")
 	@NotBlank(message = "La contraseña no puede estar en blanco.")
 	@NotNull(message = "La contraseña no puede estar vacía.")
+	@Size(min = 4, message = "La contraseña debe tener mínimo cuatro caracteres.")
 	@Column(name = "password")
 	private String password;
 	

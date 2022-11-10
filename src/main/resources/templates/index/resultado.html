@@ -14,22 +14,22 @@
 					<div class="col-lg-8 col-12">
 						<div class="form-main">
 
-							<div th:switch='${T(curso.java.tienda.utiles.JsonDisplay).showString(resultado, "result")}'> 
-							
+							<div th:if="${resultado[0] == 'SUCCESS'}">
 								<img class="img-fluid mx-auto d-block mb-5"
 								style="width: 256px; height: 256px;"
-								src="index/assets/images/resultado/check.png"
-								th:case='${T(curso.java.tienda.service.ResultadoService.TipoResultado).SUCCESS.toString()}'>
-							
-								<img class="img-fluid mx-auto d-block mb-5"
-								style="width: 256px; height: 256px;"
-								src="index/assets/images/resultado/error.png"
-								th:case='${T(curso.java.tienda.service.ResultadoService.TipoResultado).ERROR.toString()}'>
-							
+								src="index/assets/images/resultado/check.png">
+								
+								<div th:utext="${resultado[1]}"></div>
+								
 							</div>
 
-							<p th:text='#{T(curso.java.tienda.utiles.JsonDisplay).showString(resultado, "msg")}'>
-							</p>
+							<div th:if="${resultado[0] == 'ERROR'}">
+								<img class="img-fluid mx-auto d-block mb-5"
+								style="width: 256px; height: 256px;"
+								src="index/assets/images/resultado/error.png">
+								
+								<div th:utext="${resultado[1]}" class="text-center"></div>
+							</div>
 
 						</div>
 					</div>

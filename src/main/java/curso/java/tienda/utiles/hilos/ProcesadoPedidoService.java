@@ -1,28 +1,30 @@
 package curso.java.tienda.utiles.hilos;
 
+import java.util.ArrayList;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import curso.java.tienda.pojo.Pedido;
+import curso.java.tienda.service.PedidoService;
+import datos.EstadoPedido;
+
 @Service
-public class ProcesadoPedidoService {
-	
-	/*@Autowired
+public class ProcesadoPedidoService implements CommandLineRunner {
+
+	@Autowired
 	private PedidoService pedidoService;
 	private boolean status = true;
 	private final int DEMORA_COMPROBACION = 30000;
 
-	private static Logger log = Logger.getLogger(ProcesadoPedidoThread.class);
-	
-	@Override
-	public void run() {
+	private static Logger log = Logger.getLogger(ProcesadoPedidoService.class);
 
-		while (status) {
-			verServicio();
-		}
-
-	}
-
-	private synchronized void verServicio() {
-
+	@Async("taskExecutorProcesadoPedidos")
+	private void verServicio() {
+		
 		if (pedidoService != null) {
 			
 			ArrayList<Pedido> pedidosPendientesEnvio = pedidoService
@@ -36,7 +38,7 @@ public class ProcesadoPedidoService {
 					momentoDeOperaciones();
 					pedido.setEstado(EstadoPedido.estado.ENVIADO.getAlias());
 					pedidoService.addPedido(pedido);
-					log.info("Pedido ID => " + pedido.getId() + " ha sido colocado en la estación de envío");
+					log.info("Pedido ID => " + pedido.getId() + " ha sido colocado en la estación de envío.");
 				}
 				
 				log.info("Los pedidos han sido enviados correctamente.");
@@ -54,10 +56,19 @@ public class ProcesadoPedidoService {
 		try {
 			Thread.sleep(DEMORA_COMPROBACION);
 		} catch (InterruptedException e) {
-			System.err.println("Problema en el momento!");
-			log.error(e);
+			System.err.println("Ups, el transportador ha sufrido un percance!");
+			log.error("Ups, el transportador ha sufrido un percance!", e);
 		}
 
-	}*/
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		
+		while(status) {
+			verServicio();
+		}
+		
+	}
 	
 }

@@ -17,46 +17,67 @@
 							<div class="title">
 								<h3>Formulario de alta de usuario</h3>
 							</div>
-							
-							<span class="alert alert-warning d-block mb-4" th:if="${error != null}" th:text="${error}"></span>
+
+							<span class="alert alert-warning d-block mb-4"
+								th:if="${error != null}" th:text="${error}"></span>
 
 							<form class="form" method="POST" th:action="@{/registro}"
 								th:object="${usuario}">
 								<div class="row">
-									<div class="col-lg-6 col-12">
-										<div class="form-group">
-											<label>Nombre<span>*</span></label> <input name="nombre"
-												class="mb-2" type="text" placeholder="" th:field="*{nombre}">
-												<span th:if="${#fields.hasErrors('nombre')}" class="text-warning mt-2" th:errors="*{nombre}"></span>
+									<div class="col-lg-6 col-12 ">
+									<div class="form-group">
+										<label>Nombre<span>*</span></label> 
+										<input name="nombre" class="form-control"
+											   type="text" placeholder=""
+											   th:field="*{nombre}"> 
+										<span
+										   		th:if="${#fields.hasErrors('nombre')}"
+										  		class="text-warning mt-2" 
+										   		th:errors="*{nombre}">
+										</span>
+										<div id="bad-data-nombre" class="bad-data">
 										</div>
+									</div>
 									</div>
 									<div class="col-lg-6 col-12">
 										<div class="form-group">
-											<label>Primer apellido<span>*</span></label> <input
-												class="mb-2" name="primer_apellido" type="text" placeholder=""
-												th:field="*{apellido1}">
-												<span th:if="${#fields.hasErrors('apellido1')}" class="text-warning mt-2" th:errors="*{apellido1}"></span>
+											<label>Primer apellido<span>*</span></label> 
+											<input
+												class="form-control mb-2" name="primer_apellido" type="text"
+												placeholder="" th:field="*{apellido1}"> 
+											<span
+												th:if="${#fields.hasErrors('apellido1')}"
+												class="text-warning mt-2" th:errors="*{apellido1}">
+											</span>
+											<div id="bad-data-apellido1" class="bad-data"></div>
 										</div>
 									</div>
 									<div class="col-lg-6 col-12">
 										<div class="form-group">
 											<label>Segundo apellido<span>*</span></label> <input
-												name="segundo_apellido" class="mb-2" type="text" th:field="*{apellido2}">
-												<span th:if="${#fields.hasErrors('apellido2')}" class="text-warning mt-2" th:errors="*{apellido2}"></span>
+												name="segundo_apellido" class="form-control mb-2"
+												type="text" th:field="*{apellido2}"> <span
+												th:if="${#fields.hasErrors('apellido2')}"
+												class="text-warning mt-2" th:errors="*{apellido2}"></span>
+												<div id="bad-data-apellido2" class="bad-data"></div>
 										</div>
 									</div>
 									<div class="col-lg-6 col-12">
 										<div class="form-group">
 											<label>DNI<span>*</span></label> <input name="dni"
-												class="mb-2" type="text" th:field="*{dni}">
-												<span th:if="${#fields.hasErrors('dni')}" class="text-warning mt-2" th:errors="*{dni}"></span>
+												class="form-control mb-2" type="text" th:field="*{dni}">
+											<span th:if="${#fields.hasErrors('dni')}"
+												class="text-warning mt-2" th:errors="*{dni}"></span>
+												<div id="bad-data-dni" class="bad-data"></div>
 										</div>
 									</div>
 									<div class="col-lg-6 col-12">
 										<div class="form-group">
-											<label>Dirección<span>*</span></label> <input
-												class="mb-2" name="direccion" type="text" th:field="*{direccion}">
-												<span th:if="${#fields.hasErrors('direccion')}" class="text-warning mt-2" th:errors="*{direccion}"></span>
+											<label>Dirección<span>*</span></label> <input class="mb-2"
+												name="direccion" type="text" th:field="*{direccion}">
+											<span th:if="${#fields.hasErrors('direccion')}"
+												class="text-warning mt-2" th:errors="*{direccion}"></span>
+												<div id="bad-data-direccion" class="bad-data"></div>
 										</div>
 									</div>
 									<div class="col-lg-6 col-12">
@@ -66,29 +87,36 @@
 												th:field="*{provincia}" id="provincia" class="mb-2">
 												<option th:each="p : ${provinciaList}" th:value="${p}"
 													th:text="${p}">
-											</select>
-											<span th:if="${#fields.hasErrors('provincia')}" class="text-warning mt-2" th:errors="*{provincia}"></span>
+											</select> <span th:if="${#fields.hasErrors('provincia')}"
+												class="text-warning mt-2" th:errors="*{provincia}"></span>
+												<div id="bad-data-provincia" class="bad-data"></div>
 										</div>
 									</div>
 									<div class="col-lg-6 col-12">
 										<div class="form-group">
-											<label>Localidad<span>*</span></label> <input
-												class="mb-2" name="localidad" type="text" th:field="*{localidad}">
-												<span th:if="${#fields.hasErrors('localidad')}" class="text-warning mt-2" th:errors="*{localidad}"></span>
+											<label>Localidad<span>*</span></label> <input class="mb-2"
+												name="localidad" type="text" th:field="*{localidad}">
+											<span th:if="${#fields.hasErrors('localidad')}"
+												class="text-warning mt-2" th:errors="*{localidad}"></span>
+												<div id="bad-data-localidad" class="bad-data"></div>
 										</div>
 									</div>
 									<div class="col-lg-6 col-12">
 										<div class="form-group">
 											<label>Teléfono<span>*</span></label> <input name="telefono"
-												type="text" th:field="*{telefono}" class="mb-2">
-											<span th:if="${#fields.hasErrors('telefono')}" class="text-warning mt-2" th:errors="*{telefono}"></span>
+												type="text" th:field="*{telefono}" class="mb-2"> <span
+												th:if="${#fields.hasErrors('telefono')}"
+												class="text-warning mt-2" th:errors="*{telefono}"></span>
+												<div id="bad-data-telefono" class="bad-data"></div>
 										</div>
 									</div>
 									<div class="col-lg-6 col-12">
 										<div class="form-group">
 											<label>Email<span>*</span></label> <input name="email"
-												type="email" class="mb-2" th:field="*{email}">
-												<span th:if="${#fields.hasErrors('email')}" class="text-warning mt-2" th:errors="*{email}"></span>
+												type="email" class="mb-2" th:field="*{email}"> <span
+												th:if="${#fields.hasErrors('email')}"
+												class="text-warning mt-2" th:errors="*{email}"></span>
+												<div id="bad-data-email" class="bad-data"></div>
 										</div>
 									</div>
 									<div class="col-lg-6 col-12">
@@ -96,14 +124,21 @@
 											<label>Contraseña<span>*</span></label> <input
 												name="password" type="password" class="mb-2"
 												autocomplete="current-passowrd" th:field="*{password}">
-												<span th:if="${#fields.hasErrors('password')}" class="text-warning mt-2" th:errors="*{password}"></span>
+											<span th:if="${#fields.hasErrors('password')}"
+												class="text-warning mt-2" th:errors="*{password}"></span> <span
+												th:if="${error_pw != null}" class="text-warning mt-2"
+												th:text="${error_pw}"></span>
+											<div id="bad-data-password" class="bad-data"></div>
 										</div>
 									</div>
 									<div class="col-lg-6 col-12">
 										<div class="form-group">
 											<label>Repetir contraseña<span>*</span></label> <input
 												name="repassword" type="password" class="mb-2"
-												autocomplete="current-passowrd" value="">
+												autocomplete="current-passowrd" value=""> <span
+												th:if="${error_pw != null}" class="text-warning mt-2"
+												th:text="${error_pw}"></span>
+											<div id="bad-data-repassword" class="bad-data"></div>
 										</div>
 									</div>
 
@@ -159,6 +194,8 @@
 	<script src="index/assets/js/common-settings.js"></script>
 	<!-- Shop -->
 	<script src="index/assets/js/shop.js"></script>
+	<!-- Validación alta de usuario -->
+	<script th:src="@{/index/assets/js/validacion_alta-usuario.js}"></script>
 
 </body>
 </html>

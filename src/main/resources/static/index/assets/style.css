@@ -4704,6 +4704,12 @@ body {
 	box-shadow: 0px 0px 15px #0000001a;
 	padding: 50px;
 }
+
+
+.bad-data {
+	color: #dc3545;
+}
+
 .contact-us .form .form-group input:not(input[type="checkbox"], input[type="file"]) {
 	height: 48px;
 	line-height: 48px;
@@ -4714,6 +4720,8 @@ body {
 	border-radius: 0px;
 	font-weight: 400;
 }
+
+
 .contact-us .form .form-group textarea {
 	height: 180px;
 	width: 100%;
