@@ -24,6 +24,8 @@ import curso.java.tienda.service.DetallePedidoService;
 import curso.java.tienda.service.MetodoPagoService;
 import curso.java.tienda.service.PedidoService;
 import curso.java.tienda.service.ProductoService;
+import curso.java.tienda.service.ResultadoService;
+import curso.java.tienda.service.ResultadoService.TipoResultado;
 import curso.java.tienda.utiles.DateTime;
 
 @Controller
@@ -39,43 +41,58 @@ public class PagoController {
 	private DetallePedidoService detallePedidoService;
 	@Autowired
 	private ProductoService productoService;
+	@Autowired
+	private ResultadoService resultadoService;
 
 	@GetMapping(value = "/pago")
 	public String pagoIndexGet(HttpSession session, Model model) {
 
-		// Obtenemos los métodos de pago, productos del carrito.
+		Usuario user = (Usuario) session.getAttribute("userdata");
 
-		ArrayList<MetodoPago> metodoPagoList = metodoPagoService.getMetodosPago();
-		HashMap<Integer, DetallePedido> cart = (HashMap<Integer, DetallePedido>) session.getAttribute("cart");
+		if (user != null) {
 
-		// Información de impuestos y precios para enviar a la vista.
+			// Obtenemos los métodos de pago, productos del carrito.
 
-		final double IVA = 21;
-		final double IVA_OPERABLE = IVA / 100;
-		final double IMPORTE_TOTAL_SIN_IVA = carritoService.getTotalStackAmmountDetalleCarrito(cart);
-		final double IMPORTE_TOTAL_IVA = IMPORTE_TOTAL_SIN_IVA * IVA_OPERABLE;
-		final double IMPORTE_TOTAL = IMPORTE_TOTAL_SIN_IVA + IMPORTE_TOTAL_IVA;
+			ArrayList<MetodoPago> metodoPagoList = metodoPagoService.getMetodosPago();
+			HashMap<Integer, DetallePedido> cart = (HashMap<Integer, DetallePedido>) session.getAttribute("cart");
 
-		// Creamos el formateador decimal.
+			// Información de impuestos y precios para enviar a la vista.
 
-		DecimalFormat df = new DecimalFormat("#,###.##");
-		df.setRoundingMode(RoundingMode.FLOOR);
+			final double IVA = 21;
+			final double IVA_OPERABLE = IVA / 100;
+			final double IMPORTE_TOTAL_SIN_IVA = carritoService.getTotalStackAmmountDetalleCarrito(cart);
+			final double IMPORTE_TOTAL_IVA = IMPORTE_TOTAL_SIN_IVA * IVA_OPERABLE;
+			final double IMPORTE_TOTAL = IMPORTE_TOTAL_SIN_IVA + IMPORTE_TOTAL_IVA;
 
-		// Agregar al modelo la información.
+			// Creamos el formateador decimal.
 
-		model.addAttribute("IVA_valor", IVA);
-		model.addAttribute("importe_sin_iva", df.format(IMPORTE_TOTAL_SIN_IVA));
-		model.addAttribute("importe_con_iva", df.format(IMPORTE_TOTAL_IVA));
-		model.addAttribute("importe_total", df.format(IMPORTE_TOTAL));
+			DecimalFormat df = new DecimalFormat("#,###.##");
+			df.setRoundingMode(RoundingMode.FLOOR);
 
-		model.addAttribute("metodosPagoList", metodoPagoList);
+			// Agregar al modelo la información.
 
-		return "index/pago";
+			model.addAttribute("IVA_valor", IVA);
+			model.addAttribute("importe_sin_iva", df.format(IMPORTE_TOTAL_SIN_IVA));
+			model.addAttribute("importe_con_iva", df.format(IMPORTE_TOTAL_IVA));
+			model.addAttribute("importe_total", df.format(IMPORTE_TOTAL));
+
+			model.addAttribute("metodosPagoList", metodoPagoList);
+
+			return "index/pago";
+
+		} else {
+
+			String resultado[] = resultadoService.getResultado(TipoResultado.ERROR,
+					"<h2 class='text-center'>No se puede continuar el proceso de compra</h2><p class='mt-3 text-left'>Hemos detectado que usted no está identificado.</p><p class='mt-3 text-left'>Para poder finalizar el proceso de compra será necesario que se identifique o puede crearse una nueva cuenta.</p>");
+			model.addAttribute("resultado", resultado);
+			
+			return "/index/resultado";
+		}
 
 	}
 
 	@PostMapping(value = "/checkout")
-	public String checkoutPost(HttpSession session, @ModelAttribute("metodo_pago") String metodo_pago) {
+	public String checkoutPost(HttpSession session, @ModelAttribute("metodo_pago") String metodo_pago, Model model) {
 
 		Usuario usuario = (Usuario) session.getAttribute("userdata");
 
@@ -117,11 +134,19 @@ public class PagoController {
 
 			cart.clear();
 
-			return "redirect:/";
+			String resultado[] = resultadoService.getResultado(TipoResultado.SUCCESS,
+					"<h2 class='text-center'>Compra realizada correctamente</h2><p class='mt-3 text-left'>Gracias por confiar en nosotros.</p><p class='mt-3'>Nuestros agentes se pondrán a procesar su pedido a la mayor brevedad.</p>");
+			model.addAttribute("resultado", resultado);
+			
+			return "/index/resultado";
 
 		} else {
+
+			String resultado[] = resultadoService.getResultado(TipoResultado.ERROR,
+					"<h2 class='text-center'>No se puede continuar el proceso de compra</h2><p class='mt-3 text-left'>Hemos detectado que usted no está identificado.</p><p class='mt-3 text-left'>Para poder finalizar el proceso de compra será necesario que se identifique o puede crearse una nueva cuenta.</p>");
+			model.addAttribute("resultado", resultado);
 			
-			return null;
+			return "/index/resultado";
 		}
 
 	}

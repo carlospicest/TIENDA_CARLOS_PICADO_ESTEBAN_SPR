@@ -23,6 +23,8 @@ import curso.java.tienda.pojo.Pedido;
 import curso.java.tienda.pojo.Usuario;
 import curso.java.tienda.service.CancelacionPedidoService;
 import curso.java.tienda.service.PedidoService;
+import curso.java.tienda.service.ResultadoService;
+import curso.java.tienda.service.ResultadoService.TipoResultado;
 import curso.java.tienda.utiles.DateTime;
 import datos.EstadoCancelacionPedido;
 import datos.EstadoPedido;
@@ -36,6 +38,8 @@ public class PedidoController {
 	private PedidoDAO pedidoDao;
 	@Autowired
 	private CancelacionPedidoService cancelacionPedidoService;
+	@Autowired
+	private ResultadoService resultadoService;
 	
 	@RequestMapping(path = "/pedidos", method = RequestMethod.GET)
 	public String getIndex(Model model) {
@@ -103,7 +107,7 @@ public class PedidoController {
 	}
 	
 	@PostMapping(value = "/cancelacion_pedido")
-	public String cancelacionPedidoGet(@RequestParam(name = "id", required = true) int id, String motivo, HttpSession session) {
+	public String cancelacionPedidoGet(@RequestParam(name = "id", required = true) int id, String motivo, HttpSession session, Model model) {
 
 		Pedido pedido = pedidoService.getPedido(id);
 		pedido.setEstado(EstadoPedido.estado.PENDIENTE_CANCELACION.getAlias());
@@ -115,9 +119,27 @@ public class PedidoController {
 		cancelacionPedido.setNum_solicitud("CAN_S0");
 		cancelacionPedido.setFecha(DateTime.getCurrentTime());
 		
-		cancelacionPedidoService.addCancelacionPedido(cancelacionPedido);
+		boolean resultado = cancelacionPedidoService.addCancelacionPedido(cancelacionPedido);
 		
-		return "redirect:/historial_pedidos";
+		if (resultado) {
+			
+			String resultadoDatos[] = resultadoService.getResultado(TipoResultado.SUCCESS,
+					"<h2 class='text-center'>Solicitud de cancelación registrada</h2><p class='mt-3 text-left'>Hemos recibido su solicitud de cancelación.</p><p>Un agente evaluará su caso lo antes posible.</p>");
+			
+			model.addAttribute("resultado", resultadoDatos);
+			
+			return "/index/resultado";
+			
+		} else {
+			
+			String resultadoDatos[] = resultadoService.getResultado(TipoResultado.ERROR,
+					"<h2 class='text-center'>Error al solicitar la cancelación</h2><p class='mt-3 text-left'>Hemos tenido inconvenientes procesando su solicitud de cancelación.</p><p>Intente el proceso de nuevo mas tarde.</p>");
+			
+			model.addAttribute("resultado", resultadoDatos);
+			
+			return "/index/resultado";
+			
+		}
 		
 	}
 	

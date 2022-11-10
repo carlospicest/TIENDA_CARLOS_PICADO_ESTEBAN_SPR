@@ -51,30 +51,32 @@ public class UsuarioOperacionController {
 		if (!bindingResult.hasErrors()) {
 
 			if (!usuario.getPassword().equals(repassword)) {
-				
+
 				model.addAttribute("error_pw", "Las contraseñas no son iguales.");
 				model.addAttribute("provinciaList", SourceData.getProvincias());
 				return "/index/alta_usuario";
-				
+
 			} else {
 
 				usuario.setRol(rolService.getRol(RoleData.rol.CLIENTE.getId()));
 				usuario = usuarioService.setEncriptacion(usuario);
 				boolean resultado = usuarioService.addUsuario(usuario);
 
-				String json = null;
+				String[] resultadoDatos;
 
-				/*if (resultado) {
-					json = resultadoService.getResultado(TipoResultado.SUCCESS,
-							MensajeTemplate.getTemplate("registro.success"));
+				if (resultado) {
+					resultadoDatos = resultadoService.getResultado(TipoResultado.SUCCESS,
+							"<h2 class='text-center'>Se ha registrado correctamente</h2><h5 class='mt-3'>Su cuenta de usuario ha sido creada correctamente, ahora podrá iniciar sesión y realizar sus compras.</h5>");
+					model.addAttribute("resultado", resultadoDatos);
 				} else {
-					json = resultadoService.getResultado(TipoResultado.ERROR,
-							MensajeTemplate.getTemplate("registro.error"));
-				}*/
+					resultadoDatos = resultadoService.getResultado(TipoResultado.ERROR,
+							"<h2 class='text-center'>No se ha podido registrar</h2><h5 class='mt-3'>Parece que ha habido problemas al crear su cuenta, por favor inténtelo mas tarde.</h5>");
+					model.addAttribute("resultado", resultadoDatos);
+				}
 
-				model.addAttribute("resultado", json);
+				model.addAttribute("resultado", resultadoDatos);
 
-				return "/index";
+				return "/index/resultado";
 
 			}
 
@@ -119,7 +121,7 @@ public class UsuarioOperacionController {
 
 		session.setAttribute("userdata", usuarioSession);
 
-		return "redirect:/";
+		return "redirect:/perfil";
 
 	}
 
@@ -132,7 +134,7 @@ public class UsuarioOperacionController {
 
 	@PostMapping(path = "/modificar_password/{id}")
 	public String modificarPasswordPost(@PathVariable(name = "id", required = true) int id, String current_password,
-			String current_password_repeat, String password, HttpSession session) {
+			String current_password_repeat, String password, HttpSession session, Model model) {
 
 		// Habría que validar esta información recibida, por ahora la damos por buena.
 
@@ -143,7 +145,12 @@ public class UsuarioOperacionController {
 
 		usuarioService.addUsuario(usuario);
 
-		return "redirect:/";
+		String resultadoDatos[] = resultadoService.getResultado(TipoResultado.SUCCESS,
+				"<h2 class='text-center'>Cambio de contraseña correcto</h2><p class='mt-3 text-left'>Se ha cambiado correctamente la contraseña de su cuenta.</p>");
+
+		model.addAttribute("resultado", resultadoDatos);
+
+		return "/index/resultado";
 
 	}
 

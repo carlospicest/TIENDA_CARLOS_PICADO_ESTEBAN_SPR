@@ -18,7 +18,7 @@ $(function() {
 	/* Acción para el botón de volver al carrito. */
 	
 	$('button[id="cart"]').click(() => {
-		window.location = "carrito";
+		window.location = "/pago/checkout";
 	});
 
 });

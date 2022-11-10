@@ -26,8 +26,17 @@ public class CancelacionPedidoService {
 	public boolean addCancelacionPedido(CancelacionPedido cancelacionPedido) {
 
 		try {
+			
+			int oldId = cancelacionPedido.getId();
+			
 			cancelacionPedidoDao.save(cancelacionPedido);
-			return true;
+			
+			if (oldId != cancelacionPedido.getId()) {
+				return true;
+			} else {
+				return false;
+			}
+			
 		} catch (DataAccessException ex) {
 			return false;
 		}
