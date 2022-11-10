@@ -48,7 +48,7 @@ public class UsuarioController {
 
 			model.addAttribute("usuarioList", usuarioList);
 
-			return WebPath.URL.DASHBOARD_USUARIOS_GET_INDEX.toString();
+			return "";
 
 		}
 		
@@ -148,6 +148,5 @@ public class UsuarioController {
 		return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(usuarios);
 		
  	}
-	
 
 }

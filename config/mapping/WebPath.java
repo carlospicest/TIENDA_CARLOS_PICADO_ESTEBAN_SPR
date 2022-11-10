@@ -9,7 +9,7 @@ public class WebPath {
 	public enum URL {
 		
 		DASHBOARD_USUARIOS_ROOT("redirect:/usuarios"),
-		DASHBOARD_USUARIOS_GET_INDEX("dashboard/usuario/index"),
+		DASHBOARD_USUARIOS_GET_INDEX("dashboard/usuarios/index"),
 		DASHBOARD_USUARIO_PERFIL("dashboard/usuario/perfil"),
 		DASHBOARD_USUARIO_EDITAR("dashboard/usuario/editar"),
 		DASHBOARD_USUARIO_GET_AGREGAR("dashboard/usuario/agregar"),

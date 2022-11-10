@@ -143,14 +143,13 @@ public class UsuarioOperacionController {
 
 		usuario = usuarioService.setEncriptacion(usuario); // Generamos el password hasheado y la salt.
 
-		usuarioService.addUsuario(usuario);
+		if (usuarioService.addUsuario(usuario)) {
+			model.addAttribute("resultado", "Se ha modificado correctamente su contraseña.");
+		} else {
+			model.addAttribute("resultado", "No se ha podido modificar la contraseña.");
+		}
 
-		String resultadoDatos[] = resultadoService.getResultado(TipoResultado.SUCCESS,
-				"<h2 class='text-center'>Cambio de contraseña correcto</h2><p class='mt-3 text-left'>Se ha cambiado correctamente la contraseña de su cuenta.</p>");
-
-		model.addAttribute("resultado", resultadoDatos);
-
-		return "/index/resultado";
+		return "/index/modificar_password";
 
 	}
 
