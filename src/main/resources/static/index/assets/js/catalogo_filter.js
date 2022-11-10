@@ -136,7 +136,6 @@ function clearFilters() {
 	
 	// Slider de dinero.
 	setMinMaxSlider(0, 10000);
-	
 
 }
 
