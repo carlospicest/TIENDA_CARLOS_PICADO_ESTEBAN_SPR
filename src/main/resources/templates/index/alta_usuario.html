@@ -27,7 +27,7 @@
 									<div class="col-lg-6 col-12 ">
 									<div class="form-group">
 										<label>Nombre<span>*</span></label> 
-										<input name="nombre" class="form-control"
+										<input name="nombre" class="form-control mb-2"
 											   type="text" placeholder=""
 											   th:field="*{nombre}"> 
 										<span
@@ -35,8 +35,7 @@
 										  		class="text-warning mt-2" 
 										   		th:errors="*{nombre}">
 										</span>
-										<div id="bad-data-nombre" class="bad-data">
-										</div>
+										<div id="bad-data-nombre" class="bad-data"></div>
 									</div>
 									</div>
 									<div class="col-lg-6 col-12">

@@ -57,10 +57,10 @@ public class CatalogoService {
 
 					setCategoriasCriteria(hql, root, parametrizar); // Procesar categorías si las hubiera.
 					setPrecioCriteria(hql, root, parametrizar);
-					hql.append(" and p.stock > 0 and p.baja is false ");
+					//hql.append(" and p.stock > 0 and p.baja is false");
 					setOrdenacionCriteria(hql, root, parametrizar);
 
-					System.out.println(hql.toString());
+					System.out.println("Query construida => " + hql.toString());
 
 					ArrayList<Producto> productosList = upQuery(hql, parametrizar);
 

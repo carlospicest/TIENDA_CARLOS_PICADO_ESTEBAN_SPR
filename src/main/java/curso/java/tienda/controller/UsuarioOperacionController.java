@@ -74,7 +74,7 @@ public class UsuarioOperacionController {
 
 				model.addAttribute("resultado", json);
 
-				return "/index/resultado";
+				return "/index";
 
 			}
 
