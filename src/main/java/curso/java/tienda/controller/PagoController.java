@@ -23,6 +23,7 @@ import curso.java.tienda.service.CarritoService;
 import curso.java.tienda.service.DetallePedidoService;
 import curso.java.tienda.service.MetodoPagoService;
 import curso.java.tienda.service.PedidoService;
+import curso.java.tienda.service.ProductoService;
 import curso.java.tienda.utiles.DateTime;
 
 @Controller
@@ -36,83 +37,93 @@ public class PagoController {
 	private PedidoService pedidoService;
 	@Autowired
 	private DetallePedidoService detallePedidoService;
+	@Autowired
+	private ProductoService productoService;
 
 	@GetMapping(value = "/pago")
 	public String pagoIndexGet(HttpSession session, Model model) {
-		
+
 		// Obtenemos los métodos de pago, productos del carrito.
-		
+
 		ArrayList<MetodoPago> metodoPagoList = metodoPagoService.getMetodosPago();
-		HashMap<Integer, DetallePedido> cart = (HashMap<Integer, DetallePedido>) session.getAttribute("cart");	
-		
+		HashMap<Integer, DetallePedido> cart = (HashMap<Integer, DetallePedido>) session.getAttribute("cart");
+
 		// Información de impuestos y precios para enviar a la vista.
-		
+
 		final double IVA = 21;
-		final double IVA_OPERABLE = IVA/100;
+		final double IVA_OPERABLE = IVA / 100;
 		final double IMPORTE_TOTAL_SIN_IVA = carritoService.getTotalStackAmmountDetalleCarrito(cart);
-		final double IMPORTE_TOTAL_IVA = IMPORTE_TOTAL_SIN_IVA*IVA_OPERABLE;
+		final double IMPORTE_TOTAL_IVA = IMPORTE_TOTAL_SIN_IVA * IVA_OPERABLE;
 		final double IMPORTE_TOTAL = IMPORTE_TOTAL_SIN_IVA + IMPORTE_TOTAL_IVA;
-		
+
 		// Creamos el formateador decimal.
-		
+
 		DecimalFormat df = new DecimalFormat("#,###.##");
 		df.setRoundingMode(RoundingMode.FLOOR);
-		
+
 		// Agregar al modelo la información.
-		
+
 		model.addAttribute("IVA_valor", IVA);
 		model.addAttribute("importe_sin_iva", df.format(IMPORTE_TOTAL_SIN_IVA));
 		model.addAttribute("importe_con_iva", df.format(IMPORTE_TOTAL_IVA));
 		model.addAttribute("importe_total", df.format(IMPORTE_TOTAL));
-		
+
 		model.addAttribute("metodosPagoList", metodoPagoList);
-		
+
 		return "index/pago";
-		
+
 	}
-	
+
 	@PostMapping(value = "/checkout")
 	public String checkoutPost(HttpSession session, @ModelAttribute("metodo_pago") String metodo_pago) {
-		
+
 		Usuario usuario = (Usuario) session.getAttribute("userdata");
-		
-		// Detalles del pedido.
-		
-		HashMap<Integer, DetallePedido> cart = (HashMap<Integer, DetallePedido>) session.getAttribute("cart");
-		
-		double total = carritoService.getTotalStackAmmountDetalleCarrito(cart);
-		
-		Pedido pedido = new Pedido();
-		pedido.setUsuario(usuario);
-		pedido.setFecha(DateTime.getCurrentTime());
-		pedido.setMetodo_pago(metodo_pago);
-		pedido.setEstado("PE");
-		pedido.setNum_factura("AF2");
-		pedido.setTotal(total);
-		
-		// Damos de alta el pedido
-		
-		pedidoService.addPedido(pedido);
-		
-		// Agregamos los productos del carrito.
-		
-		for (DetallePedido detalle : cart.values()) {
+
+		if (usuario != null) {
+
+			// Detalles del pedido.
+
+			HashMap<Integer, DetallePedido> cart = (HashMap<Integer, DetallePedido>) session.getAttribute("cart");
+
+			double total = carritoService.getTotalStackAmmountDetalleCarrito(cart);
+
+			Pedido pedido = new Pedido();
+			pedido.setUsuario(usuario);
+			pedido.setFecha(DateTime.getCurrentTime());
+			pedido.setMetodo_pago(metodo_pago);
+			pedido.setEstado("PE");
+			pedido.setNum_factura("AF2");
+			pedido.setTotal(total);
+
+			// Damos de alta el pedido
+
+			pedidoService.addPedido(pedido);
+
+			// Agregamos los productos del carrito.
+
+			for (DetallePedido detalle : cart.values()) {
+
+				// Implementar validación del stock!
+
+				Producto producto = detalle.getProducto();
+				producto.setStock(producto.getStock() - 1);
+				productoService.addProducto(producto);
+
+				detalle.setPedido(pedido);
+				detallePedidoService.addDetallePedido(detalle);
+			}
+
+			// Limpiamos el carrito de la sesión una vez finalizada la compra.
+
+			cart.clear();
+
+			return "redirect:/";
+
+		} else {
 			
-			// Implementar validación del stock!
-			
-			Producto producto = detalle.getProducto();
-			producto.setStock(producto.getStock()-1);
-			
-			detalle.setPedido(pedido);
-			detallePedidoService.addDetallePedido(detalle);
+			return null;
 		}
-		
-		// Limpiamos el carrito de la sesión una vez finalizada la compra.
-		
-		cart.clear();
-		
-		return "redirect:/";
-		
+
 	}
 
 }

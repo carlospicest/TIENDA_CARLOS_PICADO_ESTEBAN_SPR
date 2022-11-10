@@ -133,6 +133,10 @@ function clearFilters() {
 		}
 
 	});
+	
+	// Slider de dinero.
+	setMinMaxSlider(0, 10000);
+	
 
 }
 
@@ -276,7 +280,7 @@ function prepareFilter() {
 
 	$.ajax({
 
-		url: '/catalogo_filtro',
+		url: 'catalogo_filtro',
 		type: 'POST',
 		data: {
 			filter: criteriaJSON

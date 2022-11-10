@@ -13,6 +13,9 @@ public interface ProductoDAO extends JpaRepository<Producto, Integer> {
 	
 	public Producto findById(int id);
 	
+	@Query("from productos p where p.stock > 0 and p.baja is false")
+	public ArrayList<Producto> findAll();
+	
 	@Query("from productos p where p.categoria.id = :id")
 	public ArrayList<Producto> findByCategoria(int id);
 	

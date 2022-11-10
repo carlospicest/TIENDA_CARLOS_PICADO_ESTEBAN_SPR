@@ -44,7 +44,7 @@ public class CatalogoService {
 				// Definición de los elementos para construir el hql necesario.
 
 				StringBuilder hql = new StringBuilder();
-				hql.append("select p from productos p ");
+				hql.append("from productos p ");
 				Parametrizar parametrizar = new Parametrizar(); // Donde albergarán los parámetros proporcionados por el
 																// usuario.
 				JsonNode root = mapper.readTree(criteria);
@@ -57,6 +57,7 @@ public class CatalogoService {
 
 					setCategoriasCriteria(hql, root, parametrizar); // Procesar categorías si las hubiera.
 					setPrecioCriteria(hql, root, parametrizar);
+					hql.append(" and p.stock > 0 and p.baja is false ");
 					setOrdenacionCriteria(hql, root, parametrizar);
 
 					System.out.println(hql.toString());
