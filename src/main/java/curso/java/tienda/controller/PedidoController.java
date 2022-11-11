@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import curso.java.tienda.dao.PedidoDAO;
 import curso.java.tienda.pojo.CancelacionPedido;
@@ -28,6 +32,7 @@ import curso.java.tienda.service.ResultadoService.TipoResultado;
 import curso.java.tienda.utiles.DateTime;
 import datos.EstadoCancelacionPedido;
 import datos.EstadoPedido;
+import datos.RoleData;
 
 @Controller
 public class PedidoController {
@@ -40,6 +45,8 @@ public class PedidoController {
 	private CancelacionPedidoService cancelacionPedidoService;
 	@Autowired
 	private ResultadoService resultadoService;
+	@Autowired
+	private ObjectMapper mapper;
 	
 	@RequestMapping(path = "/pedidos", method = RequestMethod.GET)
 	public String getIndex(Model model) {
@@ -48,7 +55,7 @@ public class PedidoController {
 		
 		model.addAttribute("pedidoList", pedidoList);
 		
-		return "dashboard/pedido/index";
+		return "dashboard/pedidos/index";
 		
 	}
 	
@@ -61,7 +68,7 @@ public class PedidoController {
 		model.addAttribute("pedido", pedido);
 		model.addAttribute("estadoPedidoList", estadoPedidoList);
 		
-		return "dashboard/pedido/procesar";
+		return "/dashboard/pedidos/procesar";
 		
 	}
 	
@@ -74,7 +81,7 @@ public class PedidoController {
 		
 		pedidoService.addPedido(pedidoAux);
 		
-		return "redirect:/pedidos";
+		return "/dashboard/pedidos/index";
 		
 	}
 	
@@ -142,5 +149,16 @@ public class PedidoController {
 		}
 		
 	}
+	
+	// JSON
+	
+	@GetMapping(path = "/pedidos/show", produces="application/json")
+	public @ResponseBody String getShowPedido() throws JsonProcessingException {
+
+		ArrayList<Pedido> pedidos = pedidoService.getPedidos();
+		
+		return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(pedidos);
+		
+ 	}
 	
 }

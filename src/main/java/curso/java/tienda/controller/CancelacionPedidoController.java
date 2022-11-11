@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import curso.java.tienda.pojo.CancelacionPedido;
 import curso.java.tienda.pojo.Usuario;
@@ -22,11 +26,13 @@ import datos.EstadoCancelacionPedido;
 import datos.RoleData;
 
 @Controller
-@RequestMapping(path = "/cancelacion_pedidos")
+@RequestMapping(path = "/dashboard/cancelaciones_pedidos")
 public class CancelacionPedidoController {
 
 	@Autowired
 	private CancelacionPedidoService cancelacionPedidoService;
+	@Autowired
+	private ObjectMapper mapper;
 
 	@RequestMapping(path = "", method = RequestMethod.GET)
 	public String getIndex(HttpSession session, Model model) {
@@ -39,7 +45,7 @@ public class CancelacionPedidoController {
 
 			model.addAttribute("cancelacionPedidoList", cancelacionPedidolist);
 
-			return "dashboard/cancelacion_pedido/index";
+			return "/dashboard/cancelaciones_pedidos/index";
 
 		} else {
 			return null;
@@ -51,7 +57,7 @@ public class CancelacionPedidoController {
 	public String getEditar(@PathVariable(name = "id", required = true) int id, Model model, HttpSession session) {
 
 		Usuario user = (Usuario) session.getAttribute("userdata");
-		
+
 		if (user.getRol().getRol().toUpperCase().equals(RoleData.rol.ADMINISTRADOR.toString())) {
 
 			CancelacionPedido cancelacionPedido = cancelacionPedidoService.getCancelacionPedido(id);
@@ -60,7 +66,7 @@ public class CancelacionPedidoController {
 			model.addAttribute("cancelacionPedido", cancelacionPedido);
 			model.addAttribute("estadoCancelacionPedidoList", estadoCancelacionPedidoList);
 
-			return "dashboard/cancelacion_pedido/procesar";
+			return "/dashboard/cancelaciones_pedidos/procesar";
 
 		} else {
 			return null;
@@ -78,8 +84,19 @@ public class CancelacionPedidoController {
 
 		cancelacionPedidoService.addCancelacionPedido(cancelacionPedidoAux);
 
-		return "redirect:/cancelacion_pedidos";
+		return "/dashboard/cancelaciones_pedidos/index";
 
+	}
+
+	// JSON
+
+	@GetMapping(path = "/show", produces = "application/json")
+	public @ResponseBody String getShowCancelacionesPedido() throws JsonProcessingException {
+
+		ArrayList<CancelacionPedido> cancelaciones = cancelacionPedidoService.getCancelacionPedido();
+
+		return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(cancelaciones);
+		
 	}
 
 }

@@ -5,7 +5,7 @@ $(function() {
 function cargarDatatables() {
 
 	$.ajax({
-		url: '/productos/show',
+		url: '/dashboard/productos/show',
 		type: 'GET',
 		success: (data) => {
 
@@ -14,11 +14,7 @@ function cargarDatatables() {
 				// Obtenemos los datos del controlador.
 				// Mostrar en formato legible la información de baja y fecha de alta.
 
-				console.log(data);
-
 				data.forEach(function(element) {
-
-					console.log(data);
 
 					// Baja.
 
@@ -55,7 +51,7 @@ function cargarDatatables() {
 							"render": function(data, type, row, meta) {
 								return '<div class="text-center">' +
 									'<button name="editarProducto" class="btn btn-success mr-2" id="' + row.id + '" href="#"><i class="bi bi-pencil" style="font-size: 1.2vw;"></i></button>' +
-									'<button name="eliminarProducto" class="btn btn-danger" id="' + row.id + '" href="#"><i class="bi bi-trash-fill" style="font-size: 1.2vw;"></i></button>' +
+									'<button name="bajaProducto" class="btn btn-danger" id="' + row.id + '" href="#"><i class="bi bi-box-arrow-in-down" style="font-size: 1.2vw;"></i></button>' +
 									'</div>';
 							}
 						}
@@ -105,9 +101,27 @@ function cargarDatatables() {
 
 				// Eventos para los botones de editar y eliminar.
 
+				$('button[name="nuevoProducto"]').click(function(e) {
+
+					window.location.href = "/dashboard/productos/agregar";
+
+				});
+
 				$('button[name="editarProducto"]').click(function(e) {
 
-					console.log('Editando producto => ', $(this).prop("id"));
+					const idProducto = $(this).prop("id");
+
+					window.location.href = "/dashboard/productos/editar/" + idProducto;
+
+				});
+
+				$('button[name="bajaProducto"]').click(function(e) {
+
+					const idProducto = $(this).prop("id");
+
+					if (confirm('¿Dar de baja el producto seleccionado?')) {
+						window.location.href = "/dashboard/productos/baja/" + idProducto;
+					}
 
 				});
 

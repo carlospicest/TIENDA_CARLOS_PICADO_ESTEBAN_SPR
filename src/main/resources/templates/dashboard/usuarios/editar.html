@@ -31,77 +31,98 @@ Coded by www.creative-tim.com
 			<!-- End Navbar -->
 			<div class="content content min-vh-100">
 
-				<h3 class="mb-4">Editar producto</h3>
+				<h3 class="mb-4">Editar usuario</h3>
 
 				<form class="form" method="POST"
-					th:action="@{/dashboard/productos/editar/{id}(id=${producto.id})}"
-					th:object="${producto}">
+					th:action="@{/usuarios/editar/{id}(id=${usuario.id})}"
+					th:object="${usuario}">
 					<div class="row">
 						<div class="col-12">
 							<div class="form-group">
-								<label>Nombre<span>*</span></label> <input name="nombre"
-									type="text" placeholder="" th:field="*{nombre}">
+								<label>DNI<span>*</span></label> <input name="dni" type="text"
+									placeholder="" th:field="*{dni}">
 							</div>
 						</div>
 						<div class="col-12">
 							<div class="form-group">
-								<label>Descripción</label>
-								<textarea rows="2" maxlength="255" name="descripcion"
-									th:field="*{descripcion}"></textarea>
+								<label>Nombre</label> <input name="nombre" type="text"
+									placeholder="" th:field="*{nombre}">
 							</div>
 						</div>
 						<div class="col-lg-6 col-12">
 							<div class="form-group">
 
-								<label>Categoría<span>*</span></label> <select
-									th:field="*{categoria}" id="categoria">
-									<option th:each="c : ${categorias}" th:value="${c.id}"
-										th:text="${c.nombre}">
+								<label>Primer apellido</label> <input name="primer_apellido"
+									type="text" placeholder="" th:field="*{apellido1}">
+
+							</div>
+						</div>
+						<div class="col-lg-6 col-12">
+							<div class="form-group">
+								<label>Segundo apellido<span>*</span></label> <input
+									name="segundo_apellido" type="text" th:field="*{apellido2}">
+							</div>
+						</div>
+
+						<div class="col-lg-6 col-12">
+							<div class="form-group">
+								<label>Email<span>*</span></label> <input name="email"
+									type="email" th:field="*{email}">
+							</div>
+						</div>
+
+						<div class="col-lg-6 col-12">
+							<div class="form-group">
+								<label>Dirección<span>*</span></label> <input name="direccion"
+									type="text" th:field="*{direccion}">
+							</div>
+						</div>
+						<div class="col-lg-6 col-12">
+							<div class="form-group">
+								<label>Provincia<span>*</span></label> <select
+									th:field="*{provincia}" id="provincia">
+									<option th:each="p : ${provinciaList}" th:value="${p}"
+										th:text="${p}">
 								</select>
+							</div>
+						</div>
 
-							</div>
-						</div>
 						<div class="col-lg-6 col-12">
 							<div class="form-group">
-								<label>Precio<span>*</span></label> <input name="precio"
-									type="number" step=".01" th:field="*{precio}">
+								<label>Localidad<span>*</span></label> <input name="localidad"
+									type="text" th:field="*{localidad}">
 							</div>
 						</div>
+
 						<div class="col-lg-6 col-12">
 							<div class="form-group">
-								<label>Stock<span>*</span></label> <input name="stock"
-									type="number" th:field="*{stock}">
+								<label>Teléfono<span>*</span></label> <input name="telefono"
+									type="text" th:field="*{telefono}">
 							</div>
 						</div>
+
 						<div class="col-lg-6 col-12">
 							<div class="form-group">
-								<label>Impuesto<span>*</span></label> <input name="impuesto"
-									type="number" th:field="*{impuesto}">
-							</div>
-						</div>
-						<div class="col-lg-6 col-12">
-							<div class="form-group">
-								<label>Baja de producto</label> <input type="checkbox"
+								<label>Baja de usuario</label> <input type="checkbox"
 									name="baja" th:field="*{baja}" th:value="*{baja}">
 							</div>
 						</div>
+
 						<div class="col-lg-6 col-12">
 							<div class="form-group">
-								<label>Imágen del producto</label> <input type="file"
-									name="baja_producto" value="Agregar imagen">
+								<label>Contraseña<span>*</span></label> <input name="password"
+									type="password" th:field="*{password}">
 							</div>
 						</div>
 
 						<div class="col-12">
 							<div class="form-group button text-center">
-								<button type="submit" class="btn mt-4">Guardar producto</button>
+								<button type="submit" class="btn mt-4">Guardar cambios</button>
 							</div>
 						</div>
 
 					</div>
 				</form>
-
-
 			</div>
 
 			<footer th:replace="dashboard/components/footer.html :: footer"></footer>
@@ -135,7 +156,7 @@ Coded by www.creative-tim.com
     $(document).ready(function() {
       // Worked: $(someElements[1]).removeClass('.someClassToRemove');
       
-      const opcionIndex = 2;
+      const opcionIndex = 1;
       
       let nav = $('ul.nav li');
       

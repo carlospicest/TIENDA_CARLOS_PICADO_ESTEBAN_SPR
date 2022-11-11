@@ -16,21 +16,21 @@ function cargarDatatables() {
 				// Mostrar en formato legible la información de baja y fecha de alta.
 
 				data.forEach(function(element) {
-					
+
 					// Baja.
-					
+
 					if (element.baja) {
-						element.baja = 'Inactivo';	
+						element.baja = 'Inactivo';
 					} else {
 						element.baja = 'Activo';
 					}
-					
+
 					// Fecha de alta.
-					
+
 					let fechaAlta = element.fecha_alta;
 					fechaAlta = moment(fechaAlta).format('DD-MM-YYYY');
-					element.fecha_alta = fechaAlta; 
-					
+					element.fecha_alta = fechaAlta;
+
 				});
 
 				// Inicializamos datatables.
@@ -52,10 +52,14 @@ function cargarDatatables() {
 						{ "data": "baja" },
 						{ "data": "fecha_alta" },
 						{
-                            data: null,
-                            className: "center",
-                            defaultContent: '<a href="">Edit</a> / <a href="" class="editor_remove">Delete</a>'
-                        }
+							targets: [2],
+							"render": function(data, type, row, meta) {
+								return '<div class="text-center">' +
+									'<button name="editarUsuario" class="btn btn-success mr-2" id="' + row.id + '" href="#"><i class="bi bi-pencil" style="font-size: 1.2vw;"></i></button>' +
+									'<button name="bajaUsuario" class="btn btn-danger" id="' + row.id + '" href="#"><i class="bi bi-box-arrow-in-down" style="font-size: 1.2vw;"></i></button>' +
+									'</div>';
+							}
+						}
 					],
 					destroy: true,
 					// Botones que se mostrarán en la tabla.
@@ -97,6 +101,32 @@ function cargarDatatables() {
 							extend: "colvis",
 						},
 					],
+
+				});
+
+				// Eventos para los botones de editar y eliminar.
+
+				$('button[name="nuevoUsuario"]').click(function(e) {
+
+					window.location.href = "/usuarios/agregar";
+
+				});
+
+				$('button[name="editarUsuario"]').click(function(e) {
+
+					const idUsuario = $(this).prop("id");
+
+					window.location.href = "/usuarios/editar/" + idUsuario;
+
+				});
+
+				$('button[name="bajaUsuario"]').click(function(e) {
+
+					const idUsuario = $(this).prop("id");
+
+					if (confirm('¿Dar de baja al usuario seleccionado?')) {
+						window.location.href = "/usuarios/baja/" + idUsuario;
+					}
 
 				});
 

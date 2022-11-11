@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import curso.java.tienda.dao.UsuarioDAO;
 import curso.java.tienda.pojo.Usuario;
 import curso.java.tienda.service.RolService;
 import curso.java.tienda.service.UsuarioService;
@@ -26,8 +27,10 @@ import mapping.WebPath;
 
 @Controller
 @RequestMapping(path = "/usuarios")
-public class UsuarioController {
+public class UsuarioDashboardController {
 
+	@Autowired
+	private UsuarioDAO usuarioDao;
 	@Autowired
 	private UsuarioService usuarioService;
 	@Autowired
@@ -81,7 +84,7 @@ public class UsuarioController {
 		model.addAttribute("usuario", usuario);
 		model.addAttribute("provinciaList", provinciaList);
 
-		return WebPath.URL.DASHBOARD_USUARIO_EDITAR.toString();
+		return "/dashboard/usuarios/editar";
 
 	}
 
@@ -95,7 +98,7 @@ public class UsuarioController {
 			usuarioService.addUsuario(usuario);
 		}
 
-		return WebPath.URL.DASHBOARD_USUARIOS_ROOT.toString();
+		return "/dashboard/usuarios/index";
 
 	}
 
@@ -109,7 +112,7 @@ public class UsuarioController {
 		model.addAttribute("provinciaList", provinciaList);
 		model.addAttribute("usuario", usuario);
 
-		return WebPath.URL.DASHBOARD_USUARIO_GET_AGREGAR.toString();
+		return "/dashboard/usuarios/agregar";
 
 	}
 
@@ -123,16 +126,19 @@ public class UsuarioController {
 
 		usuarioService.addUsuario(usuario);
 
-		return WebPath.URL.DASHBOARD_USUARIOS_ROOT.toString();
+		return "/dashboard/usuarios/index";
 
 	}
 
-	@GetMapping(path = "/eliminar/{id}")
-	public String getEliminar(@PathVariable(name = "id", required = true) int id) {
+	@GetMapping(path = "/baja/{id}")
+	public String getBaja(@PathVariable(name = "id", required = true) int id) {
 
-		usuarioService.deleteUsuario(id);
+		Usuario usuario = usuarioService.getUsuario(id);
+		usuario.setBaja(true);
+		
+		usuarioService.addUsuario(usuario);
 
-		return WebPath.URL.DASHBOARD_USUARIOS_ROOT.toString();
+		return "/dashboard/usuarios/index";
 
 	}
 	

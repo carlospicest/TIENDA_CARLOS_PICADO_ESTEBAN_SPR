@@ -31,79 +31,51 @@ Coded by www.creative-tim.com
 			<!-- End Navbar -->
 			<div class="content content min-vh-100">
 
-				<h3 class="mb-4">Editar producto</h3>
-
-				<form class="form" method="POST"
-					th:action="@{/dashboard/productos/editar/{id}(id=${producto.id})}"
-					th:object="${producto}">
+				<div class="content">
 					<div class="row">
-						<div class="col-12">
-							<div class="form-group">
-								<label>Nombre<span>*</span></label> <input name="nombre"
-									type="text" placeholder="" th:field="*{nombre}">
-							</div>
-						</div>
-						<div class="col-12">
-							<div class="form-group">
-								<label>Descripción</label>
-								<textarea rows="2" maxlength="255" name="descripcion"
-									th:field="*{descripcion}"></textarea>
-							</div>
-						</div>
-						<div class="col-lg-6 col-12">
-							<div class="form-group">
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-header">
+									<h4 class="card-title">Listado de usuarios</h4>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table table-striped table-bordered"
+											style="width: 100%" id="tablaUsuarios">
+											<thead>
+												<tr>
+													<th scope="col">DNI</th>
+													<th scope="col">Nombre</th>
+													<th scope="col">Primer apellido</th>
+													<th scope="col">Segundo apellido</th>
+													<th scope="col">Email</th>
+													<th scope="col">Dirección</th>
+													<th scope="col">Provincia</th>
+													<th scope="col">Localidad</th>
+													<th scope="col">Teléfono</th>
+													<th scope="col">Baja</th>
+													<th scope="col">Fecha alta</th>
+													<th scope="col">Acciones</th>
+												</tr>
+											</thead>
+											<tbody>
 
-								<label>Categoría<span>*</span></label> <select
-									th:field="*{categoria}" id="categoria">
-									<option th:each="c : ${categorias}" th:value="${c.id}"
-										th:text="${c.nombre}">
-								</select>
 
+											</tbody>
+										</table>
+										
+										<button class="btn btn-info" name="nuevoUsuario">Agregar nuevo usuario</button>
+										
+									</div>
+								</div>
 							</div>
 						</div>
-						<div class="col-lg-6 col-12">
-							<div class="form-group">
-								<label>Precio<span>*</span></label> <input name="precio"
-									type="number" step=".01" th:field="*{precio}">
-							</div>
-						</div>
-						<div class="col-lg-6 col-12">
-							<div class="form-group">
-								<label>Stock<span>*</span></label> <input name="stock"
-									type="number" th:field="*{stock}">
-							</div>
-						</div>
-						<div class="col-lg-6 col-12">
-							<div class="form-group">
-								<label>Impuesto<span>*</span></label> <input name="impuesto"
-									type="number" th:field="*{impuesto}">
-							</div>
-						</div>
-						<div class="col-lg-6 col-12">
-							<div class="form-group">
-								<label>Baja de producto</label> <input type="checkbox"
-									name="baja" th:field="*{baja}" th:value="*{baja}">
-							</div>
-						</div>
-						<div class="col-lg-6 col-12">
-							<div class="form-group">
-								<label>Imágen del producto</label> <input type="file"
-									name="baja_producto" value="Agregar imagen">
-							</div>
-						</div>
-
-						<div class="col-12">
-							<div class="form-group button text-center">
-								<button type="submit" class="btn mt-4">Guardar producto</button>
-							</div>
-						</div>
-
 					</div>
-				</form>
+				</div>
 
+				<div class="row"></div>
 
 			</div>
-
 			<footer th:replace="dashboard/components/footer.html :: footer"></footer>
 		</div>
 	</div>
@@ -128,14 +100,14 @@ Coded by www.creative-tim.com
 	<script type="text/javascript" charset="utf8"
 		th:src="@{/dashboard/assets/js/plugins/datatables.js}"></script>
 	<script type="text/javascript" charset="utf8"
-		th:src="@{/dashboard/assets/js/productos.js}"></script>
+		th:src="@{/dashboard/assets/js/usuarios.js}"></script>
 
 	<script>
 	
     $(document).ready(function() {
       // Worked: $(someElements[1]).removeClass('.someClassToRemove');
       
-      const opcionIndex = 2;
+      const opcionIndex = 1;
       
       let nav = $('ul.nav li');
       

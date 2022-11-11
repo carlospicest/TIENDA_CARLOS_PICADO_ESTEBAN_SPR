@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import curso.java.tienda.dao.ProductoDAO;
 import curso.java.tienda.pojo.Categoria;
 import curso.java.tienda.pojo.Producto;
 import curso.java.tienda.pojo.Usuario;
@@ -23,9 +24,11 @@ import curso.java.tienda.service.ProductoService;
 import datos.RoleData;
 
 @Controller
-@RequestMapping(path = "/productos")
+/*@RequestMapping(path = "/productos")*/
 public class ProductoDashboardController {
 
+	@Autowired
+	private ProductoDAO productoDao;
 	@Autowired
 	private ProductoService productoService;
 	@Autowired
@@ -63,7 +66,7 @@ public class ProductoDashboardController {
 
 		productoService.addProducto(producto);
 
-		return "/dashboard/producto/index";
+		return "/dashboard/productos/index";
 
 	}
 
@@ -75,7 +78,7 @@ public class ProductoDashboardController {
 		model.addAttribute("producto", new Producto());
 		model.addAttribute("categorias", categoriaList);
 
-		return "/dashboard/producto/agregar";
+		return "/dashboard/productos/agregar";
 
 	}
 
@@ -84,25 +87,28 @@ public class ProductoDashboardController {
 		// Revisar la forma en la que se hace esto, modifica toda la fila de la bd.
 		productoService.addProducto(producto);
 
-		return "/dashboard/producto/index";
+		return "/dashboard/productos/index";
 
 	}
 
-	@GetMapping(path = "/dashboard/productos/eliminar/{id}")
+	@GetMapping(path = "/dashboard/productos/baja/{id}")
 	public String getEliminar(@PathVariable(name = "id", required = true) int id) {
 
-		productoService.deleteProducto(id);
+		Producto producto = productoService.getProducto(id);
+		producto.setBaja(true);
+		
+		productoService.addProducto(producto);
 
-		return "/dashboard/producto/index";
+		return "/dashboard/productos/index";
 
 	}
 
 	// JSON
 
-	@GetMapping(path = "/show", produces = "application/json")
+	@GetMapping(path = "/dashboard/productos/show", produces = "application/json")
 	public @ResponseBody String getShowProducto() throws JsonProcessingException {
 
-		ArrayList<Producto> productos = productoService.getProductos();
+		ArrayList<Producto> productos = productoDao.findAllWithoutFilter();
 		
 		return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(productos);
 

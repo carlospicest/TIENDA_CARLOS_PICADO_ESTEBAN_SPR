@@ -30,7 +30,7 @@ public class IndexDashboardController {
 		Usuario user = (Usuario) session.getAttribute("userdata");
 		
 		if (user != null) {
-			return "/dashboard/usuarios/usuarios.html";
+			return "/dashboard/usuarios/index";
 		} else {
 			return "redirect:/";
 		}
@@ -43,7 +43,7 @@ public class IndexDashboardController {
 		Usuario user = (Usuario) session.getAttribute("userdata");
 		
 		if (user != null) {
-			return "/dashboard/productos/productos.html";
+			return "/dashboard/productos/index";
 		} else {
 			return "redirect:/";
 		}
