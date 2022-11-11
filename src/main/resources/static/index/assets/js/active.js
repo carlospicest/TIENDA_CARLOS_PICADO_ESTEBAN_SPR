@@ -83,7 +83,7 @@ Version:1.0
 		/*=======================
 		  Home Slider JS
 		=========================*/ 
-		$('.home-slider').owlCarousel({
+		/*$('.home-slider').owlCarousel({
 			items:1,
 			autoplay:true,
 			autoplayTimeout:5000,
@@ -113,12 +113,12 @@ Version:1.0
 					items:4,
 				},
 			}
-		});
+		});*/
 		
 		/*=======================
 		  Popular Slider JS
 		=========================*/ 
-		$('.popular-slider').owlCarousel({
+		/*$('.popular-slider').owlCarousel({
 			items:1,
 			autoplay:true,
 			autoplayTimeout:5000,
@@ -148,12 +148,12 @@ Version:1.0
 					items:4,
 				},
 			}
-		});
+		});*/
 		
 		/*===========================
 		  Quick View Slider JS
 		=============================*/ 
-		$('.quickview-slider-active').owlCarousel({
+		/*$('.quickview-slider-active').owlCarousel({
 			items:1,
 			autoplay:true,
 			autoplayTimeout:5000,
@@ -164,12 +164,12 @@ Version:1.0
 			merge:true,
 			dots:false,
 			navText: ['<i class=" ti-arrow-left"></i>', '<i class=" ti-arrow-right"></i>'],
-		});
+		});*/
 		
 		/*===========================
 		  Home Slider 4 JS
 		=============================*/ 
-		$('.home-slider-4').owlCarousel({
+		/*$('.home-slider-4').owlCarousel({
 			items:1,
 			autoplay:true,
 			autoplayTimeout:5000,
@@ -180,7 +180,7 @@ Version:1.0
 			merge:true,
 			dots:false,
 			navText: ['<i class=" ti-arrow-left"></i>', '<i class=" ti-arrow-right"></i>'],
-		});
+		});*/
 		
 		/*====================================
 		14. CountDown

@@ -169,7 +169,6 @@ function fillIncludedCart(data) {
 			const cartResumeTotalAmount = $('#cart_resume_total_amount');
 
 			if (cartTable.length === 1) {
-
 				// Estamos en la vista de la tabla carrito, incluimos la información.
 				cartResumeTotalAmount.html(includedCart.totalAmmount);
 			}
@@ -280,7 +279,7 @@ function addRowProductCartTable(product) {
 	const cartTableBody = $('#cartTable > tbody');
 
 	cartTableBody.append('<tr id="' + idProduct + '">' +
-		'<td class="image" data-title="No"><img src="https://via.placeholder.com/100x100" alt="#"></td>' +
+		'<td class="image" data-title="No"><img src="/index/images/productos/' + idProduct + '/' + idProduct + '.jpg" alt="#"></td>' +
 		'<td class="product-des" data-title="Description">' +
 		'<p class="product-name">' +
 		'<a href="#"> ' + product.producto.nombre + '</a>' +

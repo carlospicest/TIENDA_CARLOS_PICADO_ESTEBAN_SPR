@@ -13,12 +13,17 @@
 					<div class="col-lg-8 col-12">
 						<div class="form-main">
 
+							<div class="alert alert-warning" role="alert"
+								th:if="${resultado != null}">
+								<span th:text="${resultado}"></span>
+							</div>
 
 							<div class="title">
 								<h3 class="text-left">Perfil de usuario</h3>
 							</div>
 
-							<form class="form" method="POST" th:action="@{/perfil/{id}(id=${usuario.id})}"
+							<form class="form" method="POST"
+								th:action="@{/perfil/{id}(id=${usuario.id})}"
 								th:object="${usuario}">
 								<div class="row">
 									<div class="col-lg-6 col-12">
@@ -37,15 +42,13 @@
 									<div class="col-lg-6 col-12">
 										<div class="form-group">
 											<label>Segundo apellido<span>*</span></label> <input
-												name="segundo_apellido" type="text"
-												th:field="*{apellido2}">
+												name="segundo_apellido" type="text" th:field="*{apellido2}">
 										</div>
 									</div>
 									<div class="col-lg-6 col-12">
 										<div class="form-group">
 											<label>Dirección<span>*</span></label> <input
-												name="direccion" type="text"
-												th:field="*{direccion}">
+												name="direccion" type="text" th:field="*{direccion}">
 										</div>
 									</div>
 									<div class="col-lg-6 col-12">
@@ -61,8 +64,7 @@
 									<div class="col-lg-6 col-12">
 										<div class="form-group">
 											<label>Localidad<span>*</span></label> <input
-												name="localidad" type="text"
-												th:field="*{localidad}">
+												name="localidad" type="text" th:field="*{localidad}">
 										</div>
 									</div>
 									<div class="col-lg-6 col-12">
@@ -95,42 +97,42 @@
 		</div>
 	</section>
 
-	<footer th:replace="index/components/footer.html :: footer"></footer>
+	<!-- <footer th:replace="index/components/footer.html :: footer"></footer> -->
 
 	<!-- Jquery -->
-	<script src="index/assets/js/jquery.min.js"></script>
-	<script src="index/assets/js/jquery-migrate-3.0.0.js"></script>
-	<script src="index/assets/js/jquery-ui.min.js"></script>
+	<script th:src="@{/index/assets/js/jquery.min.js}"></script>
+	<script th:src="@{/index/assets/js/jquery-migrate-3.0.0.js}"></script>
+	<script th:src="@{/index/assets/js/jquery-ui.min.js}"></script>
 	<!-- Popper JS -->
-	<script src="index/assets/js/popper.min.js"></script>
+	<script th:src="@{/index/assets/js/popper.min.js}"></script>
 	<!-- Bootstrap JS -->
-	<script src="index/assets/js/bootstrap.min.js"></script>
+	<script th:src="@{/index/assets/js/bootstrap.min.js}"></script>
 	<!-- Slicknav JS -->
-	<script src="index/assets/js/slicknav.min.js"></script>
+	<script th:src="@{/index/assets/js/slicknav.min.js}"></script>
 	<!-- Owl Carousel JS -->
-	<script src="index/assets/js/owl-carousel.js"></script>
+	<script th:src="@{/index/assets/js/owl-carousel.js}"></script>
 	<!-- Magnific Popup JS -->
-	<script src="index/assets/js/magnific-popup.js"></script>
+	<script th:src="@{/index/assets/js/magnific-popup.js}"></script>
 	<!-- Waypoints JS -->
-	<script src="index/assets/js/waypoints.min.js"></script>
+	<script th:src="@{/index/assets/js/waypoints.min.js}"></script>
 	<!-- Countdown JS -->
-	<script src="index/assets/js/finalcountdown.min.js"></script>
+	<script th:src="@{/index/assets/js/finalcountdown.min.js}"></script>
 	<!-- Nice Select JS -->
 	<!-- <script src="index/assets/js/nicesellect.js"></script> -->
 	<!-- Flex Slider JS -->
-	<script src="index/assets/js/flex-slider.js"></script>
+	<script th:src="@{/index/assets/js/flex-slider.js}"></script>
 	<!-- ScrollUp JS -->
-	<script src="index/assets/js/scrollup.js"></script>
+	<script th:src="@{/index/assets/js/scrollup.js}"></script>
 	<!-- Onepage Nav JS -->
-	<script src="index/assets/js/onepage-nav.min.js"></script>
+	<script th:src="@{/index/assets/js/onepage-nav.min.js}"></script>
 	<!-- Easing JS -->
-	<script src="index/assets/js/easing.js"></script>
+	<script th:src="@{/index/assets/js/easing.js}"></script>
 	<!-- Active JS -->
-	<script src="index/assets/js/active.js"></script>
+	<script th:src="@{/index/assets/js/active.js}"></script>
 	<!-- Common settings -->
-	<script src="index/assets/js/common-settings.js"></script>
+	<script th:src="@{/index/assets/js/common-settings.js}"></script>
 	<!-- Shop JS -->
-	<script src="index/assets/js/shop.js"></script>
+	<script th:src="@{/index/assets/js/shop.js}"></script>
 
 </body>
 </html>

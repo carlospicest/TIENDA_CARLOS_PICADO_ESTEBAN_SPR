@@ -101,7 +101,7 @@ public class UsuarioOperacionController {
 
 	@PostMapping(path = "/perfil/{id}")
 	public String perfilUsuarioPost(@ModelAttribute("usuario") Usuario usuario,
-			@PathVariable(name = "id", required = true) int id, HttpSession session) {
+			@PathVariable(name = "id", required = true) int id, HttpSession session, Model model) {
 
 		Usuario usuarioAux = usuarioService.getUsuario(id);
 
@@ -120,8 +120,9 @@ public class UsuarioOperacionController {
 		Usuario usuarioSession = usuarioService.getUsuarioMixin(usuario);
 
 		session.setAttribute("userdata", usuarioSession);
+		model.addAttribute("resultado", "Se ha modificado su perfil correctamente.");
 
-		return "redirect:/perfil";
+		return "/index/perfil_usuario";
 
 	}
 
@@ -133,20 +134,26 @@ public class UsuarioOperacionController {
 	}
 
 	@PostMapping(path = "/modificar_password/{id}")
-	public String modificarPasswordPost(@PathVariable(name = "id", required = true) int id, String current_password,
-			String current_password_repeat, String password, HttpSession session, Model model) {
+	public String modificarPasswordPost(@PathVariable(name = "id", required = true) int id,
+			String change_password_repeat, String password, HttpSession session, Model model) {
 
 		// Habría que validar esta información recibida, por ahora la damos por buena.
 
-		Usuario usuario = (Usuario) session.getAttribute("userdata");
-		usuario.setPassword(password);
+		if (password.equals(change_password_repeat)) {
 
-		usuario = usuarioService.setEncriptacion(usuario); // Generamos el password hasheado y la salt.
+			Usuario usuario = (Usuario) session.getAttribute("userdata");
+			usuario.setPassword(password);
 
-		if (usuarioService.addUsuario(usuario)) {
-			model.addAttribute("resultado", "Se ha modificado correctamente su contraseña.");
+			usuario = usuarioService.setEncriptacion(usuario); // Generamos el password hasheado y la salt.
+
+			if (usuarioService.addUsuario(usuario)) {
+				model.addAttribute("resultado", "Se ha modificado correctamente su contraseña.");
+			} else {
+				model.addAttribute("resultado", "No se ha podido modificar la contraseña.");
+			}
+
 		} else {
-			model.addAttribute("resultado", "No se ha podido modificar la contraseña.");
+			model.addAttribute("resultado", "La contraseña y la repetición no coinciden.");
 		}
 
 		return "/index/modificar_password";

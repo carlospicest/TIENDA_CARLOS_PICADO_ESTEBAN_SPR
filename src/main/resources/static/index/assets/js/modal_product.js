@@ -109,7 +109,7 @@ function showProductInformation(productData) {
 	const containerImages = $('.quickview-slider-active');
 	
 	$(containerImages).empty();
-	$(containerImages).append('<div class="single-slider">' + '<img class="img-slider" src="/index/images/productos/' + productData.id + '/' + productData.id + '.jpg"' + '</div>');
+	$(containerImages).append('<div class="">' + '<img class="image-fluid" style="height:60vh;" src="/index/images/productos/' + productData.id + '/' + productData.id + '.jpg"' + '</div>');
 
 	// Mostramos el formulario.
 
