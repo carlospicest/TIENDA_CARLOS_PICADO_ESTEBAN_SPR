@@ -4,9 +4,8 @@ $(function() {
 
 function cargarDatatables() {
 
-
 	$.ajax({
-		url: '/usuarios/show',
+		url: '/productos/show',
 		type: 'GET',
 		success: (data) => {
 
@@ -15,47 +14,51 @@ function cargarDatatables() {
 				// Obtenemos los datos del controlador.
 				// Mostrar en formato legible la información de baja y fecha de alta.
 
+				console.log(data);
+
 				data.forEach(function(element) {
-					
+
+					console.log(data);
+
 					// Baja.
-					
+
 					if (element.baja) {
-						element.baja = 'Inactivo';	
+						element.baja = 'Inactivo';
 					} else {
 						element.baja = 'Activo';
 					}
-					
+
 					// Fecha de alta.
-					
+
 					let fechaAlta = element.fecha_alta;
 					fechaAlta = moment(fechaAlta).format('DD-MM-YYYY');
-					element.fecha_alta = fechaAlta; 
-					
+					element.fecha_alta = fechaAlta;
+
 				});
 
 				// Inicializamos datatables.
 
-				$('#tablaUsuarios').DataTable({
+				$('#tablaProductos').DataTable({
 					dom: "QBfrltip",
 					autoWidth: true,
 					data: data,
 					"columns": [
-						{ "data": "dni" },
+						{ "data": "categoria.nombre" },
 						{ "data": "nombre" },
-						{ "data": "apellido1" },
-						{ "data": "apellido2" },
-						{ "data": "email" },
-						{ "data": "direccion" },
-						{ "data": "provincia" },
-						{ "data": "localidad" },
-						{ "data": "telefono" },
+						{ "data": "precio" },
+						{ "data": "stock" },
+						{ "data": "impuesto" },
 						{ "data": "baja" },
 						{ "data": "fecha_alta" },
 						{
-                            data: null,
-                            className: "center",
-                            defaultContent: '<a href="">Edit</a> / <a href="" class="editor_remove">Delete</a>'
-                        }
+							targets: [2],
+							"render": function(data, type, row, meta) {
+								return '<div class="text-center">' +
+									'<button name="editarProducto" class="btn btn-success mr-2" id="' + row.id + '" href="#"><i class="bi bi-pencil" style="font-size: 1.2vw;"></i></button>' +
+									'<button name="eliminarProducto" class="btn btn-danger" id="' + row.id + '" href="#"><i class="bi bi-trash-fill" style="font-size: 1.2vw;"></i></button>' +
+									'</div>';
+							}
+						}
 					],
 					destroy: true,
 					// Botones que se mostrarán en la tabla.
@@ -65,31 +68,31 @@ function cargarDatatables() {
 						{
 							extend: "copyHtml5",
 							exportOptions: {
-								columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], // Ocultar la columna 11 (Acciones) al exportar.
+								columns: [0, 1, 2, 3, 4, 5], // Ocultar la columna 11 (Acciones) al exportar.
 							},
 						},
 						{
 							extend: "excelHtml5",
-							title: "Listado de usuarios",
+							title: "Listado de productos",
 							exportOptions: {
-								columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+								columns: [0, 1, 2, 3, 4, 5],
 							},
 						},
 						{
 							extend: "pdfHtml5",
 							orientation: 'landscape',
 							pageSize: 'LEGAL',
-							title: "Listado de usuarios",
+							title: "Listado de productos",
 							exportOptions: {
-								columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+								columns: [0, 1, 2, 3, 4, 5],
 							},
 						},
 
 						{
 							extend: "print",
-							title: "Listado de usuarios",
+							title: "Listado de productos",
 							exportOptions: {
-								columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+								columns: [0, 1, 2, 3, 4, 5],
 							},
 						},
 						{
@@ -97,6 +100,14 @@ function cargarDatatables() {
 							extend: "colvis",
 						},
 					],
+
+				});
+
+				// Eventos para los botones de editar y eliminar.
+
+				$('button[name="editarProducto"]').click(function(e) {
+
+					console.log('Editando producto => ', $(this).prop("id"));
 
 				});
 

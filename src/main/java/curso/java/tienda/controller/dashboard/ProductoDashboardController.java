@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -22,6 +23,7 @@ import curso.java.tienda.service.ProductoService;
 import datos.RoleData;
 
 @Controller
+@RequestMapping(path = "/productos")
 public class ProductoDashboardController {
 
 	@Autowired
@@ -51,7 +53,7 @@ public class ProductoDashboardController {
 		model.addAttribute("producto", producto);
 		model.addAttribute("categorias", categoriaList);
 
-		return "/dashboard/producto/editar";
+		return "/dashboard/productos/editar";
 
 	}
 
