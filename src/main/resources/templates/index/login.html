@@ -18,7 +18,7 @@
 								<h3 class="text-center">Iniciar sesión</h3>
 							</div>
 
-							<form class="form" method="POST" th:action="@{/login}" th:object="${usuario}">
+							<form class="form" name="login" method="POST" th:action="@{/login}" th:object="${usuario}">
 
 								<div class="row justify-content-center">
 
@@ -37,7 +37,6 @@
 											</div>
 										</div>
 										
-
 										<div class="form-group">
 											<label class="control-label" for="password">Contraseña</label>
 											<div class="input-group">
@@ -106,6 +105,9 @@
 	<script src="index/assets/js/shop.js"></script>
 	<!-- Login -->
 	<script src="index/assets/js/password_field.js"></script>
+	<!-- JQuery validation -->
+	<script th:src="@{/index/plugins/jquery-validation/jquery.validate.js}"></script>
+	<script th:src="@{/index/validador/login.js}"></script>
 	
 </body>
 </html>

@@ -4705,9 +4705,12 @@ body {
 	padding: 50px;
 }
 
-
 .bad-data {
 	color: #dc3545;
+}
+
+input.form-control .bad-data {
+	border-color: #dc3545;
 }
 
 .contact-us .form .form-group input:not(input[type="checkbox"], input[type="file"]) {
