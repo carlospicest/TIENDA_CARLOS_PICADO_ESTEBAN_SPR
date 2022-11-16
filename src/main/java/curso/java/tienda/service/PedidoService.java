@@ -49,4 +49,12 @@ public class PedidoService {
 
 	}
 	
+	public boolean generarFacturaPedido(int id) {
+		
+		
+		
+		return false;
+		
+	}
+	
 }
