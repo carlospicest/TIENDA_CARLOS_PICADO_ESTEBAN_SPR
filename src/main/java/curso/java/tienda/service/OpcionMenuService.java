@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import curso.java.tienda.dao.OpcionMenuDAO;
 import curso.java.tienda.pojo.OpcionMenu;
+import curso.java.tienda.pojo.Usuario;
+import datos.RoleData;
 
 @Service
 public class OpcionMenuService {
@@ -42,7 +44,7 @@ public class OpcionMenuService {
 		}
 
 	}
-
+	
 	/**
 	 * Obtiene todas las opciones del menú y las clasifica por roles.
 	 * @return

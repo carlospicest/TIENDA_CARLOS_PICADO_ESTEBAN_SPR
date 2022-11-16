@@ -12,7 +12,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 @EnableAsync
 public class TiendaCarlosPicadoEstebanApplication {
 
-	@Bean(name = "taskExecutorProcesadoPedidos")
+	/*@Bean(name = "taskExecutorProcesadoPedidos")
 	public Executor taskExecutorProcesadoPedidos() {
 		
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
@@ -24,7 +24,7 @@ public class TiendaCarlosPicadoEstebanApplication {
 		
 		return executor;
 		
-	}
+	}*/
 	
 	public static void main(String[] args) {
 		SpringApplication.run(TiendaCarlosPicadoEstebanApplication.class, args);

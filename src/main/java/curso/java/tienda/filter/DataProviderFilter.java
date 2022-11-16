@@ -50,10 +50,21 @@ public class DataProviderFilter implements Filter {
 		
 		// Obtener las opciones disponibles en el menú en función del rol del usuario.
 		
-		if (RoleDataUtil.getOpcionMenuList() == null) {
+		Usuario usuario = (Usuario) ((HttpServletRequest) request).getSession().getAttribute("userdata");
+		HashMap<String, OpcionMenu> opcionMenu;
+		
+		if (usuario == null) {
+			opcionMenu = opcionMenuService.getOpcionMenuByRol(RoleData.rol.ANONIMO.getId());
+		} else {
+			opcionMenu = opcionMenuService.getOpcionMenuByRol(usuario.getRol().getId());
+		}
+		
+		((HttpServletRequest) request).setAttribute("opcionMenu", opcionMenu);
+		
+		/*if (RoleDataUtil.getOpcionMenuList() == null) {
 			HashMap<String, HashMap<Integer, OpcionMenu>> opcionMenuList = opcionMenuService.getOpcionMenu();
 			RoleDataUtil.fillOpcionMenu(opcionMenuList);
-		}
+		}*/ 
 		
 		chain.doFilter(request, response);
 		

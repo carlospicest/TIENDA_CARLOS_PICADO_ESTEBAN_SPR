@@ -28,6 +28,12 @@ public class RoleDataUtil {
 
 	public static boolean isVisible(String opcionAlias, Usuario usuario) {
 
+		if (usuario != null) {
+			System.out.println("El usuario es => " + usuario.getNombre());
+		} else {
+			System.out.println("Navegas en anónimo.");
+		}
+		
 		boolean visible = false;
 		HashMap<Integer, OpcionMenu> opcionRoles = opcionMenuList.get(opcionAlias);
 
