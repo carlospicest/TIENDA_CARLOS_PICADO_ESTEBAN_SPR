@@ -17,6 +17,7 @@ import curso.java.tienda.pojo.DetallePedido;
 import curso.java.tienda.pojo.OpcionMenu;
 import curso.java.tienda.pojo.Rol;
 import curso.java.tienda.pojo.Usuario;
+import curso.java.tienda.service.ConfiguracionService;
 import curso.java.tienda.service.OpcionMenuService;
 import curso.java.tienda.service.PedidoService;
 import curso.java.tienda.service.RolService;
@@ -32,6 +33,8 @@ public class DataProviderFilter implements Filter {
 	RolService rolService;
 	@Autowired
 	PedidoService pedidoService;
+	@Autowired
+	ConfiguracionService configuracionService;
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -60,11 +63,7 @@ public class DataProviderFilter implements Filter {
 		}
 		
 		((HttpServletRequest) request).setAttribute("opcionMenu", opcionMenu);
-		
-		/*if (RoleDataUtil.getOpcionMenuList() == null) {
-			HashMap<String, HashMap<Integer, OpcionMenu>> opcionMenuList = opcionMenuService.getOpcionMenu();
-			RoleDataUtil.fillOpcionMenu(opcionMenuList);
-		}*/ 
+		((HttpServletRequest) request).setAttribute("configuracion", configuracionService.getConfiguraciones());
 		
 		chain.doFilter(request, response);
 		

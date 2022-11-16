@@ -13,13 +13,11 @@
 						<!-- Single Widget -->
 						<div class="single-footer about">
 							<div class="logo">
-								<a href="index.html"><img
-									th:src="@{/index/assets/images/logo2.png}" alt="#"></a>
+								<!-- <a href="index.html"><img
+									th:src="@{/index/assets/images/logo2.png}" alt="#"></a> -->
+								<h1 th:text="${configuracion.get('nombre_tienda').valor}" class="text"></h1>
 							</div>
-							<p class="text">Praesent dapibus, neque id cursus ucibus,
-								tortor neque egestas augue, magna eros eu erat. Aliquam erat
-								volutpat. Nam dui mi, tincidunt quis, accumsan porttitor,
-								facilisis luctus, metus.</p>
+							<p class="text" th:text="${configuracion.get('descripcion_tienda').valor}"></p>
 						</div>
 						<!-- End Single Widget -->
 					</div>
@@ -54,14 +52,13 @@
 					<div class="col-lg-3 col-md-6 col-12">
 						<!-- Single Widget -->
 						<div class="single-footer social">
-							<h4>Get In Tuch</h4>
+							<h4>Nuestra ubicación</h4>
 							<!-- Single Widget -->
 							<div class="contact">
 								<ul>
-									<li>NO. 342 - London Oxford Street.</li>
-									<li>012 United Kingdom.</li>
-									<li>info@eshop.com</li>
-									<li>+032 3456 7890</li>
+									<li th:text="${configuracion.get('direccion_tienda').valor}"></li>
+									<li th:text="${configuracion.get('telefono_tienda').valor}"></li>
+									<li></li>
 								</ul>
 							</div>
 							<!-- End Single Widget -->

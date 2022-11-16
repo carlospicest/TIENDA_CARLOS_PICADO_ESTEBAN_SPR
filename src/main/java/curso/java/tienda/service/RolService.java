@@ -17,7 +17,6 @@ public class RolService {
 	@Autowired
 	private RolDAO rolDao;
 
-
 	public ArrayList<Rol> getRoles() {
 		return (ArrayList<Rol>) rolDao.findAll();
 	}
