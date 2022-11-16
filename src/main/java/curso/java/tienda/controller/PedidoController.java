@@ -26,6 +26,7 @@ import curso.java.tienda.pojo.CancelacionPedido;
 import curso.java.tienda.pojo.Pedido;
 import curso.java.tienda.pojo.Usuario;
 import curso.java.tienda.service.CancelacionPedidoService;
+import curso.java.tienda.service.ConfiguracionService;
 import curso.java.tienda.service.PedidoService;
 import curso.java.tienda.service.ResultadoService;
 import curso.java.tienda.service.ResultadoService.TipoResultado;
@@ -37,6 +38,8 @@ import datos.RoleData;
 @Controller
 public class PedidoController {
 	
+	private final String ANIO = "2022";
+	
 	@Autowired
 	private PedidoService pedidoService;
 	@Autowired
@@ -45,6 +48,8 @@ public class PedidoController {
 	private CancelacionPedidoService cancelacionPedidoService;
 	@Autowired
 	private ResultadoService resultadoService;
+	@Autowired
+	private ConfiguracionService configuracionService;
 	@Autowired
 	private ObjectMapper mapper;
 	
@@ -73,11 +78,18 @@ public class PedidoController {
 	}
 	
 	@PatchMapping(path = "/pedidos/procesar/{id}")
-	public String postEditar(@ModelAttribute("producto") Pedido pedido, @PathVariable(name="id", required=true) int id) {
+	public String patchEditar(@ModelAttribute("producto") Pedido pedido, @PathVariable(name="id", required=true) int id) {
 		
 		Pedido pedidoAux = pedidoService.getPedido(id);
 		
 		pedidoAux.setEstado(pedido.getEstado());
+		
+		// Comprobar si el estado del pedido es enviado para generar la información de la facturación.
+		
+		if (pedido.getEstado().equals(EstadoPedido.estado.ENVIADO.getAlias())) {
+			final String NUM_FACTURA = ANIO + "-" + configuracionService.generarNumeroFactura();
+			pedidoAux.setNum_factura(NUM_FACTURA);
+		}
 		
 		pedidoService.addPedido(pedidoAux);
 		

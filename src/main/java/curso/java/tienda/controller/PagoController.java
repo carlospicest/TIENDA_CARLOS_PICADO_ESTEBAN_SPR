@@ -109,7 +109,7 @@ public class PagoController {
 			pedido.setFecha(DateTime.getCurrentTime());
 			pedido.setMetodo_pago(metodo_pago);
 			pedido.setEstado("PE");
-			pedido.setNum_factura("AF2");
+			pedido.setNum_factura("-");
 			pedido.setTotal(total);
 
 			// Damos de alta el pedido

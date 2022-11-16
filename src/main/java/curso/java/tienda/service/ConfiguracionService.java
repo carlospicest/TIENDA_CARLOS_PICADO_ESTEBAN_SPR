@@ -34,6 +34,29 @@ public class ConfiguracionService {
 		return configuracionDao.findById(id);
 	}
 
+	public Configuracion getConfiguracion(String clave) {
+		return configuracionDao.findByClave(clave);
+	}
+	
+	public String generarNumeroFactura() {
+		
+		Configuracion configuracion = getConfiguracion("num_factura");
+		String factura = null;
+		
+		if (configuracion.getValor() != null && !configuracion.getValor().isEmpty()) {
+			// Obtenemos el número actual. 
+			int numFactura = Integer.parseInt(configuracion.getValor());
+			factura = String.valueOf(numFactura);
+			// Incrementamos para la próxima factura.
+			numFactura++;
+			configuracion.setValor(String.valueOf(numFactura));
+			addConfiguracion(configuracion);
+		}
+		
+		return factura;
+		
+	}
+	
 	public boolean addConfiguracion(Configuracion configuracion) {
 		try {
 			configuracionDao.save(configuracion);

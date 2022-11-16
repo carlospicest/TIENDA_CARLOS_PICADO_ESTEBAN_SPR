@@ -17,7 +17,7 @@ public class ProcesadoPedidoService implements CommandLineRunner {
 
 	@Autowired
 	private PedidoService pedidoService;
-	private boolean status = true;
+	private boolean status = false;
 	private final int DEMORA_COMPROBACION = 30000;
 
 	private static Logger log = Logger.getLogger(ProcesadoPedidoService.class);
